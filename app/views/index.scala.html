@@ -2,6 +2,13 @@
 
 @main("Welcome to Play") {
 
-    @play20.welcome(message)
+    <script type='text/javascript' src='@routes.Assets.at("js/index.js")'></script>
+    <ul id="users"></ul>
 
+    <form action="@routes.Application.addUser()" method="post">
+        <input type="text" name="username" />
+        <input type="password" name="password" />
+        <button>Add User</button>
+    </form>
 }
+
