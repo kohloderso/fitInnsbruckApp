@@ -1,0 +1,17 @@
+@main("register for fitIBK") {
+
+  <form action="@routes.Application.addUser()" method="post">
+    <label title="username">username</label> <br>
+    <input type="text" name="username" /> <br>
+    <label>password</label> <br>
+    <input type="password" name="password" />
+    <br> <label>birthday</label> <br>
+    <input type="date" name="birthday" />
+    <br> <label>weight</label> <br>
+    <input type="number" name="weight" />
+    <br> <label>height</label> <br>
+    <input type="number" name="height" />
+    <br>
+    <button>register user</button>
+  </form>
+}

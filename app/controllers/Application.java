@@ -16,7 +16,7 @@ import static play.libs.Json.toJson;
 public class Application extends Controller{
 
     public static Result index() {
-        return ok(index.render("Hello World"));
+        return ok(register.render());
     }
 
     public static Result addUser() {
