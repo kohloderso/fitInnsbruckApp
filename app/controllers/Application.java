@@ -1,6 +1,6 @@
 package controllers;
 
-import models.User;
+import models.*;
 import play.data.Form;
 import play.db.ebean.Model;
 import play.mvc.*;
@@ -22,7 +22,16 @@ public class Application extends Controller{
     public static Result addUser() {
         User user = Form.form(User.class).bindFromRequest().get();
         user.save();
-        return redirect(routes.Application.index());
+        return redirect(routes.Application.showQueryForm());
+    }
+
+    public static Result showQueryForm() {
+        return ok(queryView.render());
+    }
+
+    public static Result askQuery() {
+        Query query = Form.form(Query.class).bindFromRequest().get();
+        return redirect(routes.Application.showQueryForm());
     }
 
     public static Result getUsers() {

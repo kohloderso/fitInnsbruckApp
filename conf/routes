@@ -5,7 +5,8 @@
 # Home page
 GET         /                    controllers.Application.index()
 POST        /user                controllers.Application.addUser()
-
+GET         /queryForm           controllers.Application.showQueryForm()
+POST        /query               controllers.Application.askQuery()
 GET         /users               controllers.Application.getUsers()
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.at(path="/public", file)

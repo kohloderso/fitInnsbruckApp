@@ -1,0 +1,13 @@
+@main("register for fitIBK") {
+
+  <form action="@routes.Application.askQuery()" method="post" >
+
+    <label>start</label> <br>
+    <input type="time" name="start"/> <br>
+    <label>end</label> <br>
+    <input type="time" name="end"/>
+    <br> <label>calories</label> <br>
+    <input type="number" name="calories" /><br>
+    <button>find sports</button>
+  </form>
+}
