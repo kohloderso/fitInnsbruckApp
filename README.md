@@ -9,4 +9,7 @@ Außerdem haben wir vor, von openweathermap Wetterdaten zu importieren, um je na
 
 Vorschau: https://www.fluidui.com/editor/live/preview/p_hQW6DR4U0iEUxA1mOsZAXQ6FRkEZ76ab.1420801291027
 
+UML:
+https://cloud.githubusercontent.com/assets/10177705/5695652/fc65ccee-99ad-11e4-9184-ff0670131a9b.JPG
+
 --
