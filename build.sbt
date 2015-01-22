@@ -14,3 +14,5 @@ libraryDependencies ++= Seq(
   javaJdbc,
   javaEbean
 )
+
+libraryDependencies += "net.sf.opencsv" % "opencsv" % "2.3"

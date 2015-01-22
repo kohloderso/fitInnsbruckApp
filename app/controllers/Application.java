@@ -38,4 +38,9 @@ public class Application extends Controller{
         List<User> users = new Model.Finder(String.class, User.class).all();
         return ok(toJson(users));
     }
+
+    public static Result getFacilities() {
+        List<Facility> facilities = new Model.Finder(String.class, Facility.class).all();
+        return ok(toJson(facilities));
+    }
 }
