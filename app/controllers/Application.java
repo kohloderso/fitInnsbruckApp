@@ -43,4 +43,8 @@ public class Application extends Controller{
         List<Facility> facilities = new Model.Finder(String.class, Facility.class).all();
         return ok(toJson(facilities));
     }
+
+    public static Result getMaptest() {
+        return ok(mapTest.render());
+    }
 }
