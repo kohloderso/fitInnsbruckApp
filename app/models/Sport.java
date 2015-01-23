@@ -21,11 +21,13 @@ public enum Sport {
     public int computeCalories(int age, int time) {
         if(this == CLIMBING) {
 
+            //TODO
         } else if(this == SWIMMING) {
 
         } else if(this == TENNIS) {
 
         }
+        return 0;
     }
 
 
