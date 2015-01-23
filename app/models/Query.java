@@ -9,5 +9,5 @@ import play.libs.Time;
 public class Query extends Model{
     public Time start;
     public Time end;
-    public int calories;
+    public Sport preferredSport;
 }
