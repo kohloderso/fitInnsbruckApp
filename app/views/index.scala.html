@@ -1,14 +1,19 @@
-@(message: String)
+@import com.feth.play.module.pa.views.html._
 
-@main("Welcome to Play") {
+@main("Play! Authenticate simple OAuth sample") {
 
-    <script type='text/javascript' src='@routes.Assets.at("js/index.js")'></script>
-    <ul id="users"></ul>
+    @currentAuth() { auth =>
+        @if(auth != null) {
+            <a href="@com.feth.play.module.pa.controllers.routes.Authenticate.logout">Logout</a>
+            <br/><br/>
+        }
+    }
 
-    <form action="@routes.Application.addUser()" method="post">
-        <input type="text" name="username" />
-        <input type="password" name="password" />
-        <button>Add User</button>
-    </form>
+    Login/Signup:
+    @forProviders() { p =>
+        <a href="@p.getUrl()">@p.getKey()</a>
+    }
+
+    <br/><br/>
+    <a href="@routes.Restricted.index">Secrets everywhere...</a>
 }
-

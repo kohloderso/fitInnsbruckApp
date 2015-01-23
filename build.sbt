@@ -16,3 +16,7 @@ libraryDependencies ++= Seq(
 )
 
 libraryDependencies += "net.sf.opencsv" % "opencsv" % "2.3"
+
+libraryDependencies += "com.feth" %% "play-authenticate" % "0.6.8"
+
+resolvers += Resolver.url("play-authenticate (release)", url("http://joscha.github.io/play-authenticate/repo/releases/"))(Resolver.ivyStylePatterns)
