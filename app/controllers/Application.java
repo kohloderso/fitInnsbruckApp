@@ -1,6 +1,8 @@
 package controllers;
 
 import models.*;
+import play.Logger;
+import play.data.Form;
 import play.db.ebean.Model;
 import play.mvc.*;
 import views.html.*;
@@ -50,6 +52,21 @@ public class Application extends Controller{
 
     public static Result login() {
         return ok(login2.render(form(Login.class)));
+    }
+
+    public static Result authenticate() {
+        Form<Login> loginForm = form(Login.class).bindFromRequest();
+        if (loginForm.hasErrors()) {
+            Logger.info("error logging on");
+            return badRequest(login2.render(loginForm));
+        } else {
+            Logger.info("Login successful");
+            session().clear();
+            session("username", loginForm.get().username);
+            return redirect(
+                    routes.Application.index()
+            );
+        }
     }
 
 

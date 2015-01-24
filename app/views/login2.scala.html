@@ -1,0 +1,23 @@
+@(form: play.data.Form[Login])
+
+@main("login") {
+  @helper.form(routes.Application.authenticate()) {
+    <h1>Sign in</h1>
+
+    @if(form.hasGlobalErrors) {
+      <p class="error">
+      @form.globalError.message
+      </p>
+    }
+
+    <p>
+      <input type="text" name="username">
+    </p>
+    <p>
+      <input type="password" name="password" placeholder="Password">
+    </p>
+    <p>
+      <button type="submit">Login</button>
+    </p>
+  }
+}

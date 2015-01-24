@@ -22,6 +22,13 @@ public class User extends Model {
     public int height;
     public int weight;
 
+    public static Finder<String,User> find = new Finder<String,User>(
+            String.class, User.class
+    );
 
 
+    public static User authenticate(String name, String password) {
+        return find.where().eq("name", name)
+                .eq("password", password).findUnique();
+    }
 }
