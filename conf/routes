@@ -10,11 +10,7 @@ POST        /query               controllers.Application.askQuery()
 GET         /users               controllers.Application.getUsers()
 GET         /facilities          controllers.Application.getFacilities()
 GET         /maptest             controllers.Application.getMaptest()
-
-
-GET     /logout                     com.feth.play.module.pa.controllers.Authenticate.logout
-GET     /authenticate/:provider     com.feth.play.module.pa.controllers.Authenticate.authenticate(provider: String)
-GET     /authenticate/:provider/denied     controllers.Application.oAuthDenied(provider: String)
+GET         /login               controllers.Application.login()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.at(path="/public", file)
