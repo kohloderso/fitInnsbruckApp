@@ -43,14 +43,17 @@ public class Application extends Controller{
         LocalTime start = LocalTime.parse(requestData.get("start"));
         LocalTime end = LocalTime.parse(requestData.get("end"));
 
+        //compute Calories
         int duration = end.getHour() * 60 + end.getMinute() - (start.getHour() * 60 + start.getMinute());
         User currentUser = User.findUser(request().username());
         int calories = sport.computeCalories(currentUser.weight, currentUser.height, currentUser.getAge(), duration);
 
-
+        //find facilities
+        List<Facility> facilities = Facility.findFacilitesByGroup(sport.getDescription());
+        System.out.println(facilities);
 
         return ok();
-        //return redirect(routes.Application.showResults());
+        //return redirect(routes.Application.showResults(facilities, calories));
     }
 
     public static Result getUsers() {

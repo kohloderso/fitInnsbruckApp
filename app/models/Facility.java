@@ -4,6 +4,7 @@ import play.db.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.List;
 
 /**
  * Created by Christina on 18.01.2015.
@@ -18,4 +19,12 @@ public class Facility extends Model{
     public String group;
     public String lat;
     public String lon;
+
+    public static Finder<String,Facility> find = new Finder<String,Facility>(
+            String.class, Facility.class
+    );
+
+    public static List<Facility> findFacilitesByGroup(String group) {
+        return find.where().eq("group", group).findList();
+    }
 }
