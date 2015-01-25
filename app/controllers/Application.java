@@ -46,15 +46,19 @@ public class Application extends Controller{
         //compute Calories
         int duration = end.getHour() * 60 + end.getMinute() - (start.getHour() * 60 + start.getMinute());
         User currentUser = User.findUser(request().username());
+        Logger.info("USERNAME" + request().username());
+        Logger.info(currentUser.name);
         int calories = sport.computeCalories(currentUser.weight, currentUser.height, currentUser.getAge(), duration);
 
         //find facilities
         List<Facility> facilities = Facility.findFacilitesByGroup(sport.getDescription());
         System.out.println(facilities);
 
+
         return ok();
         //return redirect(routes.Application.showResults(facilities, calories));
     }
+
 
     public static Result getUsers() {
         List<User> users = new Model.Finder(String.class, User.class).all();

@@ -16,7 +16,7 @@ public class Facility extends Model{
     public String name;
     public String address;
     public String type;
-    public String group;
+    public String description;
     public String lat;
     public String lon;
 
@@ -25,6 +25,6 @@ public class Facility extends Model{
     );
 
     public static List<Facility> findFacilitesByGroup(String group) {
-        return find.where().eq("group", group).findList();
+        return find.where().eq("description", group).findList();
     }
 }

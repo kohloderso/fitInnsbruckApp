@@ -1,0 +1,7 @@
+- !!models.User
+    id:         1
+    name:       Bob
+    password:   secret
+    birthday:   11/11/1990
+    height:     3
+    weight:     4

@@ -2,10 +2,13 @@
 import au.com.bytecode.opencsv.*;
 import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
 import au.com.bytecode.opencsv.bean.CsvToBean;
+import com.avaje.ebean.Ebean;
 import models.Facility;
+import models.User;
 import play.Application;
 import play.GlobalSettings;
 import play.db.ebean.Model;
+import play.libs.Yaml;
 
 import java.io.FileReader;
 import java.util.List;
@@ -25,7 +28,7 @@ public class Global extends GlobalSettings {
                 CSVReader csvReader = new CSVReader(new FileReader(csvFilename), ';', '\"', 1);
                 ColumnPositionMappingStrategy strat = new ColumnPositionMappingStrategy();
                 strat.setType(Facility.class);
-                String[] columns = new String[]{"objectID", "name", "address", "type", "group", "lon", "lat"}; // the fields to bind do in your JavaBean
+                String[] columns = new String[]{"objectID", "name", "address", "type", "description", "lon", "lat"}; // the fields to bind do in your JavaBean
                 strat.setColumnMapping(columns);
 
                 CsvToBean csv = new CsvToBean();
@@ -41,6 +44,10 @@ public class Global extends GlobalSettings {
                 e.printStackTrace();
             }
         }
+        /*if (User.find.findRowCount() == 0) {
+            String ymlPath = app.path() + "\\conf\\resources\\init.yml";
+            Ebean.save((List<?>) Yaml.load(ymlPath));
+        }*/
 
     }
 
