@@ -1,13 +1,31 @@
-@main("find sports") {
+@main("find sports", "") {
 
-  <form action="@routes.Application.askQuery()" method="post" >
+    <form action="@routes.Application.askQuery()" method="post" >
 
-    <label>start</label> <br>
-    <input type="time" name="start"/> <br>
-    <label>end</label> <br>
-    <input type="time" name="end"/>
-    <br> <label>calories</label> <br>
-    <input type="number" name="calories" /><br>
-    <button>find sports</button>
-  </form>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="start">starting time</label>
+                <input type="time" class="form-control" name="start" id="start" placeholder="">
+            </div>
+            <div class="form-group">
+                <label for="end">end time</label>
+                <input type="time" class="form-control" name="end" id="end" placeholder="">
+            </div>
+
+
+            <div class="form-group">
+                <label for="sportSelect">Sport</label>
+                <select class="form-control" id="sportSelect" name="preferredSport">
+                    <option value=CLIMBING>Klettern</option>
+                    <option value=TENNIS>Tennis</option>
+                    <option value=SWIMMING>Schwimmen</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">finde Sportstätten</button>
+
+
+        </div>
+    </form>
+
 }

@@ -25,7 +25,7 @@ public class Global extends GlobalSettings {
                 CSVReader csvReader = new CSVReader(new FileReader(csvFilename), ';', '\"', 1);
                 ColumnPositionMappingStrategy strat = new ColumnPositionMappingStrategy();
                 strat.setType(Facility.class);
-                String[] columns = new String[]{"objectID", "name", "address"}; // the fields to bind do in your JavaBean
+                String[] columns = new String[]{"objectID", "name", "address", "type", "group", "lon", "lat"}; // the fields to bind do in your JavaBean
                 strat.setColumnMapping(columns);
 
                 CsvToBean csv = new CsvToBean();

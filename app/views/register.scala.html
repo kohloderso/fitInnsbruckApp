@@ -1,4 +1,4 @@
-@main("register for fitIBK") {
+@main("register for fitIBK", "") {
 
   <form action="@routes.Application.addUser()" method="post" >
 
@@ -24,7 +24,13 @@
               <input type="number" class="form-control" name="height" id="inputHeight">
           </div>
       <button type="submit" class="btn btn-primary">Register</button>
+
+           &nbsp&nbsp&nbsp&nbsp&nbsp<label for="signInbtn">Already have an account?</label>
+          <a class="btn btn-primary" href="@routes.Application.login()" role="button" id="signInbtn">Sign in</a>
       </div>
+
+
+
 
       <script type="text/javascript">
           $(function() {

@@ -14,6 +14,8 @@ public class Facility extends Model{
     public int objectID;
     public String name;
     public String address;
-    public int lat;
-    public int lon;
+    public String type;
+    public String group;
+    public String lat;
+    public String lon;
 }

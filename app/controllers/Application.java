@@ -2,11 +2,14 @@ package controllers;
 
 import models.*;
 import play.Logger;
+import play.data.DynamicForm;
 import play.data.Form;
 import play.db.ebean.Model;
 import play.mvc.*;
 import views.html.*;
 
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.List;
 
 import static play.data.Form.form;
@@ -29,13 +32,25 @@ public class Application extends Controller{
         return redirect(routes.Application.showQueryForm());
     }
 
+    @Security.Authenticated(Secured.class)
     public static Result showQueryForm() {
         return ok(queryView.render());
     }
 
     public static Result askQuery() {
-        Query query = form(Query.class).bindFromRequest().get();
-        return redirect(routes.Application.showQueryForm());
+        DynamicForm requestData = form().bindFromRequest();
+        Sport sport = Sport.valueOf(requestData.get("preferredSport"));
+        LocalTime start = LocalTime.parse(requestData.get("start"));
+        LocalTime end = LocalTime.parse(requestData.get("end"));
+
+        int duration = end.getHour() * 60 + end.getMinute() - (start.getHour() * 60 + start.getMinute());
+        User currentUser = User.findUser(request().username());
+        int calories = sport.computeCalories(currentUser.weight, currentUser.height, currentUser.getAge(), duration);
+
+
+
+        return ok();
+        //return redirect(routes.Application.showResults());
     }
 
     public static Result getUsers() {
@@ -69,6 +84,14 @@ public class Application extends Controller{
                     routes.Application.index()
             );
         }
+    }
+
+    public static Result logout() {
+        session().clear();
+        flash("success", "You've been logged out");
+        return redirect(
+                routes.Application.login()
+        );
     }
 
 

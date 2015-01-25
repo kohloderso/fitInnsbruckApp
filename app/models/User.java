@@ -25,10 +25,24 @@ public class User extends Model {
     public int weight;
 
 
+    public int getAge() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(birthday);
+        int birthyear = cal.get(Calendar.YEAR);
+        cal = Calendar.getInstance();
+        int age = cal.get(Calendar.YEAR) - birthyear;
+        System.out.println("age: " + age);
+        return age;
+    }
+
     public static Finder<String,User> find = new Finder<String,User>(
             String.class, User.class
     );
 
+
+    public static User findUser(String name) {
+        return find.where().eq("name", name).findUnique();
+    }
 
     public static User authenticate(String name, String password) {
         return find.where().eq("name", name)

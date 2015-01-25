@@ -1,6 +1,6 @@
 @(form: play.data.Form[Login])
 
-@main("login") {
+@main("login", "") {
   @helper.form(routes.Application.authenticate()) {
 
     @if(form.hasGlobalErrors) {
@@ -8,6 +8,7 @@
       @form.globalError.message
       </p>
     }
+
     <div class="container">
 
       <form class="form-signin">
@@ -19,6 +20,9 @@
         <br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
+      <br>
+      <label for="registerBtn">Not registered yet?</label>
+      <a class="btn btn-primary" href="@routes.Application.register()" role="button" id="registerBtn">Register</a>
 
     </div> <!-- /container -->
 
