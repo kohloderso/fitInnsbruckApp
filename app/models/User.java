@@ -5,6 +5,7 @@ import java.util.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import play.data.format.Formats;
 import play.db.ebean.Model;
 
 
@@ -18,9 +19,11 @@ public class User extends Model {
 
     public String name;
     public String password;
+    @Formats.DateTime(pattern="dd/MM/yyyy")
     public Date birthday;
     public int height;
     public int weight;
+
 
     public static Finder<String,User> find = new Finder<String,User>(
             String.class, User.class

@@ -2,22 +2,26 @@
 
 @main("login") {
   @helper.form(routes.Application.authenticate()) {
-    <h1>Sign in</h1>
 
     @if(form.hasGlobalErrors) {
       <p class="error">
       @form.globalError.message
       </p>
     }
+    <div class="container">
 
-    <p>
-      <input type="text" name="username">
-    </p>
-    <p>
-      <input type="password" name="password" placeholder="Password">
-    </p>
-    <p>
-      <button type="submit">Login</button>
-    </p>
+      <form class="form-signin">
+        <h2 class="form-signin-heading">Sign in</h2>
+        <label for="inputUsername" class="sr-only">username</label>
+        <input type="text" name="username" id="inputUsername" class="form-control" placeholder="username" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+
+    </div> <!-- /container -->
+
+
   }
 }
