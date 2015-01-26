@@ -56,7 +56,7 @@ public class Global extends GlobalSettings {
             u.id = "100";
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             try {
-                u.birthday = dateFormat.parse("11/10/19994");
+                u.birthday = dateFormat.parse("11/10/1994");
             } catch (ParseException e) {
                 e.printStackTrace();
             }

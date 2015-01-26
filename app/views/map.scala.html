@@ -1,10 +1,10 @@
 @(latitude: String, longitude: String)
 <div id="map"></div>
 <script type="text/javascript" charset="utf-8">
-var map = L.map ( 'map' ).setView ( new L.LatLng ( parseFloat (; @latitude ), parseFloat (; @longitude ) ), 15; )
-var Thunderforest_Landscape = L.tileLayer ( 'http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
-attribution : '&copy; <a href="http://www.opencyclemap.org">OpenCycleMap</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-} ) ;
-Thunderforest_Landscape.addTo ( map ) ;
-var marker = L.marker ( new L.LatLng ( parseFloat (; @latitude ), parseFloat (; @longitude ) ) ).addTo ( map ) ;
+    var map = L.map('map').setView(new L.LatLng(parseFloat(@latitude), parseFloat(@longitude)), 15);
+    var Thunderforest_Landscape = L.tileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://www.opencyclemap.org">OpenCycleMap</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+    Thunderforest_Landscape.addTo(map);
+    var marker = L.marker(new L.LatLng(parseFloat(@latitude), parseFloat(@longitude))).addTo(map);
 </script>
