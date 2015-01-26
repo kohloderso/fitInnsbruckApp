@@ -7,11 +7,18 @@ import models.Facility;
 import models.User;
 import play.Application;
 import play.GlobalSettings;
+import play.Logger;
 import play.db.ebean.Model;
 import play.libs.Yaml;
 
 import java.io.FileReader;
+import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -28,7 +35,7 @@ public class Global extends GlobalSettings {
                 CSVReader csvReader = new CSVReader(new FileReader(csvFilename), ';', '\"', 1);
                 ColumnPositionMappingStrategy strat = new ColumnPositionMappingStrategy();
                 strat.setType(Facility.class);
-                String[] columns = new String[]{"objectID", "name", "address", "type", "description", "lon", "lat"}; // the fields to bind do in your JavaBean
+                String[] columns = new String[]{"objectid", "name", "address", "type", "description", "lon", "lat"}; // the fields to bind do in your JavaBean
                 strat.setColumnMapping(columns);
 
                 CsvToBean csv = new CsvToBean();
@@ -44,10 +51,22 @@ public class Global extends GlobalSettings {
                 e.printStackTrace();
             }
         }
-        /*if (User.find.findRowCount() == 0) {
-            String ymlPath = app.path() + "\\conf\\resources\\init.yml";
-            Ebean.save((List<?>) Yaml.load(ymlPath));
-        }*/
+        if (User.find.findRowCount() == 0) {
+            User u = new User();
+            u.id = "100";
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                u.birthday = dateFormat.parse("11/10/19994");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            u.name = "christina";
+            u.height = 170;
+            u.weight = 60;
+            u.password = "secret";
+            u.save();
+
+        }
 
     }
 

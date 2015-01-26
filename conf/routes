@@ -14,6 +14,7 @@ GET         /maptest             controllers.Application.getMaptest()
 GET         /login               controllers.Application.login()
 POST        /login               controllers.Application.authenticate()
 GET         /logout              controllers.Application.logout()
+GET         /facility/:f         controllers.Application.showFacility(f: Long)
 
 
 # Map static resources from the /public folder to the /assets URL path

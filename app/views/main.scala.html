@@ -1,60 +1,65 @@
-@(title: String, currUser: String)(content: Html)
+@(title: String)(content: Html)
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>@title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.1/superhero/bootstrap.min.css">
-    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/datepicker.css")">
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-    <link rel="shortcut icon" href="@routes.Assets.at("images/favicon.ico")">
+    @import play.mvc.Http.Context.Implicit._
 
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap-datepicker.js")"></script>
+    <html>
+        <head>
+            <title>@title</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.1/superhero/bootstrap.min.css">
+            <link rel="stylesheet" href="@routes.Assets.at("stylesheets/datepicker.css")">
+            <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+            <link rel="shortcut icon" href="@routes.Assets.at("images/favicon.ico")">
 
-  </head>
+            <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+            <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+            <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap-datepicker.js")"></script>
 
-  <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container-fluid">
-          <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="@routes.Application.index()">
-            <img height="50" width="50" alt="Brand" src="@routes.Assets.at("images/icon.png")">
-          </a>
-        </div>
+        </head>
 
-          <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="@routes.Application.showQueryForm()">find Sport</a></li>
-            <li><a href="#">Favoriten</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <p class="navbar-text">@currUser</p>
-            <li><a href="@routes.Application.logout()">Logout</a></li>
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
-    @content
+        <body>
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="@routes.Application.index()">
+                            <img height="50" width="50" alt="Brand" src="@routes.Assets.at("images/icon.png")">
+                        </a>
+                    </div>
 
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="@routes.Application.showQueryForm()">Finde Sport</a></li>
+                            <li><a href="#">Favoriten</a></li>
+                        </ul>
+                        @if(session.get("username") != null) {
+                            <ul class="nav navbar-nav navbar-right">
+                                <p class="navbar-text">
+                                    currently logged in as <strong>@session.get("username")</strong></p>
+                                <li><a href="@routes.Application.logout()">Logout</a></li>
+                            </ul>
+                        }
+                    </div> <!-- /.navbar-collapse -->
+                </div> <!-- /.container-fluid -->
+            </nav>
 
-  </body>
-  <script type="text/javascript" charset="utf-8">
-    $(".nav a").on("click", function(){
-    $(".nav").find(".active").removeClass("active");
-    $(this).parent().addClass("active");
-    });
-  </script>
+            @content
 
-</html>
+        </body>
+        <script type="text/javascript" charset="utf-8">
+        $ ( ".nav a" ).on ( "click", function ( ) {
+        $ ( ".nav" ).find ( ".active" ).removeClass ( "active" ) ;
+        $ ( this ).parent ( ).addClass ( "active" ) ;
+        } ) ;
+        </script>
+
+    </html>

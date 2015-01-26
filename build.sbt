@@ -12,7 +12,8 @@ unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/
 
 libraryDependencies ++= Seq(
   javaJdbc,
-  javaEbean
+  javaEbean,
+  javaCore
 )
 
 libraryDependencies += "net.sf.opencsv" % "opencsv" % "2.3"

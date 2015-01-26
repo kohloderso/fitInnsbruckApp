@@ -1,0 +1,12 @@
+@(facility: Facility)
+@main(facility.name) {
+    <div class="panel panel-default">
+        <div class="panel-heading">@facility.name</div>
+        <div class="panel-body">
+        @facility.address
+        </div>
+    </div>
+    @map(facility.lat, facility.lon)
+
+}
+

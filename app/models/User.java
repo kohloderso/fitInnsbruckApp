@@ -19,7 +19,7 @@ public class User extends Model {
 
     public String name;
     public String password;
-    @Formats.DateTime(pattern="dd/MM/yyyy")
+    @Formats.DateTime(pattern = "dd/MM/yyyy")
     public Date birthday;
     public int height;
     public int weight;
@@ -35,7 +35,7 @@ public class User extends Model {
         return age;
     }
 
-    public static Finder<String,User> find = new Finder<String,User>(
+    public static Finder<String, User> find = new Finder<String, User>(
             String.class, User.class
     );
 
@@ -48,4 +48,5 @@ public class User extends Model {
         return find.where().eq("name", name)
                 .eq("password", password).findUnique();
     }
+
 }

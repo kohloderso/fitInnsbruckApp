@@ -1,41 +1,51 @@
-@main("register for fitIBK", "") {
+@(form: play.data.Form[User])
+@main("register for fitIBK") {
+    @helper.form(routes.Application.addUser()) {
 
-  <form action="@routes.Application.addUser()" method="post" >
+        @if(form.hasGlobalErrors) {
+            <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                @form.globalError.message
+            </div>
+        }
 
-      <div class="col-md-4">
-          <div class="form-description">
-              <label for="inputUsername">Username</label>
-              <input type="text" class="form-control" name="name" id="inputUsername">
-          </div>
-          <div class="form-description">
-              <label for="inputPassword">Password</label>
-              <input type="password" class="form-control" name="password" id="inputPassword">
-          </div>
-          <div class="form-description">
-              <label for="inputBirthday">Birthday</label>
-              <input type="text" class="form-control" name="birthday" id="inputBirthday">
-          </div>
-          <div class="form-description">
-              <label for="inputWeight">Weight</label>
-              <input type="number" class="form-control" name="weight" id="inputWeight">
-          </div>
-          <div class="form-description">
-              <label for="inputHeight">Height</label>
-              <input type="number" class="form-control" name="height" id="inputHeight">
-          </div>
-      <button type="submit" class="btn btn-primary">Register</button>
+        <form action="@routes.Application.addUser()" method="post" >
 
-           &nbsp&nbsp&nbsp&nbsp&nbsp<label for="signInbtn">Already have an account?</label>
-          <a class="btn btn-primary" href="@routes.Application.login()" role="button" id="signInbtn">Sign in</a>
-      </div>
+            <div class="container">
+                <div class="form-description">
+                    <label for="inputUsername">Username</label>
+                    <input type="text" class="form-control" name="name" id="inputUsername">
+                </div>
+                <div class="form-description">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" class="form-control" name="password" id="inputPassword">
+                </div>
+                <div class="form-description">
+                    <label for="inputBirthday">Birthday</label>
+                    <input type="text" class="form-control" name="birthday" id="inputBirthday">
+                </div>
+                <div class="form-description">
+                    <label for="inputWeight">Weight</label>
+                    <input type="number" class="form-control" name="weight" id="inputWeight">
+                </div>
+                <div class="form-description">
+                    <label for="inputHeight">Height</label>
+                    <input type="number" class="form-control" name="height" id="inputHeight">
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Register</button>
+
+                <a class="btn btn-default pull-right" href="@routes.Application.login()" role="button" id="signInbtn">
+                    Sign in</a>
+                <label class="label pull-right" for="signInbtn">Already have an account?</label>
+            </div>
 
 
-
-
-      <script type="text/javascript">
-          $(function() {
-            $('#inputBirthday').datepicker();
-          });
-      </script>
-  </form>
+            <script type="text/javascript">
+            $ ( function ( ) {
+            $ ( '#inputBirthday' ).datepicker ( ) ;
+            } ) ;
+            </script>
+        </form>
+    }
 }

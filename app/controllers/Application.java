@@ -12,24 +12,35 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.util.List;
 
+import scala.collection.JavaConverters;
+
+
 import static play.data.Form.form;
 import static play.libs.Json.toJson;
 
 /**
  * Created by Christina on 18.01.2015.
  */
-public class Application extends Controller{
+public class Application extends Controller {
 
-    public static Result index() {return ok(index.render());}
+    public static Result index() {
+        return ok(index.render());
+    }
 
     public static Result register() {
-        return ok(register.render());
+        return ok(register.render(form(User.class)));
     }
 
     public static Result addUser() {
-        User user = form(User.class).bindFromRequest().get();
+        Form<User> userForm = form(User.class).bindFromRequest();
+        if (userForm.hasErrors()) {
+            Logger.info("error while registrating");
+            userForm.reject("a problem occurred with your registration");
+            return badRequest(register.render(userForm));
+        }
+        User user = userForm.get();
         user.save();
-        return redirect(routes.Application.showQueryForm());
+        return redirect(routes.Application.index());
     }
 
     @Security.Authenticated(Secured.class)
@@ -39,24 +50,28 @@ public class Application extends Controller{
 
     public static Result askQuery() {
         DynamicForm requestData = form().bindFromRequest();
+        if (requestData.hasErrors()) {
+            Logger.info("error with query");
+            return badRequest(queryView.render());
+        }
         Sport sport = Sport.valueOf(requestData.get("preferredSport"));
         LocalTime start = LocalTime.parse(requestData.get("start"));
         LocalTime end = LocalTime.parse(requestData.get("end"));
 
         //compute Calories
         int duration = end.getHour() * 60 + end.getMinute() - (start.getHour() * 60 + start.getMinute());
-        User currentUser = User.findUser(request().username());
-        Logger.info("USERNAME" + request().username());
+        Logger.info("duration " + duration);
+        User currentUser = User.findUser(session().get("username"));
         Logger.info(currentUser.name);
         int calories = sport.computeCalories(currentUser.weight, currentUser.height, currentUser.getAge(), duration);
-
+        Logger.info("calories " + calories);
         //find facilities
-        List<Facility> facilities = Facility.findFacilitesByGroup(sport.getDescription());
+        List<Facility> facilities = Facility.findFacilitesForSport(sport);
         System.out.println(facilities);
+        scala.collection.immutable.List<Facility> ls = JavaConverters.asScalaBufferConverter(facilities).asScala().toList();
 
 
-        return ok();
-        //return redirect(routes.Application.showResults(facilities, calories));
+        return ok(result.render(ls, calories));
     }
 
 
@@ -71,7 +86,7 @@ public class Application extends Controller{
     }
 
     public static Result getMaptest() {
-        return ok(mapTest.render());
+        return ok(map.render("47.269212", "11.404102"));
     }
 
     public static Result login() {
@@ -99,6 +114,12 @@ public class Application extends Controller{
         return redirect(
                 routes.Application.login()
         );
+    }
+
+    @Security.Authenticated(Secured.class)
+    public static Result showFacility(Long facilityID) {
+        Facility f = Facility.find.where().eq("objectid", facilityID).findUnique();
+        return ok(facility.render(f));
     }
 
 

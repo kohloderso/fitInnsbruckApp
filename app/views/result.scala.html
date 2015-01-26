@@ -1,0 +1,16 @@
+@(facilities: List[Facility], calories: Int)
+@main("Sportstätten") {
+    <div class="panel panel-default">
+        <div class="panel-heading">Where do you want to burn @calories calories?</div>
+        <div class="panel-body">
+
+            <ul>
+                <div class="list-group">
+                @for(facility <- facilities) {
+                    <a href="@routes.Application.showFacility(facility.objectid)" class="list-group-item">@facility.name</a>
+                }
+                </div>
+            </ul>
+        </div>
+    </div>
+}
