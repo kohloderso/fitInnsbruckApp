@@ -2,23 +2,17 @@
 import au.com.bytecode.opencsv.*;
 import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
 import au.com.bytecode.opencsv.bean.CsvToBean;
-import com.avaje.ebean.Ebean;
 import models.Facility;
-import models.User;
+import models.Athlete;
 import play.Application;
 import play.GlobalSettings;
-import play.Logger;
 import play.db.ebean.Model;
-import play.libs.Yaml;
 
 import java.io.FileReader;
-import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -51,8 +45,8 @@ public class Global extends GlobalSettings {
                 e.printStackTrace();
             }
         }
-        if (User.find.findRowCount() == 0) {
-            User u = new User();
+        if (Athlete.find.findRowCount() == 0) {
+            Athlete u = new Athlete();
             u.id = "100";
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             try {
