@@ -25,7 +25,7 @@ public class Global extends GlobalSettings {
 
         if (new Model.Finder(String.class, Facility.class).findRowCount() == 0) {
             try {
-                String csvFilename = app.path() + "\\conf\\resources\\sportstaetten.csv";
+                String csvFilename = app.path() + "/conf/resources/sportstaetten.csv";
                 CSVReader csvReader = new CSVReader(new FileReader(csvFilename), ';', '\"', 1);
                 ColumnPositionMappingStrategy strat = new ColumnPositionMappingStrategy();
                 strat.setType(Facility.class);
