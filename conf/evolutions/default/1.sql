@@ -3,6 +3,16 @@
 
 # --- !Ups
 
+create table athlete (
+  id                        varchar(255) not null,
+  name                      varchar(255),
+  password                  varchar(255),
+  birthday                  timestamp,
+  height                    integer,
+  weight                    integer,
+  constraint pk_athlete primary key (id))
+;
+
 create table facility (
   objectid                  integer not null,
   name                      varchar(255),
@@ -14,19 +24,9 @@ create table facility (
   constraint pk_facility primary key (objectid))
 ;
 
-create table user (
-  id                        varchar(255) not null,
-  name                      varchar(255),
-  password                  varchar(255),
-  birthday                  timestamp,
-  height                    integer,
-  weight                    integer,
-  constraint pk_user primary key (id))
-;
+create sequence athlete_seq;
 
 create sequence facility_seq;
-
-create sequence user_seq;
 
 
 
@@ -35,13 +35,13 @@ create sequence user_seq;
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
-drop table if exists facility;
+drop table if exists athlete;
 
-drop table if exists user;
+drop table if exists facility;
 
 SET REFERENTIAL_INTEGRITY TRUE;
 
-drop sequence if exists facility_seq;
+drop sequence if exists athlete_seq;
 
-drop sequence if exists user_seq;
+drop sequence if exists facility_seq;
 
