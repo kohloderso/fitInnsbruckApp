@@ -8,7 +8,6 @@ import play.db.ebean.Model;
 import play.mvc.*;
 import views.html.*;
 
-import java.time.Duration;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -28,18 +27,18 @@ public class Application extends Controller {
     }
 
     public static Result register() {
-        return ok(register.render(form(User.class)));
+        return ok(register.render(form(Athlete.class)));
     }
 
     public static Result addUser() {
-        Form<User> userForm = form(User.class).bindFromRequest();
+        Form<Athlete> userForm = form(Athlete.class).bindFromRequest();
         if (userForm.hasErrors()) {
             Logger.info("error while registrating");
             userForm.reject("a problem occurred with your registration");
             return badRequest(register.render(userForm));
         }
-        User user = userForm.get();
-        user.save();
+        Athlete athlete = userForm.get();
+        athlete.save();
         return redirect(routes.Application.index());
     }
 
@@ -61,9 +60,9 @@ public class Application extends Controller {
         //compute Calories
         int duration = end.getHour() * 60 + end.getMinute() - (start.getHour() * 60 + start.getMinute());
         Logger.info("duration " + duration);
-        User currentUser = User.findUser(session().get("username"));
-        Logger.info(currentUser.name);
-        int calories = sport.computeCalories(currentUser.weight, currentUser.height, currentUser.getAge(), duration);
+        Athlete currentAthlete = Athlete.findUser(session().get("username"));
+        Logger.info(currentAthlete.name);
+        int calories = sport.computeCalories(currentAthlete.weight, currentAthlete.height, currentAthlete.getAge(), duration);
         Logger.info("calories " + calories);
         //find facilities
         List<Facility> facilities = Facility.findFacilitesForSport(sport);
@@ -76,8 +75,8 @@ public class Application extends Controller {
 
 
     public static Result getUsers() {
-        List<User> users = new Model.Finder(String.class, User.class).all();
-        return ok(toJson(users));
+        List<Athlete> athletes = new Model.Finder(String.class, Athlete.class).all();
+        return ok(toJson(athletes));
     }
 
     public static Result getFacilities() {

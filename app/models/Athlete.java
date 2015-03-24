@@ -13,7 +13,7 @@ import play.db.ebean.Model;
  * Created by Christina on 18.01.2015.
  */
 @Entity
-public class User extends Model {
+public class Athlete extends Model {
     @Id
     public String id;
 
@@ -35,16 +35,16 @@ public class User extends Model {
         return age;
     }
 
-    public static Finder<String, User> find = new Finder<String, User>(
-            String.class, User.class
+    public static Finder<String, Athlete> find = new Finder<String, Athlete>(
+            String.class, Athlete.class
     );
 
 
-    public static User findUser(String name) {
+    public static Athlete findUser(String name) {
         return find.where().eq("name", name).findUnique();
     }
 
-    public static User authenticate(String name, String password) {
+    public static Athlete authenticate(String name, String password) {
         return find.where().eq("name", name)
                 .eq("password", password).findUnique();
     }
