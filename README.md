@@ -22,6 +22,7 @@
 ## Installation
 Eine aktuelle Version der App kann über Heroku geöffnet werden. Dazu muss man in einem beliebigen Browser nur diesen Link aufrufen: http://fit-in-innsbruck.herokuapp.com/
 Um die App lokal zu benutzen, kann man die folgenden Schritte durchführen:
+
 1. Download des source-codes über [Github] [1]
 2. Download und Installation von mindestens [jdk 8] [2]
 3. Download und Installition des [Play Frameworks] [3]
