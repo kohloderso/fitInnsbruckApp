@@ -121,5 +121,22 @@ public class Application extends Controller {
         return ok(facility.render(f));
     }
 
+    public static Result addNewFacility() {
+        return ok(editFacility.render(form(Facility.class)));
+    }
+
+    public static Result addFacility() {
+        Form<Facility> facilityForm = form(Facility.class).bindFromRequest();
+        if (facilityForm.hasErrors()) {
+            Logger.info("error while registrating");
+            facilityForm.reject("a problem occurred with your registration");
+            return badRequest(editFacility.render(facilityForm));
+        }
+        Facility facility = facilityForm.get();
+        facility.save();
+        return redirect(routes.Application.index());
+    }
+
+
 
 }
