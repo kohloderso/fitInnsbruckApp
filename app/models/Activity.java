@@ -15,9 +15,9 @@ import javax.persistence.Id;
 public class Activity {
 
     @Id
-    public Date from;
-    @Id
-    public Date to;
+    public int id;
+    public Date beginOfActivity;
+    public Date endOfActivity;
 
 
     public Weather weather;

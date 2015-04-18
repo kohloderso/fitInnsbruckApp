@@ -3,6 +3,16 @@
 
 # --- !Ups
 
+create table activity (
+  id                        integer not null,
+  begin_of_activity         timestamp,
+  end_of_activity           timestamp,
+  sport                     integer,
+  calories                  integer,
+  constraint ck_activity_sport check (sport in (0,1,2)),
+  constraint pk_activity primary key (id))
+;
+
 create table athlete (
   id                        varchar(255) not null,
   name                      varchar(255),
@@ -24,6 +34,8 @@ create table facility (
   constraint pk_facility primary key (objectid))
 ;
 
+create sequence activity_seq;
+
 create sequence athlete_seq;
 
 create sequence facility_seq;
@@ -35,11 +47,15 @@ create sequence facility_seq;
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
+drop table if exists activity;
+
 drop table if exists athlete;
 
 drop table if exists facility;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists activity_seq;
 
 drop sequence if exists athlete_seq;
 
