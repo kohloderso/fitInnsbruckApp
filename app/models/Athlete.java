@@ -32,21 +32,21 @@ public class Athlete extends Model {
         cal = Calendar.getInstance();
         int age = cal.get(Calendar.YEAR) - birthyear;
         System.out.println("age: " + age);
-return age;
-        }
+        return age;
+    }
 
-public static Finder<String, Athlete> find = new Finder<String, Athlete>(
-        String.class, Athlete.class
-);
+    public static Finder<String, Athlete> find = new Finder<String, Athlete>(
+            String.class, Athlete.class
+    );
 
 
-public static Athlete findUser(String name) {
+    public static Athlete findUser(String name) {
         return find.where().eq("name", name).findUnique();
-        }
+    }
 
-public static Athlete authenticate(String name, String password) {
+    public static Athlete authenticate(String name, String password) {
         return find.where().eq("name", name)
-        .eq("password", password).findUnique();
-        }
+                .eq("password", password).findUnique();
+    }
 
-        }
+}
