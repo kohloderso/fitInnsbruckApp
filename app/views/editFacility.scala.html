@@ -29,12 +29,12 @@
                         <option>Schwimmbad</option>
                     </select>
                 </div>
-                <p>Welche Sportarten kann man dort betreiben?</p>
+                <legend>Welche Sportarten kann man dort betreiben?</legend>
                 @for(s <- Sport.values()) {
                     <label class="checkbox-inline"><input type='checkbox' name='possibleSport' value=@s>@s </label>
                     }
                 <br><br>
-                <p>Koordinaten (optional)</p>
+                <legend>Koordinaten (optional)</legend>
                 <label for="inputCoordinates">Koordinaten in Grad mit Dezimalstellen</label>
                 <div class="form-inline" id="inputCoordinates">
                     <div class="input-group">
@@ -49,39 +49,17 @@
                     </div>
                 </div>
                 <br>
-                <p>Öffnungszeiten</p>
-                <script type="text/javascript" src="@routes.Assets.at("javascripts/addInput.js")"></script>
-                <label for="monday">Montag </label>
-                <div id="monday">
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <label for="fromInput">von </label>
-                            <input type="time" class="form-control" name="timesFrommonday[]" id="fromInput">
-                        </div>
-                        <div class="form-group">
-                            <label for="toInput">bis </label>
-                            <input type="time" class="form-control" name="timesTomonday[]" id="toInput">
-                        </div>
-                        <a class="btn btn-default" onclick="addInput('monday');">+</a>
-                    </div>
-                </div>
-                <label for="tuesday">Dienstag </label>
-                <div id="tuesday">
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <label for="fromInput">von </label>
-                            <input type="time" class="form-control" name="timesFromtuesday[]" id="fromInput">
-                        </div>
-                        <div class="form-group">
-                            <label for="toInput">bis </label>
-                            <input type="time" class="form-control" name="timesTotuesday[]" id="toInput">
-                        </div>
-                        <a class="btn btn-default" onclick="addInput('tuesday');">+</a>
-                    </div>
-                </div>
+                <legend>Öffnungszeiten</legend>
+                @timesForm("Montag", "mondayFromArray", "mondayToArray")
+                @timesForm("Dienstag", "tuesdayFromArray", "tuesdayToArray")
+                @timesForm("Mittwoch", "wednesdayFromArray", "wednesdayToArray")
+                @timesForm("Donnerstag", "thursdayFromArray", "thursdayToArray")
+                @timesForm("Freitag", "fridayFromArray", "fridayToArray")
+                @timesForm("Samstag", "saturdayFromArray", "saturdayToArray")
+                @timesForm("Sonntag", "sundayFromArray", "sundayToArray")
 
                 <br><br>
-                <p>Preise</p>
+                <legend>Preise</legend>
                 <div class="input-group">
                     <label for="inputAdult">Erwachsene</label>
                     <input type="number" step="any" class="form-control" name="priceAdult" id="inputAdult">
