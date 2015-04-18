@@ -1,6 +1,7 @@
 package models;
 
 import play.data.format.Formats;
+import play.db.ebean.Model;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -14,10 +15,8 @@ import javax.persistence.Id;
 public class Activity {
 
     @Id
-    @Formats.DateTime(pattern = "dd/MM/yyyy hh:mm")
     public LocalDateTime from;
     @Id
-    @Formats.DateTime(pattern = "dd/MM/yyyy hh:mm")
     public LocalDateTime to;
 
 
@@ -29,8 +28,14 @@ public class Activity {
 
     public int calories;
 
+    public static Model.Finder<String, Activity> find = new Model.Finder<String, Activity>(
+            String.class, Activity.class
+    );
 
 
+    public static Activity findActivity(String sport) {
+        return find.where().eq("sport", sport).findUnique();
+    }
 
 
 }
