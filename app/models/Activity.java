@@ -15,9 +15,9 @@ import javax.persistence.Id;
 public class Activity {
 
     @Id
-    public LocalDateTime from;
+    public Date from;
     @Id
-    public LocalDateTime to;
+    public Date to;
 
 
     public Weather weather;
@@ -34,6 +34,8 @@ public class Activity {
 
 
     public static Activity findActivity(String sport) {
+
+
         return find.where().eq("sport", sport).findUnique();
     }
 
