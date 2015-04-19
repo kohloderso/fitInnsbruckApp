@@ -1,0 +1,25 @@
+package models;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+/**
+ * Created by Kathi on 19.04.2015.
+ */
+@Entity
+public class Pricing {
+
+    @Id
+    public int id;
+    public int adult;
+    public int child;
+    public int youth;
+    public int student;
+
+
+    /*
+    here we could make a function to calculate for example how much you have to pay for 3 adults and 2 children
+    public int howMuch(){
+    }
+    */
+}
