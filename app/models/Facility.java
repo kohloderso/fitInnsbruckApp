@@ -21,6 +21,8 @@ public class Facility extends Model {
     public String description;
     public String lat;
     public String lon;
+    public OpeningHours OpeningHours;
+    public Pricing prices;
 
     public static Finder<String, Facility> find = new Finder<String, Facility>(
             String.class, Facility.class
