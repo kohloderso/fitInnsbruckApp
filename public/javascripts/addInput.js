@@ -1,3 +1,4 @@
+var counter=1;
 function addInput(divID){
     var newdiv = document.createElement('div');
     newdiv.setAttribute("class", "form-inline");
@@ -15,17 +16,17 @@ function addInput(divID){
     inputFrom.setAttribute("type", "time");
     inputFrom.setAttribute("class", "form-control");
     inputFrom.setAttribute("name", "timesFrom"+divID+"[]");
-    inputFrom.setAttribute("id", "fromInput");
+    inputFrom.setAttribute("id", "fromInput"+counter);
 
     inputTo.setAttribute("type", "time");
     inputTo.setAttribute("class", "form-control");
     inputTo.setAttribute("name", "timesTo"+divID+"[]");
-    inputTo.setAttribute("id", "toInput");
+    inputTo.setAttribute("id", "toInput"+counter);
 
-    labelFrom.setAttribute("for", "fromInput");
-    labelTo.setAttribute("for", "toInput");
+    labelFrom.setAttribute("for", "fromInput"+counter);
+    labelTo.setAttribute("for", "toInput"+counter);
     labelFrom.innerHTML = "von ";
-    labelFrom.innerHTML = "bis ";
+    labelTo.innerHTML = "bis ";
 
     newdiv.appendChild(divFrom);
     newdiv.appendChild(divTo);

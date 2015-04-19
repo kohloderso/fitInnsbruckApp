@@ -16,7 +16,6 @@ import play.db.ebean.Model;
 public class Athlete extends Model {
     @Id
     public String id;
-
     public String name;
     public String password;
     @Formats.DateTime(pattern = "dd/MM/yyyy")

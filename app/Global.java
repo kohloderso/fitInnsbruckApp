@@ -59,7 +59,6 @@ public class Global extends GlobalSettings {
             u.weight = 60;
             u.password = "secret";
             u.save();
-
         }
 
     }
