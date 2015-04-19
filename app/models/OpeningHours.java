@@ -34,5 +34,6 @@ public class OpeningHours {
     /*calculates if a specific facility is open or not*/
     public boolean isOpen(LocalTime time){
 
+        return false;
     }
 }

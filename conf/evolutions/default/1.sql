@@ -34,11 +34,29 @@ create table facility (
   constraint pk_facility primary key (objectid))
 ;
 
+create table opening_hours (
+  id                        integer not null,
+  constraint pk_opening_hours primary key (id))
+;
+
+create table pricing (
+  id                        integer not null,
+  adult                     integer,
+  child                     integer,
+  youth                     integer,
+  student                   integer,
+  constraint pk_pricing primary key (id))
+;
+
 create sequence activity_seq;
 
 create sequence athlete_seq;
 
 create sequence facility_seq;
+
+create sequence opening_hours_seq;
+
+create sequence pricing_seq;
 
 
 
@@ -53,6 +71,10 @@ drop table if exists athlete;
 
 drop table if exists facility;
 
+drop table if exists opening_hours;
+
+drop table if exists pricing;
+
 SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists activity_seq;
@@ -60,4 +82,8 @@ drop sequence if exists activity_seq;
 drop sequence if exists athlete_seq;
 
 drop sequence if exists facility_seq;
+
+drop sequence if exists opening_hours_seq;
+
+drop sequence if exists pricing_seq;
 

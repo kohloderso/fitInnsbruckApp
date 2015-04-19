@@ -25,8 +25,8 @@ function addInput(divID){
 
     labelFrom.setAttribute("for", "fromInput"+counter);
     labelTo.setAttribute("for", "toInput"+counter);
-    labelFrom.innerHTML = "von ";
-    labelTo.innerHTML = "bis ";
+    labelFrom.innerHTML = "von&nbsp";
+    labelTo.innerHTML = "&nbspbis&nbsp&nbsp";
 
     newdiv.appendChild(divFrom);
     newdiv.appendChild(divTo);
