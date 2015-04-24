@@ -21,7 +21,7 @@ public class Facility extends Model {
     public String description;
     public String lat;
     public String lon;
-    public OpeningHours OpeningHours;
+    public OpeningHours openingHours;
     public Pricing prices;
 
     public static Finder<String, Facility> find = new Finder<String, Facility>(
@@ -31,5 +31,10 @@ public class Facility extends Model {
     public static List<Facility> findFacilitesForSport(Sport sport) {
         Expression orEx = Expr.or(Expr.eq("type", sport.getOutsidePlace()), Expr.eq("type", sport.getRoofedPlace()));
         return find.where().add(orEx).findList();
+    }
+
+    public String toString() {
+        String s = "ID: " + objectid + "\n" + name + "\n" + address + "\n" + type + "\n" + description + "\n" + lat + "\t" + lon + "\n" +  openingHours.toString() + "\n" + prices.toString();
+        return s;
     }
 }

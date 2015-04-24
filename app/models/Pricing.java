@@ -22,4 +22,9 @@ public class Pricing {
     public int howMuch(){
     }
     */
+
+    public String toString() {
+        String s = "ID: " + id + "\n" + "adults: " + adult + "\n" + "children: " + child + "\n" + "youth: " + youth + "\n" + "students: " + student;
+        return s;
+    }
 }
