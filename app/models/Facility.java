@@ -18,7 +18,7 @@ public class Facility extends Model {
     public String name;
     public String address;
     public String type;
-    public String description;
+    public List<String> possibleSport;
     public String lat;
     public String lon;
     public OpeningHours openingHours;
@@ -34,7 +34,7 @@ public class Facility extends Model {
     }
 
     public String toString() {
-        String s = "ID: " + objectid + "\n" + name + "\n" + address + "\n" + type + "\n" + description + "\n" + lat + "\t" + lon + "\n" +  openingHours.toString() + "\n" + prices.toString();
+        String s = "ID: " + objectid + "\n" + name + "\n" + address + "\n" + type + "\n" + possibleSport + "\n" + lat + "\t" + lon + "\n" +  /*openingHours.toString() + "\n" +*/ prices.toString();
         return s;
     }
 }

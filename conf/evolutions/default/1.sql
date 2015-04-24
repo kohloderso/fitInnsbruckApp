@@ -28,7 +28,6 @@ create table facility (
   name                      varchar(255),
   address                   varchar(255),
   type                      varchar(255),
-  description               varchar(255),
   lat                       varchar(255),
   lon                       varchar(255),
   constraint pk_facility primary key (objectid))

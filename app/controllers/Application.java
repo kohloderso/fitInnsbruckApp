@@ -133,7 +133,8 @@ public class Application extends Controller {
             return badRequest(editFacility.render(facilityForm));
         }
         Facility facility = facilityForm.get();
-        facility.save();
+        System.out.println(facility.toString());
+        //facility.save();
         return redirect(routes.Application.index());
     }
 
