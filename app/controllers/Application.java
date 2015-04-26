@@ -80,8 +80,10 @@ public class Application extends Controller {
     }
 
     public static Result getFacilities() {
+
         List<Facility> facilities = new Model.Finder(String.class, Facility.class).all();
-        return ok(toJson(facilities));
+        scala.collection.immutable.List<Facility> ls = JavaConverters.asScalaBufferConverter(facilities).asScala().toList();
+        return ok(allFacilities.render(ls));
     }
 
     public static Result getMaptest() {
