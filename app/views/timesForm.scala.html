@@ -1,4 +1,4 @@
-@(formLabel: String, fromArray: String, toArray:String)
+@(formLabel: String, name: String)
 
 <script type="text/javascript" src="@routes.Assets.at("javascripts/addInput.js")"></script>
 <p>@formLabel</p>
@@ -6,13 +6,13 @@
   <div class="form-inline">
     <div class="form-group">
       <label for="fromInput">von </label>
-      <input type="time" class="form-control" name="@fromArray" id="fromInput">
+      <input type="time" class="form-control" name="@name" id="fromInput">
     </div>
     <div class="form-group">
       <label for="toInput">bis </label>
-      <input type="time" class="form-control" name="@toArray" id="toInput">
+      <input type="time" class="form-control" name="@name" id="toInput">
     </div>
-    <a class="btn btn-default" onclick="addInput('@formLabel');">+</a>
+    <a class="btn btn-default" onclick="addInput('@formLabel', '@name');">+</a>
   </div>
 </div>
 <br>

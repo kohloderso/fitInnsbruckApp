@@ -1,35 +1,40 @@
-import models.Activity;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import org.junit.Test;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import play.api.libs.ws.WS;
+import play.libs.F;
 import play.mvc.Result;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static play.test.Helpers.GET;
-import static play.test.Helpers.fakeRequest;
-import static play.test.Helpers.routeAndCall;
+import static play.mvc.Controller.session;
+import static play.mvc.Http.Status.UNAUTHORIZED;
 
 
-
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import play.libs.F;
-import static play.libs.F.Promise;
-import play.api.libs.ws.WS;
+import play.test.FakeRequest;
 import play.test.TestBrowser;
+
 import static play.mvc.Http.Status.OK;
-import static play.test.Helpers.callAction;
-import static play.test.Helpers.charset;
-import static play.test.Helpers.contentAsString;
-import static play.test.Helpers.contentType;
-import static play.test.Helpers.fakeApplication;
-import static play.test.Helpers.running;
-import static play.test.Helpers.status;
-import static play.test.Helpers.testServer;
+import static play.test.Helpers.*;
 
 public class JUnit
 {
 
+    @Test
+    public void testAuthentication() {
+        // first test what happens, when you call a restricted method and you are not authenticated
+        Result result = callAction(
+                controllers.routes.ref.Application.index(),
+                new FakeRequest(GET, "/facility/1")
+        );
+        assertThat(status(result)).isEqualTo(UNAUTHORIZED);
+
+        // then what happens, if somone is logged in
+        session("username", "somebody");
+        result = callAction(
+                controllers.routes.ref.Application.index(),
+                new FakeRequest(GET, "/facility/1")
+        );
+        assertThat(status(result)).isEqualTo(OK);
+    }
     /*
 
     Test Routes
@@ -63,27 +68,26 @@ public class JUnit
         assertThat(contentAsString(result)).contains("Fit in Innsbruck");
     }
 
-/*
-   @Test
-    public void testIndexWithTestServerRunnable() {
-        running(testServer(3333), new Runnable() {
-            @Override
-            public void run() {
-                assertThat(
 
-                        WS.url("http://localhost:9000").get().get().getStatus();
-                ).isEqualTo(OK);
-            }
-        });
-    }
-*/
-  /*  public void runInBrowser() {
+   /*@Test
+    public void testIndexWithTestServerRunnable() {
+       running(testServer(3333), new Runnable() {
+           @Override
+           public void run() {
+
+               assertThat(WS.url("http://localhost:9000").get().get().getStatus()).isEqualTo(OK);
+           }
+       });
+   }*/
+    public void runInBrowser() {
         running(testServer(9000), HtmlUnitDriver.class, new F.Callback() {
-            public void invoke(TestBrowser browser) {
+            @Override
+            public void invoke(Object o) {
+                TestBrowser browser = (TestBrowser) o;
                 browser.goTo("http://localhost:9000");
                 assertThat(browser.$("body").getTexts().get(0)).isEqualTo("Fit in Innsbruck");
             }
         });
-    } */
+    }
 
 }

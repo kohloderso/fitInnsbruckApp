@@ -136,6 +136,7 @@ public class Application extends Controller {
         }
         Facility facility = facilityForm.get();
         System.out.println(facility.toString());
+
         //facility.save();
         return redirect(routes.Application.index());
     }

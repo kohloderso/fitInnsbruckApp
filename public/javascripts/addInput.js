@@ -1,5 +1,5 @@
 var counter=1;
-function addInput(divID){
+function addInput(divID, name){
     var newdiv = document.createElement('div');
     newdiv.setAttribute("class", "form-inline");
 
@@ -15,12 +15,12 @@ function addInput(divID){
 
     inputFrom.setAttribute("type", "time");
     inputFrom.setAttribute("class", "form-control");
-    inputFrom.setAttribute("name", "timesFrom"+divID+"[]");
+    inputFrom.setAttribute("name", name);
     inputFrom.setAttribute("id", "fromInput"+counter);
 
     inputTo.setAttribute("type", "time");
     inputTo.setAttribute("class", "form-control");
-    inputTo.setAttribute("name", "timesTo"+divID+"[]");
+    inputTo.setAttribute("name", name);
     inputTo.setAttribute("id", "toInput"+counter);
 
     labelFrom.setAttribute("for", "fromInput"+counter);

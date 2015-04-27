@@ -5,6 +5,9 @@ import play.mvc.*;
 import play.mvc.Http.*;
 
 import models.*;
+import views.html.login2;
+
+import static play.data.Form.form;
 
 public class Secured extends Security.Authenticator {
 
@@ -15,6 +18,6 @@ public class Secured extends Security.Authenticator {
 
     @Override
     public Result onUnauthorized(Context ctx) {
-        return redirect(routes.Application.login());
+        return unauthorized(login2.render(form(Login.class)));
     }
 }
