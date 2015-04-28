@@ -9,7 +9,9 @@ import play.mvc.*;
 import views.html.*;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import scala.collection.JavaConverters;
 
@@ -135,8 +137,20 @@ public class Application extends Controller {
             return badRequest(editFacility.render(facilityForm));
         }
         Facility facility = facilityForm.get();
-        System.out.println(facility.toString());
 
+        // get request value from submitted form
+        Map<String, String[]> map = request().body().asFormUrlEncoded();
+
+        // monday
+        String[] openMonday = map.get("openingHours.monday[]");
+        facility.openingHours.monday = new ArrayList<OpenPeriod>();
+        for(int i = 0; i < openMonday.length; i=i+2) {
+            if(openMonday[i] != null && openMonday[i+1] != null) {
+                OpenPeriod op = new OpenPeriod(LocalTime.parse(openMonday[i]), LocalTime.parse(openMonday[i + 1]));
+                facility.openingHours.monday.add(op);
+            }
+        }
+        System.out.println(facility.toString());
         //facility.save();
         return redirect(routes.Application.index());
     }

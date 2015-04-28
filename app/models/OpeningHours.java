@@ -16,25 +16,17 @@ public class OpeningHours {
 
     @Id
     public int id;
-    List<OpenPeriod> monday;
-    List<OpenPeriod> tuesday;
-    List<OpenPeriod> wednesday;
-    List<OpenPeriod> thursday;
-    List<OpenPeriod> friday;
-    List<OpenPeriod> saturday;
-    List<OpenPeriod> sunday;
-    List<OpenPeriod> holidays;
+    public List<OpenPeriod> monday;
+    public List<OpenPeriod> tuesday;
+    public List<OpenPeriod> wednesday;
+    public List<OpenPeriod> thursday;
+    public List<OpenPeriod> friday;
+    public List<OpenPeriod> saturday;
+    public List<OpenPeriod> sunday;
+   // public List<OpenPeriod> holidays;
 
 
-    public class OpenPeriod{
-        LocalTime begin;
-        LocalTime end;
 
-        public String toString() {
-            return begin.toString() + " - " + end.toString();
-        }
-
-    }
     /*table is not ready for loading the opening times */
     /*calculates if a specific facility is open or not*/
     public boolean isOpen(LocalTime time){
@@ -47,7 +39,7 @@ public class OpeningHours {
         for(OpenPeriod openPeriod : monday) {
             s = s + openPeriod.toString();
         }
-        s = s + "\ntuesday: ";
+        /*s = s + "\ntuesday: ";
         for(OpenPeriod openPeriod : tuesday) {
             s = s + openPeriod.toString();
         }
@@ -70,7 +62,7 @@ public class OpeningHours {
         s = s + "\nsunday: ";
         for(OpenPeriod openPeriod : sunday) {
             s = s + openPeriod.toString();
-        }
+        }*/
         return s;
     }
 }
