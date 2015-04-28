@@ -15,12 +15,12 @@ function addInput(divID, name){
 
     inputFrom.setAttribute("type", "time");
     inputFrom.setAttribute("class", "form-control");
-    inputFrom.setAttribute("name", name);
+    inputFrom.setAttribute("name", name + "[" + counter + "].begin");
     inputFrom.setAttribute("id", "fromInput"+counter);
 
     inputTo.setAttribute("type", "time");
     inputTo.setAttribute("class", "form-control");
-    inputTo.setAttribute("name", name);
+    inputTo.setAttribute("name", name + "[" + counter + "].end");
     inputTo.setAttribute("id", "toInput"+counter);
 
     labelFrom.setAttribute("for", "fromInput"+counter);
@@ -34,6 +34,8 @@ function addInput(divID, name){
     divFrom.appendChild(inputFrom);
     divTo.appendChild(labelTo);
     divTo.appendChild(inputTo);
+
+    counter++;
 
     document.getElementById(divID).appendChild(newdiv);
 

@@ -1,16 +1,18 @@
 @(formLabel: String, name: String)
 
+@namebegin = @{ name + "[0].begin" }
+@nameend = @{ name + "[0].end" }
 <script type="text/javascript" src="@routes.Assets.at("javascripts/addInput.js")"></script>
 <p>@formLabel</p>
 <div id="@formLabel">
   <div class="form-inline">
     <div class="form-group">
       <label for="fromInput">von </label>
-      <input type="time" class="form-control" name="@name" id="fromInput">
+      <input type="time" class="form-control" name="@namebegin" id="fromInput">
     </div>
     <div class="form-group">
       <label for="toInput">bis </label>
-      <input type="time" class="form-control" name="@name" id="toInput">
+      <input type="time" class="form-control" name="@nameend" id="toInput">
     </div>
     <a class="btn btn-default" onclick="addInput('@formLabel', '@name');">+</a>
   </div>

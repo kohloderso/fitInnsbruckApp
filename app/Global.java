@@ -13,8 +13,11 @@ import java.io.FileReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -24,6 +27,23 @@ import java.util.Locale;
 public class Global extends GlobalSettings {
     @Override
     public void onStart(Application app) {
+
+        Formatters.register(LocalTime.class, new
+                Formatters.SimpleFormatter<LocalTime>() {
+
+                    //private Pattern timePattern = Pattern.compile("([012]?\\d)[\\s:._-]+([012345]?\\d)");
+
+                    @Override
+                    public LocalTime parse(String input, Locale l) throws ParseException
+                    {
+                        return LocalTime.parse(input);
+                    }
+
+                    @Override
+                    public String print(LocalTime localTime, Locale l) {
+                        return localTime.toString();
+                    }
+                });
 
         if (new Model.Finder(String.class, Facility.class).findRowCount() == 0) {
             try {

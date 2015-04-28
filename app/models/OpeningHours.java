@@ -1,10 +1,10 @@
 package models;
 
-import jdk.nashorn.internal.objects.NativeArray;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +26,6 @@ public class OpeningHours {
    // public List<OpenPeriod> holidays;
 
 
-
     /*table is not ready for loading the opening times */
     /*calculates if a specific facility is open or not*/
     public boolean isOpen(LocalTime time){
@@ -37,32 +36,32 @@ public class OpeningHours {
     public String toString() {
         String s = "monday: ";
         for(OpenPeriod openPeriod : monday) {
-            s = s + openPeriod.toString();
+            s = s + openPeriod.toString() + ", ";
         }
-        /*s = s + "\ntuesday: ";
+        s = s + "\ntuesday: ";
         for(OpenPeriod openPeriod : tuesday) {
-            s = s + openPeriod.toString();
+            s = s + openPeriod.toString() + ", ";
         }
         s = s + "\nwednesday: ";
         for(OpenPeriod openPeriod : wednesday) {
-            s = s + openPeriod.toString();
+            s = s + openPeriod.toString() + ", ";
         }
         s = s + "\nthursday: ";
         for(OpenPeriod openPeriod : thursday) {
-            s = s + openPeriod.toString();
+            s = s + openPeriod.toString() + ", ";
         }
         s = s + "\nfriday: ";
         for(OpenPeriod openPeriod : friday) {
-            s = s + openPeriod.toString();
+            s = s + openPeriod.toString() + ", ";
         }
         s = s + "\nsaturday: ";
         for(OpenPeriod openPeriod : saturday) {
-            s = s + openPeriod.toString();
+            s = s + openPeriod.toString() + ", ";
         }
         s = s + "\nsunday: ";
         for(OpenPeriod openPeriod : sunday) {
-            s = s + openPeriod.toString();
-        }*/
+            s = s + openPeriod.toString() + ", ";
+        }
         return s;
     }
 }

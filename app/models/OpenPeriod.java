@@ -1,10 +1,17 @@
 package models;
 
+import javax.persistence.Entity;
 import java.time.LocalTime;
 
 public class OpenPeriod{
-        LocalTime begin;
-        LocalTime end;
+        public LocalTime begin;
+        public LocalTime end;
+
+
+   public OpenPeriod() {
+        begin = LocalTime.now();
+        end = LocalTime.now();
+    }
 
     public OpenPeriod(LocalTime begin, LocalTime end) {
         this.begin = begin;

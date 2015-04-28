@@ -131,27 +131,16 @@ public class Application extends Controller {
 
     public static Result addFacility() {
         Form<Facility> facilityForm = form(Facility.class).bindFromRequest();
+
         if (facilityForm.hasErrors()) {
-            Logger.info("error while registrating");
-            facilityForm.reject("a problem occurred with your registration");
+            Logger.info("error while binding facility form");
+            facilityForm.reject("a problem occurred");
             return badRequest(editFacility.render(facilityForm));
         }
         Facility facility = facilityForm.get();
 
-        // get request value from submitted form
-        Map<String, String[]> map = request().body().asFormUrlEncoded();
-
-        // monday
-        String[] openMonday = map.get("openingHours.monday[]");
-        facility.openingHours.monday = new ArrayList<OpenPeriod>();
-        for(int i = 0; i < openMonday.length; i=i+2) {
-            if(openMonday[i] != null && openMonday[i+1] != null) {
-                OpenPeriod op = new OpenPeriod(LocalTime.parse(openMonday[i]), LocalTime.parse(openMonday[i + 1]));
-                facility.openingHours.monday.add(op);
-            }
-        }
         System.out.println(facility.toString());
-        //facility.save();
+        facility.save();
         return redirect(routes.Application.index());
     }
 
