@@ -45,7 +45,7 @@ public class Global extends GlobalSettings {
                     }
                 });
 
-        if (new Model.Finder(String.class, Facility.class).findRowCount() == 0) {
+       /* if (new Model.Finder(String.class, Facility.class).findRowCount() == 0) {
             try {
                 String csvFilename = app.path() + "/conf/resources/sportstaetten.csv";
                 CSVReader csvReader = new CSVReader(new FileReader(csvFilename), ';', '\"', 1);
@@ -66,7 +66,7 @@ public class Global extends GlobalSettings {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+        }*/
         if (Athlete.find.findRowCount() == 0) {
             Athlete u = new Athlete();
             u.id = "100";

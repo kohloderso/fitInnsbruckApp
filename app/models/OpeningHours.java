@@ -1,8 +1,11 @@
 package models;
 
 
+import play.db.ebean.Model;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,10 +15,12 @@ import java.util.List;
  * Created by Kathi on 19.04.2015.
  */
 @Entity
-public class OpeningHours {
+public class OpeningHours extends Model {
 
     @Id
-    public int id;
+    public int opID;
+    @OneToOne(mappedBy="openingHours")
+    public Facility facility;
     public List<OpenPeriod> monday;
     public List<OpenPeriod> tuesday;
     public List<OpenPeriod> wednesday;

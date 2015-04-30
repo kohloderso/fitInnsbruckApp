@@ -30,21 +30,23 @@ create table facility (
   type                      varchar(255),
   lat                       varchar(255),
   lon                       varchar(255),
+  opID                      integer,
+  priceID                   integer,
   constraint pk_facility primary key (objectid))
 ;
 
 create table opening_hours (
-  id                        integer not null,
-  constraint pk_opening_hours primary key (id))
+  op_id                     integer not null,
+  constraint pk_opening_hours primary key (op_id))
 ;
 
 create table pricing (
-  id                        integer not null,
+  price_id                  integer not null,
   adult                     integer,
   child                     integer,
   youth                     integer,
   student                   integer,
-  constraint pk_pricing primary key (id))
+  constraint pk_pricing primary key (price_id))
 ;
 
 create sequence activity_seq;
@@ -57,6 +59,10 @@ create sequence opening_hours_seq;
 
 create sequence pricing_seq;
 
+alter table facility add constraint fk_facility_openingHours_1 foreign key (opID) references opening_hours (op_id) on delete restrict on update restrict;
+create index ix_facility_openingHours_1 on facility (opID);
+alter table facility add constraint fk_facility_prices_2 foreign key (priceID) references pricing (price_id) on delete restrict on update restrict;
+create index ix_facility_prices_2 on facility (priceID);
 
 
 

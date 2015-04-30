@@ -82,7 +82,6 @@ public class Application extends Controller {
     }
 
     public static Result getFacilities() {
-
         List<Facility> facilities = new Model.Finder(String.class, Facility.class).all();
         scala.collection.immutable.List<Facility> ls = JavaConverters.asScalaBufferConverter(facilities).asScala().toList();
         return ok(allFacilities.render(ls));
@@ -141,6 +140,7 @@ public class Application extends Controller {
 
         System.out.println(facility.toString());
         facility.save();
+        Logger.info("saved");
         return redirect(routes.Application.index());
     }
 

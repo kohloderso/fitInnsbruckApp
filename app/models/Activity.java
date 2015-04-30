@@ -12,7 +12,7 @@ import javax.persistence.Id;
  * Created by Tammy on 18.04.2015.
  */
 @Entity
-public class Activity {
+public class Activity extends Model {
 
     @Id
     public int id;

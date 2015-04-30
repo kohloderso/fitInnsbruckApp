@@ -1,5 +1,7 @@
 package models;
 
+import play.db.ebean.Model;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -7,10 +9,10 @@ import javax.persistence.Id;
  * Created by Kathi on 19.04.2015.
  */
 @Entity
-public class Pricing {
+public class Pricing extends Model {
 
     @Id
-    public int id;
+    public int priceID;
     public int adult;
     public int child;
     public int youth;
@@ -24,7 +26,7 @@ public class Pricing {
     */
 
     public String toString() {
-        String s = "ID: " + id + "\n" + "adults: " + adult + "\n" + "children: " + child + "\n" + "youth: " + youth + "\n" + "students: " + student;
+        String s = "ID: " + priceID + "\n" + "adults: " + adult + "\n" + "children: " + child + "\n" + "youth: " + youth + "\n" + "students: " + student;
         return s;
     }
 }

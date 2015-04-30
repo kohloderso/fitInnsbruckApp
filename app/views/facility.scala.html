@@ -3,7 +3,8 @@
     <div class="panel panel-default">
         <div class="panel-heading">@facility.name</div>
         <div class="panel-body">
-        @facility.address
+            @facility.address
+            @facility.prices.toString
         </div>
     </div>
     @map(facility.lat, facility.lon)

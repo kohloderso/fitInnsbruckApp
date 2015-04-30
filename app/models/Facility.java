@@ -2,10 +2,10 @@ package models;
 
 import com.avaje.ebean.Expr;
 import com.avaje.ebean.Expression;
+import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -18,10 +18,17 @@ public class Facility extends Model {
     public String name;
     public String address;
     public String type;
-    public List<String> possibleSport;
+    //@ManyToMany
+    public List<Sport> possibleSport;
     public String lat;
     public String lon;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="opID")
     public OpeningHours openingHours;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="priceID")
     public Pricing prices;
 
     public static Finder<String, Facility> find = new Finder<String, Facility>(
@@ -34,7 +41,7 @@ public class Facility extends Model {
     }
 
     public String toString() {
-        String s = "ID: " + objectid + "\n" + name + "\n" + address + "\n" + type + "\n" + possibleSport + "\n" + lat + "\t" + lon + "\n" +  openingHours.toString() + "\n" + prices.toString();
+        String s = "ID: " + objectid + "\n" + name + "\n" + address + "\n" + type + "\n" + possibleSport + "\n" + lat + "\t" + lon + "\n" + /* openingHours.toString() + "\n" +*/ prices.toString();
         return s;
     }
 }

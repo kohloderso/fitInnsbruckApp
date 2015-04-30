@@ -6,7 +6,13 @@
 
       <h2 align="center"><b>Alle Sportstätten </b></h2> <br><br>
 
-
+      <ul>
+        <div class="list-group">
+        @for(facility <- facilities) {
+          <a href="@routes.Application.showFacility(facility.objectid)" class="list-group-item">@facility.name</a>
+        }
+        </div>
+      </ul>
 
 
     </div>
