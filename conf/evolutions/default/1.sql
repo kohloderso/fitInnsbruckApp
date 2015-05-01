@@ -7,9 +7,7 @@ create table activity (
   id                        integer not null,
   begin_of_activity         timestamp,
   end_of_activity           timestamp,
-  sport                     integer,
   calories                  integer,
-  constraint ck_activity_sport check (sport in (0,1,2)),
   constraint pk_activity primary key (id))
 ;
 
@@ -70,6 +68,18 @@ create table pricing (
   constraint pk_pricing primary key (price_id))
 ;
 
+create table sport_type (
+  sport_id                  integer not null,
+  description               varchar(255),
+  constraint pk_sport_type primary key (sport_id))
+;
+
+
+create table facility_sport_type (
+  facility_objectid              integer not null,
+  sport_type_sport_id            integer not null,
+  constraint pk_facility_sport_type primary key (facility_objectid, sport_type_sport_id))
+;
 create sequence activity_seq;
 
 create sequence athlete_seq;
@@ -83,6 +93,8 @@ create sequence open_period_seq;
 create sequence opening_hours_seq;
 
 create sequence pricing_seq;
+
+create sequence sport_type_seq;
 
 alter table facility add constraint fk_facility_openingHours_1 foreign key (hoursID) references opening_hours (hours_id) on delete restrict on update restrict;
 create index ix_facility_openingHours_1 on facility (hoursID);
@@ -109,6 +121,10 @@ create index ix_opening_hours_sunday_11 on opening_hours (sundayID);
 
 
 
+alter table facility_sport_type add constraint fk_facility_sport_type_facili_01 foreign key (facility_objectid) references facility (objectid) on delete restrict on update restrict;
+
+alter table facility_sport_type add constraint fk_facility_sport_type_sport__02 foreign key (sport_type_sport_id) references sport_type (sport_id) on delete restrict on update restrict;
+
 # --- !Downs
 
 SET REFERENTIAL_INTEGRITY FALSE;
@@ -119,6 +135,8 @@ drop table if exists athlete;
 
 drop table if exists facility;
 
+drop table if exists facility_sport_type;
+
 drop table if exists open_hours_day;
 
 drop table if exists open_period;
@@ -126,6 +144,8 @@ drop table if exists open_period;
 drop table if exists opening_hours;
 
 drop table if exists pricing;
+
+drop table if exists sport_type;
 
 SET REFERENTIAL_INTEGRITY TRUE;
 
@@ -142,4 +162,6 @@ drop sequence if exists open_period_seq;
 drop sequence if exists opening_hours_seq;
 
 drop sequence if exists pricing_seq;
+
+drop sequence if exists sport_type_seq;
 

@@ -22,7 +22,7 @@ public class Activity extends Model {
 
     public Weather weather;
 
-    public Sport sport;
+    public SportType sport;
 
     public Facility place;
 

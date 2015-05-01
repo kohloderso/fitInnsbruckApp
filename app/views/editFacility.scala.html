@@ -1,4 +1,4 @@
-@(form: play.data.Form[Facility])
+@(form: play.data.Form[Facility], sportTypes: List[SportType])
 @main("add new Facility") {
     @helper.form(routes.Application.addFacility()) {
 
@@ -33,9 +33,9 @@
                     </select>
                 </div>
                 <legend>Welche Sportarten kann man dort betreiben?</legend>
-                @for(s <- Sport.values()) {
-                    <label class="checkbox-inline"><input type='checkbox' name='possibleSport' value=@s>@s </label>
-                    }
+                @for(s <- sportTypes) {
+                    <label class="checkbox-inline"><input type='checkbox' name='sportlist' value=@s.sportID>@s.description </label>
+                }
                 <br><br>
                 <legend>Koordinaten (optional)</legend>
                 <label for="inputCoordinates">Koordinaten in Grad mit Dezimalstellen</label>

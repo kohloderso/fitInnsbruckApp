@@ -2,7 +2,6 @@ package models;
 
 import com.avaje.ebean.Expr;
 import com.avaje.ebean.Expression;
-import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
@@ -18,8 +17,10 @@ public class Facility extends Model {
     public String name;
     public String address;
     public String type;
-    //@ManyToMany
-    public List<Sport> possibleSport;
+
+    @ManyToMany(cascade=CascadeType.ALL)
+    public List<SportType> possibleSport;
+
     public String lat;
     public String lon;
 
@@ -35,9 +36,9 @@ public class Facility extends Model {
             String.class, Facility.class
     );
 
-    public static List<Facility> findFacilitesForSport(Sport sport) {
-        Expression orEx = Expr.or(Expr.eq("type", sport.getOutsidePlace()), Expr.eq("type", sport.getRoofedPlace()));
-        return find.where().add(orEx).findList();
+    public static List<Facility> findFacilitesForSport(SportType sport) {
+        // TODO
+        return null;
     }
 
     public String toString() {

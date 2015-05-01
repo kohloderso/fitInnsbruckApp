@@ -6,10 +6,10 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.db.ebean.Model;
 import play.mvc.*;
+import play.twirl.api.Html;
 import views.html.*;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +55,8 @@ public class Application extends Controller {
             Logger.info("error with query");
             return badRequest(queryView.render());
         }
-        Sport sport = Sport.valueOf(requestData.get("preferredSport"));
+        // TODO
+       /* SportType sport = Sport.valueOf(requestData.get("preferredSport"));
         LocalTime start = LocalTime.parse(requestData.get("start"));
         LocalTime end = LocalTime.parse(requestData.get("end"));
 
@@ -72,7 +73,8 @@ public class Application extends Controller {
         scala.collection.immutable.List<Facility> ls = JavaConverters.asScalaBufferConverter(facilities).asScala().toList();
 
 
-        return ok(result.render(ls, calories));
+        return ok(result.render(ls, calories));*/
+        return ok(main.render("not yet implemented", Html.apply("this content will be available soon")));
     }
 
 
@@ -125,7 +127,9 @@ public class Application extends Controller {
     }
 
     public static Result addNewFacility() {
-        return ok(editFacility.render(form(Facility.class)));
+        List<SportType> sports = SportType.find.all();
+        scala.collection.immutable.List<SportType> ls = JavaConverters.asScalaBufferConverter(sports).asScala().toList();
+        return ok(editFacility.render(form(Facility.class), ls));
     }
 
     public static Result addFacility() {
@@ -134,10 +138,16 @@ public class Application extends Controller {
         if (facilityForm.hasErrors()) {
             Logger.info("error while binding facility form");
             facilityForm.reject("a problem occurred");
-            return badRequest(editFacility.render(facilityForm));
+            List<SportType> sports = SportType.find.all();
+            scala.collection.immutable.List<SportType> ls = JavaConverters.asScalaBufferConverter(sports).asScala().toList();
+            return badRequest(editFacility.render(facilityForm, ls));
         }
         Facility facility = facilityForm.get();
-
+        Map<String, String[]> map = request().body().asFormUrlEncoded();
+        String[] checkedSport = map.get("sportlist"); // get selected sports
+        for(String sportID: checkedSport) {
+            facility.possibleSport.add(SportType.find.where().eq("sportID", sportID).findUnique());
+        }
         System.out.println(facility.toString());
         facility.save();
         Logger.info("saved");
