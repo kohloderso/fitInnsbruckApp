@@ -1,25 +1,24 @@
 package models;
 
-import javax.persistence.Entity;
+
+import play.db.ebean.Model;
+
+import javax.persistence.*;
 import java.time.LocalTime;
 
-public class OpenPeriod{
-        public LocalTime begin;
-        public LocalTime end;
+@Entity
+public class OpenPeriod extends Model {
+    @Id
+    public int opID;
+    public String begin;
+    public String end;
+    @ManyToOne
+    public OpeningHours openingHours;
 
 
-   public OpenPeriod() {
-        begin = LocalTime.now();
-        end = LocalTime.now();
-    }
-
-    public OpenPeriod(LocalTime begin, LocalTime end) {
-        this.begin = begin;
-        this.end = end;
-    }
 
     public String toString() {
             return begin.toString() + " - " + end.toString();
-        }
-
     }
+
+}

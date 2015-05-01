@@ -3,9 +3,7 @@ package models;
 
 import play.db.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,18 +16,35 @@ import java.util.List;
 public class OpeningHours extends Model {
 
     @Id
-    public int opID;
-    @OneToOne(mappedBy="openingHours")
-    public Facility facility;
-    public List<OpenPeriod> monday;
-    public List<OpenPeriod> tuesday;
-    public List<OpenPeriod> wednesday;
-    public List<OpenPeriod> thursday;
-    public List<OpenPeriod> friday;
-    public List<OpenPeriod> saturday;
-    public List<OpenPeriod> sunday;
-   // public List<OpenPeriod> holidays;
+    public int hoursID;
 
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="mondayID")
+    public OpenHoursDay monday;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="tuesdayID")
+    public OpenHoursDay tuesday;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="wednesdayID")
+    public OpenHoursDay wednesday;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="thursdayID")
+    public OpenHoursDay thursday;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="fridayID")
+    public OpenHoursDay friday;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="saturdayID")
+    public OpenHoursDay saturday;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="sundayID")
+    public OpenHoursDay sunday;
 
     /*table is not ready for loading the opening times */
     /*calculates if a specific facility is open or not*/
@@ -39,34 +54,13 @@ public class OpeningHours extends Model {
     }
 
     public String toString() {
-        String s = "monday: ";
-        for(OpenPeriod openPeriod : monday) {
-            s = s + openPeriod.toString() + ", ";
-        }
-        s = s + "\ntuesday: ";
-        for(OpenPeriod openPeriod : tuesday) {
-            s = s + openPeriod.toString() + ", ";
-        }
-        s = s + "\nwednesday: ";
-        for(OpenPeriod openPeriod : wednesday) {
-            s = s + openPeriod.toString() + ", ";
-        }
-        s = s + "\nthursday: ";
-        for(OpenPeriod openPeriod : thursday) {
-            s = s + openPeriod.toString() + ", ";
-        }
-        s = s + "\nfriday: ";
-        for(OpenPeriod openPeriod : friday) {
-            s = s + openPeriod.toString() + ", ";
-        }
-        s = s + "\nsaturday: ";
-        for(OpenPeriod openPeriod : saturday) {
-            s = s + openPeriod.toString() + ", ";
-        }
-        s = s + "\nsunday: ";
-        for(OpenPeriod openPeriod : sunday) {
-            s = s + openPeriod.toString() + ", ";
-        }
+        String s = "monday: " + monday.toString();
+        s = s + "\ntuesday: " + tuesday.toString();
+        s = s + "\nwednesday: " + wednesday.toString();
+        s = s + "\nthursday: " + thursday.toString();
+        s = s + "\nfriday: " + friday.toString();
+        s = s + "\nsaturday: " + saturday.toString();
+        s = s + "\nsunday: " + sunday.toString();
         return s;
     }
 }

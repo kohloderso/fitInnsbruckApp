@@ -24,7 +24,7 @@ public class Facility extends Model {
     public String lon;
 
     @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="opID")
+    @JoinColumn(name="hoursID")
     public OpeningHours openingHours;
 
     @OneToOne(cascade=CascadeType.ALL)
@@ -41,7 +41,7 @@ public class Facility extends Model {
     }
 
     public String toString() {
-        String s = "ID: " + objectid + "\n" + name + "\n" + address + "\n" + type + "\n" + possibleSport + "\n" + lat + "\t" + lon + "\n" + /* openingHours.toString() + "\n" +*/ prices.toString();
+        String s = "ID: " + objectid + "\n" + name + "\n" + address + "\n" + type + "\n" + possibleSport + "\n" + lat + "\t" + lon + "\n" + openingHours.toString() + "\n" + prices.toString();
         return s;
     }
 }
