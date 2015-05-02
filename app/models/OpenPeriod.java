@@ -4,13 +4,14 @@ package models;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
-import java.time.LocalTime;
 
 @Entity
 public class OpenPeriod extends Model {
     @Id
     public int opID;
+    @Column(name="period_begin")
     public String begin;
+    @Column(name="period_end")
     public String end;
     @ManyToOne
     public OpeningHours openingHours;
