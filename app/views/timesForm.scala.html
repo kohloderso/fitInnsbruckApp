@@ -1,4 +1,4 @@
-@(formLabel: String, name: String)
+@(formLabel: String, name: String, form: play.data.Form[Facility])
 
 @namebegin = @{ name + "[0].begin" }
 @nameend = @{ name + "[0].end" }
@@ -8,11 +8,11 @@
   <div class="form-inline">
     <div class="form-group">
       <label for="fromInput">von </label>
-      <input type="time" class="form-control" name="@namebegin" id="fromInput">
+      <input type="time" class="form-control" name="@namebegin" id="fromInput" value="@form(namebegin).value()">
     </div>
     <div class="form-group">
       <label for="toInput">bis </label>
-      <input type="time" class="form-control" name="@nameend" id="toInput">
+      <input type="time" class="form-control" name="@nameend" id="toInput" value="@form(nameend).value()">
     </div>
     <a class="btn btn-default" onclick="addInput('@formLabel', '@name');">+</a>
   </div>
