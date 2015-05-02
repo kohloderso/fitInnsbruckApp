@@ -1,12 +1,46 @@
 @(facility: Facility)
 @main(facility.name) {
-    <div class="panel panel-default">
-        <div class="panel-heading">@facility.name</div>
-        <div class="panel-body">
+    <div class="container">
+    <ul class="list-group">
+        <li class="list-group-item">
+            <h4>@facility.name</h4>
+        </li>
+        <li class="list-group-item">
+            <b>Adresse:</b><br>
             @facility.address
-            @facility.prices.toString
-        </div>
+        </li>
+        <li class="list-group-item">
+            <b>Typ:</b><br>
+            @facility.facilityType
+        </li>
+        <li class="list-group-item">
+            <b>M&ouml;gliche Sportarten:</b><br>
+            @for(sport <- facility.possibleSport) {
+                <span class="label label-primary">
+                @sport.description
+                </span>
+            }
+        </li>
+        <li class="list-group-item">
+            <b>&Ouml;ffnungszeiten:</b><br>
+            Montag: @facility.openingHours.monday<br>
+            Dienstag: @facility.openingHours.tuesday<br>
+            Mittwoch: @facility.openingHours.wednesday<br>
+            Donnerstag: @facility.openingHours.thursday<br>
+            Freitag: @facility.openingHours.friday<br>
+            Samstag: @facility.openingHours.saturday<br>
+            Sonntag: @facility.openingHours.sunday
+        </li>
+        <li class="list-group-item">
+            <b>Preise:</b><br>
+            Erwachsene: @facility.prices.adult &euro;<br>
+            Kinder: @facility.prices.child &euro;<br>
+            Studenten: @facility.prices.student &euro;<br>
+        </li>
+    </ul>
+    <a class="btn btn-primary" href="@routes.Application.editFacility(facility.objectid)" role="button" id="editBtn">Sportst&auml;tte bearbeiten</a>
     </div>
+    <br>
     @map(facility.lat, facility.lon)
 
 }

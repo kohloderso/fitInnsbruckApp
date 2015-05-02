@@ -154,6 +154,13 @@ public class Application extends Controller {
         return redirect(routes.Application.index());
     }
 
+    public static Result editFacility(Long facilityID) {
+        List<SportType> sports = SportType.find.all();
+        scala.collection.immutable.List<SportType> ls = JavaConverters.asScalaBufferConverter(sports).asScala().toList();
+        Facility f = Facility.find.where().eq("objectid", facilityID).findUnique();
+        Form facilityForm = Form.form(Facility.class).fill(f);
+        return ok(editFacility.render(facilityForm, ls));
+    }
 
 
 }

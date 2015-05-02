@@ -24,6 +24,6 @@ public class OpenHoursDay extends Model {
         for(OpenPeriod openPeriod : openPeriods) {
             s = s + openPeriod.toString() + ", ";
         }
-        return s;
+        return s.substring(0,s.length()-2);
     }
 }
