@@ -13,10 +13,10 @@ public class Pricing extends Model {
 
     @Id
     public int priceID;
-    public int adult;
-    public int child;
-    public int youth;
-    public int student;
+    public double adult;
+    public double child;
+    public double youth;
+    public double student;
 
 
     /*

@@ -61,10 +61,10 @@ create table opening_hours (
 
 create table pricing (
   price_id                  integer not null,
-  adult                     integer,
-  child                     integer,
-  youth                     integer,
-  student                   integer,
+  adult                     float,
+  child                     float,
+  youth                     float,
+  student                   float,
   constraint pk_pricing primary key (price_id))
 ;
 
