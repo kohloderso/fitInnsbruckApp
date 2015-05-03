@@ -146,7 +146,7 @@ public class Application extends Controller {
         Map<String, String[]> map = request().body().asFormUrlEncoded();
         String[] checkedSport = map.get("sportlist"); // get selected sports
         for(String sportID: checkedSport) {
-            facility.possibleSport.add(SportType.find.where().eq("sportID", sportID).findUnique());
+            facility.possibleSport.add(SportType.find.byId(sportID));
         }
         System.out.println(facility.toString());
         facility.save();
