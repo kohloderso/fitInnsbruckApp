@@ -18,7 +18,7 @@ POST        /login                   controllers.Application.authenticate()
 GET         /logout                  controllers.Application.logout()
 GET         /facility/:f             controllers.Application.showFacility(f: Long)
 GET         /edit-facility/:f        controllers.Application.editFacility(f: Long)
-#POST        /update-facility/:f      controllers.Application.updateFacility(f: Long)
+POST        /update-facility/:f      controllers.Application.updateFacility(f: Long)
 
 
 # Map static resources from the /public folder to the /assets URL path

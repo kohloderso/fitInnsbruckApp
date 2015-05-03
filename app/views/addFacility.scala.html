@@ -1,0 +1,20 @@
+@(form: play.data.Form[Facility], sportTypes: List[SportType])
+@main("add facility") {
+    @helper.form(routes.Application.addFacility()) {
+
+        @if(form.hasGlobalErrors) {
+            <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                @form.globalError.message
+            </div>
+        }
+
+        <form action="@routes.Application.addFacility()" method="post" >
+            <div class="container">
+                @facilityForm(form, sportTypes)
+                <button type="submit" class="btn btn-primary">Hinzufügen</button>
+            </div>
+        </form>
+
+    }
+}

@@ -129,7 +129,7 @@ public class Application extends Controller {
     public static Result addNewFacility() {
         List<SportType> sports = SportType.find.all();
         scala.collection.immutable.List<SportType> ls = JavaConverters.asScalaBufferConverter(sports).asScala().toList();
-        return ok(editFacility.render(form(Facility.class), ls));
+        return ok(addFacility.render(form(Facility.class), ls));
     }
 
     public static Result addFacility() {
@@ -140,7 +140,7 @@ public class Application extends Controller {
             facilityForm.reject("a problem occurred");
             List<SportType> sports = SportType.find.all();
             scala.collection.immutable.List<SportType> ls = JavaConverters.asScalaBufferConverter(sports).asScala().toList();
-            return badRequest(editFacility.render(facilityForm, ls));
+            return badRequest(addFacility.render(facilityForm, ls));
         }
         Facility facility = facilityForm.get();
         Map<String, String[]> map = request().body().asFormUrlEncoded();
@@ -157,10 +157,34 @@ public class Application extends Controller {
     public static Result editFacility(Long facilityID) {
         List<SportType> sports = SportType.find.all();
         scala.collection.immutable.List<SportType> ls = JavaConverters.asScalaBufferConverter(sports).asScala().toList();
-        Facility f = Facility.find.where().eq("objectid", facilityID).findUnique();
+        Facility f = Facility.find.byId(facilityID.toString());
         Form facilityForm = Form.form(Facility.class).fill(f);
         return ok(editFacility.render(facilityForm, ls));
     }
 
+    public static Result updateFacility(Long facilityID) {
+        Form<Facility> facilityForm = form(Facility.class).bindFromRequest();
+
+        if (facilityForm.hasErrors()) {
+            Logger.info("error while binding facility form");
+            facilityForm.reject("a problem occurred");
+            List<SportType> sports = SportType.find.all();
+            scala.collection.immutable.List<SportType> ls = JavaConverters.asScalaBufferConverter(sports).asScala().toList();
+            return badRequest(editFacility.render(facilityForm, ls));
+        }
+        Facility updatedFacility = facilityForm.get();
+        Map<String, String[]> map = request().body().asFormUrlEncoded();
+        String[] checkedSport = map.get("sportlist"); // get selected sports
+        for(String sportID: checkedSport) {
+            updatedFacility.possibleSport.add(SportType.find.byId(sportID));
+        }
+
+        Facility f = Facility.find.byId(facilityID.toString());
+        updatedFacility.objectid = facilityID.intValue();
+        System.out.println(updatedFacility.toString());
+        updatedFacility.update();
+        Logger.info("updated");
+        return redirect(routes.Application.showFacility(updatedFacility.objectid));
+    }
 
 }
