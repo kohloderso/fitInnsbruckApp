@@ -1,8 +1,6 @@
 @(form: play.data.Form[Facility], sportTypes: List[SportType])
   <div class="form-group">
 
-    <h2 align="center"><b>Neue Sportstätte hinzufügen </b></h2> <br><br>
-
     <label for="inputName">Bezeichnung</label>
     <input type="text" class="form-control" name="name" id="inputUsername" value="@form("name").value()">
   </div>
@@ -39,7 +37,7 @@
     </div>
   </div>
   <br>
-  <legend>Öffnungszeiten</legend>
+  <legend>&Ouml;ffnungszeiten</legend>
   @timesForm("Montag", "openingHours.monday.openPeriods", form)
   @timesForm("Dienstag", "openingHours.tuesday.openPeriods", form)
   @timesForm("Mittwoch", "openingHours.wednesday.openPeriods", form)
