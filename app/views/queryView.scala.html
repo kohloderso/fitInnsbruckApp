@@ -1,16 +1,22 @@
-@main("find sports") {
+@main("Suche") {
 
     <form action="@routes.Application.askQuery()" method="post" >
 
-
         <div class="container">
+        <legend>Zeit</legend>
+
             <div class="form-description">
                 <label for="start">Beginn</label>
-                <input type="time" class="form-control" name="start" id="start" placeholder="">
+                <input type="input" class="form-control" name="start" id="start" placeholder="">
+                <script>
+                    document.getElementById('start').value = (new Date());
+                </script>
             </div>
+
+            <p></p>
             <div class="form-description">
                 <label for="end">Ende</label>
-                <input type="time" class="form-control" name="end" id="end" placeholder="">
+                <input type="input" class="form-control" name="end" id="end" placeholder="">
             </div>
 
 
@@ -25,6 +31,11 @@
             <br>
             <button type="submit" class="btn btn-primary">finde Sportstätten</button>
 
+            <script type="text/javascript">
+            $ ( function ( ) {
+            $ ( '#end' ).timepicker({showMeridian: false, defaultTime: 'current'}) ;
+            } ) ;
+            </script>
 
         </div>
     </form>

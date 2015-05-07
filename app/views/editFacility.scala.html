@@ -1,5 +1,5 @@
 @(form: play.data.Form[Facility], sportTypes: List[SportType])
-@main("edit " + form("name").value()) {
+@main("bearbeite " + form("name").value()) {
     @helper.form(routes.Application.updateFacility(form("objectid").value().toLong)) {
 
         @if(form.hasGlobalErrors) {
