@@ -3,39 +3,72 @@
     <form action="@routes.Application.askQuery()" method="post" >
 
         <div class="container">
-        <legend>Zeit</legend>
+            <legend>Zeit</legend>
 
             <div class="form-description">
                 <label for="start">Beginn</label>
                 <input type="input" class="form-control" name="start" id="start" placeholder="">
-                <script>
-                    document.getElementById('start').value = (new Date());
-                </script>
             </div>
-
-            <p></p>
             <div class="form-description">
                 <label for="end">Ende</label>
                 <input type="input" class="form-control" name="end" id="end" placeholder="">
-            </div>
+            </div><br>
 
-
+            <legend>Sportarten</legend>
+            @for(s <- SportType.allAsScalaList()) {
+                <label class="checkbox-inline"><input type='checkbox' name='sportlist' value=@s.sportID>@s.description </label>
+            }
+            <br><br>
+            
             <div class="form-description">
-                <label for="sportSelect">Sport</label>
-                <select class="form-control" id="sportSelect" name="preferredSport">
-                    <option value=CLIMBING>Klettern</option>
-                    <option value=TENNIS>Tennis</option>
-                    <option value=SWIMMING>Schwimmen</option>
+                <label for="inout">Einschr&auml;nkungen</label>
+                <select class="form-control" id="inout" name="inout">
+                    <option value=INDOOR>Indoor</option>
+                    <option value=OUTDOOR>Outdoor</option>
+                    <option value=WHATEVER>Egal</option>
                 </select>
+            </div><br>
+
+            <legend>Kosten</legend>
+            <div class="form-description">
+                <label for="price">maximaler Eintritt</label>
+                <input type="number" class="form-control" name="pricemax" id="price" placeholder="0,00">
+            </div><br>
+
+            <legend>Location (m&ouml;glichst nah bei ...)</legend>
+            <label for="inputCoordinates">Koordinaten in Grad mit Dezimalstellen</label>
+            <div class="form-inline" id="inputCoordinates">
+                <div class="input-group">
+                    <span class="input-group-addon">N</span>
+                    <input type="text" class="form-control" name="lat" id="inputCoordinateN" placeholder="47.270833">
+                    <span class="input-group-addon">°</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">E</span>
+                    <input type="text" class="form-control" name="lon" id="inputCoordinateE" placeholder="11.366111">
+                    <span class="input-group-addon">°</span>
+                </div>
             </div>
-            <br>
-            <button type="submit" class="btn btn-primary">finde Sportstätten</button>
+            <div class="form-description">
+                <label for="address">oder Adresse</label>
+                <input type="input" class="form-control" name="address" id="address">
+            </div><br>
+
+
+            <button type="submit" class="btn btn-primary">finde Sportst&auml;tten</button>
 
             <script type="text/javascript">
+            var currentDate = new Date();
+            var time1 = currentDate.getHours()+1 + ":" + currentDate.getMinutes();
             $ ( function ( ) {
-            $ ( '#end' ).timepicker({showMeridian: false, defaultTime: 'current'}) ;
+            $ ( '#end' ).timepicker({showMeridian: false, defaultTime: time1}) ;
+            } ) ;
+            var time = currentDate.getHours() + ":" + currentDate.getMinutes();
+            $ ( function ( ) {
+            $ ( '#start' ).timepicker({showMeridian: false, defaultTime: time}) ;
             } ) ;
             </script>
+
 
         </div>
     </form>
