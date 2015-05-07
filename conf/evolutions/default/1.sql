@@ -26,6 +26,7 @@ create table facility (
   name                      varchar(255),
   address                   varchar(255),
   facility_type             varchar(255),
+  roof                      boolean,
   lat                       varchar(255),
   lon                       varchar(255),
   hoursID                   integer,

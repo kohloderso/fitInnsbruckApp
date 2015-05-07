@@ -17,6 +17,7 @@
       <option>Schwimmbad</option>
     </select>
   </div>
+  <label class="checkbox-inline"><input type='checkbox' name='roof'>&uuml;berdacht </label><br><br>
   <legend>Welche Sportarten kann man dort betreiben?</legend>
   @for(s <- sportTypes) {
     <label class="checkbox-inline"><input type='checkbox' name='sportlist' value=@s.sportID>@s.description </label>
@@ -28,12 +29,12 @@
     <div class="input-group">
       <span class="input-group-addon">N</span>
       <input type="text" class="form-control" name="lat" id="inputCoordinateN" placeholder="47.270833" value="@form("lat").value()">
-      <span class="input-group-addon">°</span>
+      <span class="input-group-addon">&deg;</span>
     </div>
     <div class="input-group">
       <span class="input-group-addon">E</span>
       <input type="text" class="form-control" name="lon" id="inputCoordinateE" placeholder="11.366111" value="@form("lon").value()">
-      <span class="input-group-addon">°</span>
+      <span class="input-group-addon">&deg;</span>
     </div>
   </div>
   <br>
@@ -50,15 +51,15 @@
   <label for="inputAdult">Erwachsene</label>
   <div class="input-group">
     <input type="number" step="any" class="form-control" name="prices.adult" id="inputAdult" value="@form("prices.adult").value()">
-    <span class="input-group-addon">€</span>
+    <span class="input-group-addon">&euro;</span>
   </div>
   <label for="inputChild">Kinder</label>
   <div class="input-group">
     <input type="number" step="any" class="form-control" name="prices.child" id="inputChild" value="@form("prices.child").value()">
-    <span class="input-group-addon">€</span>
+    <span class="input-group-addon">&euro;</span>
   </div>
   <label for="inputStudent">Studenten</label>
   <div class="input-group">
     <input type="number" step="any" class="form-control" name="prices.student" id="inputStudent" value="@form("prices.student").value()">
-    <span class="input-group-addon">€</span>
-  </div>
+    <span class="input-group-addon">&euro;</span>
+  </div><br>
