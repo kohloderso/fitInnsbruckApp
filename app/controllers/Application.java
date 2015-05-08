@@ -56,24 +56,7 @@ public class Application extends Controller {
             return badRequest(queryView.render());
         }
         // TODO
-       /* SportType sport = Sport.valueOf(requestData.get("preferredSport"));
-        LocalTime start = LocalTime.parse(requestData.get("start"));
-        LocalTime end = LocalTime.parse(requestData.get("end"));
 
-        //compute Calories
-        int duration = end.getHour() * 60 + end.getMinute() - (start.getHour() * 60 + start.getMinute());
-        Logger.info("duration " + duration);
-        Athlete currentAthlete = Athlete.findUser(session().get("username"));
-        Logger.info(currentAthlete.name);
-        int calories = sport.computeCalories(currentAthlete.weight, currentAthlete.height, currentAthlete.getAge(), duration);
-        Logger.info("calories " + calories);
-        //find facilities
-        List<Facility> facilities = Facility.findFacilitesForSport(sport);
-        System.out.println(facilities);
-        scala.collection.immutable.List<Facility> ls = JavaConverters.asScalaBufferConverter(facilities).asScala().toList();
-
-
-        return ok(result.render(ls, calories));*/
         return ok(main.render("not yet implemented", Html.apply("this content will be available soon")));
     }
 

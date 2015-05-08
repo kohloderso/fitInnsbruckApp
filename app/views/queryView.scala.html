@@ -19,7 +19,7 @@
                 <label class="checkbox-inline"><input type='checkbox' name='sportlist' value=@s.sportID>@s.description </label>
             }
             <br><br>
-            
+
             <div class="form-description">
                 <label for="inout">Einschr&auml;nkungen</label>
                 <select class="form-control" id="inout" name="inout">
@@ -30,9 +30,10 @@
             </div><br>
 
             <legend>Kosten</legend>
-            <div class="form-description">
-                <label for="price">maximaler Eintritt</label>
-                <input type="number" class="form-control" name="pricemax" id="price" placeholder="0,00">
+            <label for="price">maximaler Eintritt</label>
+            <div class="input-group">
+                <input type="number" step="any" class="form-control" name="pricemax" id="price" placeholder="0,00">
+                <span class="input-group-addon">€</span>
             </div><br>
 
             <legend>Location (m&ouml;glichst nah bei ...)</legend>
@@ -49,13 +50,16 @@
                     <span class="input-group-addon">°</span>
                 </div>
             </div>
-            <div class="form-description">
-                <label for="address">oder Adresse</label>
+            <label for="address">oder Adresse</label>
+            <div class="input-group">
                 <input type="input" class="form-control" name="address" id="address">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="codeAddress()">Finde Koordinaten</button>
+                </span>
             </div><br>
 
 
-            <button type="submit" class="btn btn-primary">finde Sportst&auml;tten</button>
+            <button type="submit" class="btn btn-primary">finde Sportst&auml;tten</button><br>
 
             <script type="text/javascript">
             var currentDate = new Date();
