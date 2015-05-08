@@ -17,6 +17,7 @@ public class Facility extends Model {
     public String name;
     public String address;
     public String facilityType;
+    public boolean roof;
 
     @ManyToMany(cascade=CascadeType.ALL)
     public List<SportType> possibleSport;
@@ -42,7 +43,7 @@ public class Facility extends Model {
     }
 
     public String toString() {
-        String s = "ID: " + objectid + "\n" + name + "\n" + address + "\n" + facilityType + "\n" + possibleSport + "\n" + lat + "\t" + lon + "\n" + openingHours.toString() + "\n" + prices.toString();
+        String s = "ID: " + objectid + "\n" + name + "\n" + address + "\n" + facilityType + "\n" + "roofed: " + roof + "\n" + possibleSport + "\n" + lat + "\t" + lon + "\n" + openingHours.toString() + "\n" + prices.toString();
         return s;
     }
 }

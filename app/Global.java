@@ -1,5 +1,6 @@
 
 import models.Athlete;
+import models.Facility;
 import models.SportType;
 import play.Application;
 import play.GlobalSettings;
@@ -37,6 +38,9 @@ public class Global extends GlobalSettings {
                     }
                 });
 
+        if (Facility.find.findRowCount() == 0) {
+
+        }
 
         if (SportType.find.findRowCount() == 0) {
             SportType klettern = new SportType();
