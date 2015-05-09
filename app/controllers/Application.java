@@ -10,6 +10,7 @@ import play.twirl.api.Html;
 import views.html.*;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -55,9 +56,28 @@ public class Application extends Controller {
             Logger.info("error with query");
             return badRequest(queryView.render());
         }
-        // TODO
+        LocalTime begin = LocalTime.parse(requestData.get("begin"));
+        LocalTime end = LocalTime.parse(requestData.get("end"));
 
-        return ok(main.render("not yet implemented", Html.apply("this content will be available soon")));
+        List<SportType> sports = new ArrayList<SportType>();
+        Map<String, String[]> map = request().body().asFormUrlEncoded();
+        String[] checkedSport = map.get("sportlist"); // get selected sports
+        for(String sportID: checkedSport) {
+            sports.add(SportType.find.byId(sportID));
+        }
+
+        Boolean roofed;
+        if(requestData.get("inout").equals("INDOOR")) {
+            roofed = true;
+        } else if(requestData.get("inout").equals("INDOOR")) {
+            roofed = false;
+        } else {
+            roofed = null;
+        }
+
+        List<Facility> facilities = Facility.findFacilities(roofed, sports, begin, end);
+        scala.collection.immutable.List<Facility> ls = JavaConverters.asScalaBufferConverter(facilities).asScala().toList();
+        return ok(allFacilities.render(ls));
     }
 
 
@@ -131,6 +151,7 @@ public class Application extends Controller {
         for(String sportID: checkedSport) {
             facility.possibleSport.add(SportType.find.byId(sportID));
         }
+        facility.facilityType = FacilityType.find.byId(new Integer(facility.facilityType.typeID).toString());
         System.out.println(facility.toString());
         facility.save();
         Logger.info("saved");
