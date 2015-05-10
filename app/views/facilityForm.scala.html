@@ -1,6 +1,6 @@
 @(form: play.data.Form[Facility], sportTypes: List[SportType])
   <div class="form-group">
-
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <label for="inputName">Bezeichnung</label>
     <input type="text" class="form-control" name="name" id="inputUsername" value="@form("name").value()">
   </div>
@@ -29,12 +29,12 @@
     <div class="input-group">
       <span class="input-group-addon">N</span>
       <input type="text" class="form-control" name="lat" id="inputCoordinateN" placeholder="47.270833" value="@form("lat").value()">
-      <span class="input-group-addon">°</span>
+      <span class="input-group-addon">Â°</span>
     </div>
     <div class="input-group">
       <span class="input-group-addon">E</span>
       <input type="text" class="form-control" name="lon" id="inputCoordinateE" placeholder="11.366111" value="@form("lon").value()">
-      <span class="input-group-addon">°</span>
+      <span class="input-group-addon">Â°</span>
     </div>&nbsp;&nbsp;
       <a class="btn btn-default" onclick="codeAddress()">Berechne aus Adresse</a>
   </div>
@@ -52,15 +52,15 @@
   <label for="inputAdult">Erwachsene</label>
   <div class="input-group">
     <input type="number" step="any" class="form-control" name="prices.adult" id="inputAdult" value="@form("prices.adult").value()">
-    <span class="input-group-addon">€</span>
+    <span class="input-group-addon">â‚¬</span>
   </div>
   <label for="inputChild">Kinder</label>
   <div class="input-group">
     <input type="number" step="any" class="form-control" name="prices.child" id="inputChild" value="@form("prices.child").value()">
-    <span class="input-group-addon">€</span>
+    <span class="input-group-addon">â‚¬</span>
   </div>
   <label for="inputStudent">Studenten</label>
   <div class="input-group">
     <input type="number" step="any" class="form-control" name="prices.student" id="inputStudent" value="@form("prices.student").value()">
-    <span class="input-group-addon">€</span>
+    <span class="input-group-addon">â‚¬</span>
   </div>
