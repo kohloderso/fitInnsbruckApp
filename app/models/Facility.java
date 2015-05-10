@@ -1,10 +1,9 @@
 package models;
 
-import com.avaje.ebean.Expr;
-import com.avaje.ebean.Expression;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -16,7 +15,10 @@ public class Facility extends Model {
     public int objectid;
     public String name;
     public String address;
-    public String facilityType;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="typeID")
+    public FacilityType facilityType;
     public boolean roof;
 
     @ManyToMany(cascade=CascadeType.ALL)
@@ -37,9 +39,19 @@ public class Facility extends Model {
             String.class, Facility.class
     );
 
-    public static List<Facility> findFacilitesForSport(SportType sport) {
-        // TODO
-        return null;
+    public static List<Facility> findFacilitesForSports(List<SportType> sports) {
+        return find.where().in("possibleSport", sports).findList();
+    }
+
+    public static List<Facility> findFacilities(Boolean roof, List<SportType> sports, LocalTime begin, LocalTime end) {
+
+        if(roof != null) {
+            return find.where().in("possibleSport", sports).eq("roof", roof).findList();
+        }
+        else {
+           return findFacilitesForSports(sports);
+        }
+        //find.where().in("possibleSport", sports).eq("roof", roof).between("openingHours)
     }
 
     public String toString() {
