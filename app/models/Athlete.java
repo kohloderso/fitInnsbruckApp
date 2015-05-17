@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
+
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.data.validation.ValidationError;
@@ -29,10 +30,10 @@ public class Athlete extends Model {
     @Formats.DateTime(pattern = "dd/MM/yyyy")
     @Past(message="muss in der Vergangenheit liegen ;-)")
     public Date birthday;
-    @Constraints.Required(message = "Bitte geben Sie einen Wert ein")
-    public int height;
-    @Constraints.Required(message = "Sie duerfen auch gerne luegen ;-)")
-    public int weight;
+   //@NotNull
+    public Integer height;
+   //@NotNull
+    public Integer weight;
 
 
     public List<ValidationError> validate() {
