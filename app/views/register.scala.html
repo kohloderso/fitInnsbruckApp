@@ -9,30 +9,36 @@
             </div>
         }
 
+
         <form action="@routes.Application.addUser()" method="post" >
 
             <div class="container">
                 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-                <div class="form-description">
-                    <label for="inputUsername">Username</label>
-                    <input type="text" class="form-control" name="name" id="inputUsername">
-                </div>
-                <div class="form-description">
-                    <label for="inputPassword">Password</label>
-                    <input type="password" class="form-control" name="password" id="inputPassword">
-                </div>
-                <div class="form-description">
-                    <label for="inputBirthday">Birthday</label>
-                    <input type="text" class="form-control" name="birthday" id="inputBirthday">
-                </div>
-                <div class="form-description">
-                    <label for="inputWeight">Weight</label>
-                    <input type="number" class="form-control" name="weight" id="inputWeight">
-                </div>
-                <div class="form-description">
-                    <label for="inputHeight">Height</label>
-                    <input type="number" class="form-control" name="height" id="inputHeight">
-                </div>
+                @formHelpers.textField(form("name"),
+                    inputType = "text",
+                    label = "Name",
+                    placeholder = ""
+                )
+                @formHelpers.textField(form("password"),
+                    inputType = "password",
+                    label = "Passwort",
+                    placeholder = ""
+                )
+                @formHelpers.textField(form("birthday"),
+                    inputType = "text",
+                    label = "Geburtstag",
+                    placeholder = ""
+                )
+                @formHelpers.textField(form("weight"),
+                    inputType = "number",
+                    label = "Gewicht",
+                    placeholder = ""
+                )
+                @formHelpers.textField(form("height"),
+                    inputType = "number",
+                    label = "Größe",
+                    placeholder = ""
+                )
                 <br>
                 <button type="submit" class="btn btn-primary">Register</button>
 
@@ -44,7 +50,7 @@
 
             <script type="text/javascript">
             $ ( function ( ) {
-            $ ( '#inputBirthday' ).datepicker ( ) ;
+            $ ( '#birthday' ).datepicker ( ) ;
             } ) ;
             </script>
         </form>

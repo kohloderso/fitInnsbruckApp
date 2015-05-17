@@ -1,0 +1,9 @@
+@(field: play.data.Form.Field, inputType: String, label: String = "CHANGEME", placeholder: String = "")
+
+<div class="form-description @if(!field.errors().isEmpty) {has-error}">
+    <label for="@field.name">@label</label>
+    <input type="@inputType" class="form-control" name="@field.name" id="@field.name" placeholder="@placeholder" value="@field.value">
+    @for(error <- field.errors) {
+        <span class="help-block">@error.message</span>
+    }
+</div>

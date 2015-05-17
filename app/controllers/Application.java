@@ -45,7 +45,7 @@ public class Application extends Controller {
         return redirect(routes.Application.index());
     }
 
-    @Security.Authenticated(Secured.class)
+    @Security.Authenticated(Secured.clzass)
     public static Result showQueryForm() {
         return ok(queryView.render());
     }
