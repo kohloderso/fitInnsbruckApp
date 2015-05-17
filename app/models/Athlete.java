@@ -25,8 +25,9 @@ public class Athlete extends Model {
     @Constraints.Required(message = "Darf nicht leer sein")
     @Constraints.MinLength(value = 5, message = "Passwort muss aus mindestens 5 Zeichen bestehen")
     public String password;
-    @Past(message="muss in der Vergangenheit liegen ;-)")
+
     @Formats.DateTime(pattern = "dd/MM/yyyy")
+    @Past(message="muss in der Vergangenheit liegen ;-)")
     public Date birthday;
     @Constraints.Required(message = "Bitte geben Sie einen Wert ein")
     public int height;
