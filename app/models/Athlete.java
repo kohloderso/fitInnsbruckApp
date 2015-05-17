@@ -36,11 +36,14 @@ public class Athlete extends Model {
     public Integer weight;
 
 
-    public List<ValidationError> validate() {
-        List<ValidationError> errors = new ArrayList<ValidationError>();
-        if (findUser("name") != null) {
-            errors.add(new ValidationError("name", "Dieser Name existiert bereits"));
+    public Map<String, List<ValidationError>> validate() {
+        Map<String, List<ValidationError>> errors = new HashMap<String, List<ValidationError>>();
+        List<ValidationError> list = new ArrayList<ValidationError>();
+        if (findUser(name) != null) {
+            list.add(new ValidationError("name", "Dieser Name existiert bereits"));
+            errors.put("name", list);
         }
+
         return errors.isEmpty() ? null : errors;
     }
 
