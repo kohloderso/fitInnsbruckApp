@@ -6,8 +6,8 @@
             <legend>Zeit</legend>
 
             <div class="form-description">
-                <label for="start">Beginn</label>
-                <input type="input" class="form-control" name="start" id="start" placeholder="">
+                <label for="begin">Beginn</label>
+                <input type="input" class="form-control" name="begin" id="begin" placeholder="">
             </div>
             <div class="form-description">
                 <label for="end">Ende</label>
@@ -69,7 +69,7 @@
             } ) ;
             var time = currentDate.getHours() + ":" + currentDate.getMinutes();
             $ ( function ( ) {
-            $ ( '#start' ).timepicker({showMeridian: false, defaultTime: time}) ;
+            $ ( '#begin' ).timepicker({showMeridian: false, defaultTime: time}) ;
             } ) ;
             </script>
 

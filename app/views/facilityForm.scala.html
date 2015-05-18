@@ -10,11 +10,10 @@
   </div>
   <div class="form-group">
     <label for="inputType">Typ</label>
-    <select class="form-control" name="facilityType" id="inputType">
-      <option>Klettergarten</option>
-      <option>Sportplatz</option>
-      <option>Tennisplatz</option>
-      <option>Schwimmbad</option>
+    <select class="form-control" name="facilityType.typeID" id="inputType">
+    @for(ft <- FacilityType.allAsScalaList()) {
+      <option value=@ft.typeID>@ft.toString</option>
+    }
     </select>
   </div>
   <legend>Welche Sportarten kann man dort betreiben?</legend>

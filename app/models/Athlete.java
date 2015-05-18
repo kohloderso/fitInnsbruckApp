@@ -39,6 +39,7 @@ public class Athlete extends Model {
     );
 
 
+
     public static Athlete findUser(String name) {
         return find.where().eq("name", name).findUnique();
     }
