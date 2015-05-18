@@ -4,6 +4,7 @@ import models.*;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
+import play.data.validation.ValidationError;
 import play.db.ebean.Model;
 import play.mvc.*;
 import play.twirl.api.Html;
@@ -37,10 +38,17 @@ public class Application extends Controller {
         Form<Athlete> userForm = form(Athlete.class).bindFromRequest();
         if (userForm.hasErrors()) {
             Logger.info("error while registrating");
-            userForm.reject("a problem occurred with your registration");
+            userForm.reject("Es gab Probleme beim Registrieren");
             return badRequest(register.render(userForm));
         }
         Athlete athlete = userForm.get();
+//        Map<String, List<ValidationError>> errors = athlete.validate();
+//        if(!errors.isEmpty()) {
+//           // userForm.errors
+//            Logger.info("error while registrating");
+//            userForm.reject("Es gab Probleme beim Registrieren");
+//            return badRequest(register.render(userForm));
+//        }
         athlete.save();
         return redirect(routes.Application.index());
     }

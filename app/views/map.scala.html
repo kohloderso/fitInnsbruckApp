@@ -1,5 +1,8 @@
 @(latitude: String, longitude: String)
-<div id="map"></div>
+<div id="map">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+</div>
 <script type="text/javascript" charset="utf-8">
     var map = L.map('map').setView(new L.LatLng(parseFloat(@latitude), parseFloat(@longitude)), 15);
     var Thunderforest_Landscape = L.tileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
