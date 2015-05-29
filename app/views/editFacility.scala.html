@@ -13,8 +13,10 @@
             <div class="container">
                 <meta http-equiv="content-type" content="text/html; charset=utf-8">
                 <h2 align="center"><b>@form("name").value() bearbeiten</b></h2> <br><br>
+                <a class="btn btn-primary" href="@routes.Application.deleteFacility(form("objectid").value().toLong)" role="button" id="editBtn">Sportstätte löschen</a><br><br>
                 @facilityForm(form, sportTypes)
-                <button type="submit" class="btn btn-primary">Speichern</button>
+                <br><button type="submit" class="btn btn-primary">Speichern</button>
+
             </div>
         </form>
 

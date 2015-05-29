@@ -199,4 +199,9 @@ public class Application extends Controller {
         return redirect(routes.Application.showFacility(updatedFacility.objectid));
     }
 
+    public static Result deleteFacility(Long facilityID) {
+        Facility f = Facility.find.byId(facilityID.toString());
+        f.delete();
+        return getFacilities();
+    }
 }
