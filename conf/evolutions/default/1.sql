@@ -18,6 +18,7 @@ create table athlete (
   birthday                  timestamp,
   height                    integer,
   weight                    integer,
+  role_id                   bigint,
   constraint pk_athlete primary key (id))
 ;
 
@@ -68,11 +69,17 @@ create table opening_hours (
 
 create table pricing (
   price_id                  integer not null,
-  adult                     float,
-  child                     float,
-  youth                     float,
-  student                   float,
+  adult                     double,
+  child                     double,
+  youth                     double,
+  student                   double,
   constraint pk_pricing primary key (price_id))
+;
+
+create table security_role (
+  id                        bigint not null,
+  name                      varchar(255),
+  constraint pk_security_role primary key (id))
 ;
 
 create table sport_type (
@@ -103,60 +110,70 @@ create sequence opening_hours_seq;
 
 create sequence pricing_seq;
 
+create sequence security_role_seq;
+
 create sequence sport_type_seq;
 
-alter table facility add constraint fk_facility_facilityType_1 foreign key (typeID) references facility_type (type_id);
-create index ix_facility_facilityType_1 on facility (typeID);
-alter table facility add constraint fk_facility_openingHours_2 foreign key (hoursID) references opening_hours (hours_id);
-create index ix_facility_openingHours_2 on facility (hoursID);
-alter table facility add constraint fk_facility_prices_3 foreign key (priceID) references pricing (price_id);
-create index ix_facility_prices_3 on facility (priceID);
-alter table open_period add constraint fk_open_period_open_hours_day_4 foreign key (open_hours_day_day_id) references open_hours_day (day_id);
-create index ix_open_period_open_hours_day_4 on open_period (open_hours_day_day_id);
-alter table open_period add constraint fk_open_period_openingHours_5 foreign key (opening_hours_hours_id) references opening_hours (hours_id);
-create index ix_open_period_openingHours_5 on open_period (opening_hours_hours_id);
-alter table opening_hours add constraint fk_opening_hours_monday_6 foreign key (mondayID) references open_hours_day (day_id);
-create index ix_opening_hours_monday_6 on opening_hours (mondayID);
-alter table opening_hours add constraint fk_opening_hours_tuesday_7 foreign key (tuesdayID) references open_hours_day (day_id);
-create index ix_opening_hours_tuesday_7 on opening_hours (tuesdayID);
-alter table opening_hours add constraint fk_opening_hours_wednesday_8 foreign key (wednesdayID) references open_hours_day (day_id);
-create index ix_opening_hours_wednesday_8 on opening_hours (wednesdayID);
-alter table opening_hours add constraint fk_opening_hours_thursday_9 foreign key (thursdayID) references open_hours_day (day_id);
-create index ix_opening_hours_thursday_9 on opening_hours (thursdayID);
-alter table opening_hours add constraint fk_opening_hours_friday_10 foreign key (fridayID) references open_hours_day (day_id);
-create index ix_opening_hours_friday_10 on opening_hours (fridayID);
-alter table opening_hours add constraint fk_opening_hours_saturday_11 foreign key (saturdayID) references open_hours_day (day_id);
-create index ix_opening_hours_saturday_11 on opening_hours (saturdayID);
-alter table opening_hours add constraint fk_opening_hours_sunday_12 foreign key (sundayID) references open_hours_day (day_id);
-create index ix_opening_hours_sunday_12 on opening_hours (sundayID);
+alter table athlete add constraint fk_athlete_role_1 foreign key (role_id) references security_role (id) on delete restrict on update restrict;
+create index ix_athlete_role_1 on athlete (role_id);
+alter table facility add constraint fk_facility_facilityType_2 foreign key (typeID) references facility_type (type_id) on delete restrict on update restrict;
+create index ix_facility_facilityType_2 on facility (typeID);
+alter table facility add constraint fk_facility_openingHours_3 foreign key (hoursID) references opening_hours (hours_id) on delete restrict on update restrict;
+create index ix_facility_openingHours_3 on facility (hoursID);
+alter table facility add constraint fk_facility_prices_4 foreign key (priceID) references pricing (price_id) on delete restrict on update restrict;
+create index ix_facility_prices_4 on facility (priceID);
+alter table open_period add constraint fk_open_period_open_hours_day_5 foreign key (open_hours_day_day_id) references open_hours_day (day_id) on delete restrict on update restrict;
+create index ix_open_period_open_hours_day_5 on open_period (open_hours_day_day_id);
+alter table open_period add constraint fk_open_period_openingHours_6 foreign key (opening_hours_hours_id) references opening_hours (hours_id) on delete restrict on update restrict;
+create index ix_open_period_openingHours_6 on open_period (opening_hours_hours_id);
+alter table opening_hours add constraint fk_opening_hours_monday_7 foreign key (mondayID) references open_hours_day (day_id) on delete restrict on update restrict;
+create index ix_opening_hours_monday_7 on opening_hours (mondayID);
+alter table opening_hours add constraint fk_opening_hours_tuesday_8 foreign key (tuesdayID) references open_hours_day (day_id) on delete restrict on update restrict;
+create index ix_opening_hours_tuesday_8 on opening_hours (tuesdayID);
+alter table opening_hours add constraint fk_opening_hours_wednesday_9 foreign key (wednesdayID) references open_hours_day (day_id) on delete restrict on update restrict;
+create index ix_opening_hours_wednesday_9 on opening_hours (wednesdayID);
+alter table opening_hours add constraint fk_opening_hours_thursday_10 foreign key (thursdayID) references open_hours_day (day_id) on delete restrict on update restrict;
+create index ix_opening_hours_thursday_10 on opening_hours (thursdayID);
+alter table opening_hours add constraint fk_opening_hours_friday_11 foreign key (fridayID) references open_hours_day (day_id) on delete restrict on update restrict;
+create index ix_opening_hours_friday_11 on opening_hours (fridayID);
+alter table opening_hours add constraint fk_opening_hours_saturday_12 foreign key (saturdayID) references open_hours_day (day_id) on delete restrict on update restrict;
+create index ix_opening_hours_saturday_12 on opening_hours (saturdayID);
+alter table opening_hours add constraint fk_opening_hours_sunday_13 foreign key (sundayID) references open_hours_day (day_id) on delete restrict on update restrict;
+create index ix_opening_hours_sunday_13 on opening_hours (sundayID);
 
 
 
-alter table facility_sport_type add constraint fk_facility_sport_type_facili_01 foreign key (facility_objectid) references facility (objectid);
+alter table facility_sport_type add constraint fk_facility_sport_type_facili_01 foreign key (facility_objectid) references facility (objectid) on delete restrict on update restrict;
 
-alter table facility_sport_type add constraint fk_facility_sport_type_sport__02 foreign key (sport_type_sport_id) references sport_type (sport_id);
+alter table facility_sport_type add constraint fk_facility_sport_type_sport__02 foreign key (sport_type_sport_id) references sport_type (sport_id) on delete restrict on update restrict;
 
 # --- !Downs
 
-drop table if exists activity cascade;
+SET REFERENTIAL_INTEGRITY FALSE;
 
-drop table if exists athlete cascade;
+drop table if exists activity;
 
-drop table if exists facility cascade;
+drop table if exists athlete;
 
-drop table if exists facility_sport_type cascade;
+drop table if exists facility;
 
-drop table if exists facility_type cascade;
+drop table if exists facility_sport_type;
 
-drop table if exists open_hours_day cascade;
+drop table if exists facility_type;
 
-drop table if exists open_period cascade;
+drop table if exists open_hours_day;
 
-drop table if exists opening_hours cascade;
+drop table if exists open_period;
 
-drop table if exists pricing cascade;
+drop table if exists opening_hours;
 
-drop table if exists sport_type cascade;
+drop table if exists pricing;
+
+drop table if exists security_role;
+
+drop table if exists sport_type;
+
+SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists activity_seq;
 
@@ -173,6 +190,8 @@ drop sequence if exists open_period_seq;
 drop sequence if exists opening_hours_seq;
 
 drop sequence if exists pricing_seq;
+
+drop sequence if exists security_role_seq;
 
 drop sequence if exists sport_type_seq;
 

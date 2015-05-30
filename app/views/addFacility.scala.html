@@ -1,6 +1,6 @@
 @(form: play.data.Form[Facility], sportTypes: List[SportType])
 @main("Neue Sportstätte") {
-    @helper.form(routes.Application.addFacility()) {
+    @helper.form(routes.AdminController.addFacility()) {
 
         @if(form.hasGlobalErrors) {
             <div class="alert alert-dismissable alert-danger">
@@ -10,12 +10,12 @@
             </div>
         }
 
-        <form action="@routes.Application.addFacility()" method="post" >
+        <form action="@routes.AdminController.addFacility()" method="post" >
             <div class="container">
                 <meta http-equiv="content-type" content="text/html; charset=utf-8">
                 <h2 align="center"><b>Neue Sportstätte hinzufügen </b></h2> <br>
                 @facilityForm(form, sportTypes)
-                <button type="submit" class="btn btn-primary">Hinzufügen</button>
+                <br><button type="submit" class="btn btn-primary">Hinzufügen</button>
             </div>
         </form>
 
