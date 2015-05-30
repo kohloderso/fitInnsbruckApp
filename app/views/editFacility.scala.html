@@ -1,6 +1,6 @@
 @(form: play.data.Form[Facility], sportTypes: List[SportType])
 @main("bearbeite " + form("name").value()) {
-    @helper.form(routes.Application.updateFacility(form("objectid").value().toLong)) {
+    @helper.form(routes.AdminController.updateFacility(form("objectid").value().toLong)) {
 
         @if(form.hasGlobalErrors) {
             <div class="alert alert-dismissable alert-danger">
@@ -11,11 +11,11 @@
 
 
 
-        <form action="@routes.Application.updateFacility(form("objectid").value().toLong)" method="post" >
+        <form action="@routes.AdminController.updateFacility(form("objectid").value().toLong)" method="post" >
             <div class="container">
                 <meta http-equiv="content-type" content="text/html; charset=utf-8">
                 <h2 align="center"><b>@form("name").value() bearbeiten</b></h2> <br><br>
-                <a href="#" data-href="@routes.Application.deleteFacility(form("objectid").value().toLong)" class="btn btn-danger" data-toggle="modal" data-target="#confirmModal">Sportstätte löschen</a>
+                <a href="#" data-href="@routes.AdminController.deleteFacility(form("objectid").value().toLong)" class="btn btn-danger" data-toggle="modal" data-target="#confirmModal">Sportstätte löschen</a>
                 <br><br>
                 @facilityForm(form, sportTypes)
                 <br><button type="submit" class="btn btn-primary">Speichern</button>
@@ -36,7 +36,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
-                        <a class="btn btn-danger btn-ok" href="@routes.Application.deleteFacility(form("objectid").value().toLong)">Löschen</a>
+                        <a class="btn btn-danger btn-ok" href="@routes.AdminController.deleteFacility(form("objectid").value().toLong)">Löschen</a>
                     </div>
                 </div>
             </div>

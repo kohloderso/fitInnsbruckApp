@@ -16,6 +16,8 @@ libraryDependencies ++= Seq(
   javaCore
 )
 
+libraryDependencies += "be.objectify" %% "deadbolt-java" % "2.3.3"
+
 libraryDependencies += "org.postgresql" % "postgresql" % "9.4-1201-jdbc4"
 
 libraryDependencies += "net.sf.opencsv" % "opencsv" % "2.3"
