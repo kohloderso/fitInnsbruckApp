@@ -9,16 +9,37 @@
             </div>
         }
 
+
+
         <form action="@routes.Application.updateFacility(form("objectid").value().toLong)" method="post" >
             <div class="container">
                 <meta http-equiv="content-type" content="text/html; charset=utf-8">
                 <h2 align="center"><b>@form("name").value() bearbeiten</b></h2> <br><br>
-                <a class="btn btn-primary" href="@routes.Application.deleteFacility(form("objectid").value().toLong)" role="button" id="editBtn">Sportstätte löschen</a><br><br>
+                <a href="#" data-href="@routes.Application.deleteFacility(form("objectid").value().toLong)" class="btn btn-danger" data-toggle="modal" data-target="#confirmModal">Sportstätte löschen</a>
+                <br><br>
                 @facilityForm(form, sportTypes)
                 <br><button type="submit" class="btn btn-primary">Speichern</button>
-
             </div>
         </form>
 
+
+
+        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Löschen</h4>
+                    </div>
+                    <div class="modal-body">
+                       Wollen Sie diese Sportstätte wirklich löschen?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+                        <a class="btn btn-danger btn-ok" href="@routes.Application.deleteFacility(form("objectid").value().toLong)">Löschen</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
 }
