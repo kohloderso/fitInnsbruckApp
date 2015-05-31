@@ -1,26 +1,18 @@
 @(facilities: List[Facility])
-@main("Alle Sportstätten"){
-
-  <div class="container">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <div class="form-group">
-
-      <h2 align="center"><b>Alle Sportstätten </b></h2> <br><br>
-
-      <ul>
-        <div class="list-group">
-        @for(facility <- facilities) {
-          <a href="@routes.Application.showFacility(facility.objectid)" class="list-group-item">@facility.name</a>
-        }
+    @main("Alle Sportstätten") {
+        <div class="container">
+            <meta http-equiv="content-type" content="text/html; charset=utf-8">
+            <div class="form-group">
+                <h3 align="center"><b>Alle Sportstätten </b></h3> <br><br>
+                <ul>
+                    <div class="list-group">
+                    @for(facility <- facilities) {
+                        <a href="@routes.Application.showFacility(facility.objectid)" class="list-group-item">@facility.name</a>
+                    }
+                    </div>
+                </ul>
+            </div>
         </div>
-      </ul>
 
 
-    </div>
-  </div>
-
-
-
-
-
-}
+    }

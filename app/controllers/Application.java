@@ -6,10 +6,9 @@ import models.*;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
-import play.data.validation.ValidationError;
 import play.db.ebean.Model;
 import play.mvc.*;
-import play.twirl.api.Html;
+import security.Login;
 import views.html.*;
 
 import java.time.LocalTime;
@@ -21,7 +20,6 @@ import scala.collection.JavaConverters;
 
 
 import static play.data.Form.form;
-import static play.libs.Json.toJson;
 
 /**
  * Provides all the functions a normal user is allowed to call. Some of the are restricted to registered users only.
@@ -120,7 +118,7 @@ public class Application extends Controller {
      */
     @SubjectNotPresent
     public static Result login() {
-        return ok(login2.render(form(Login.class)));
+        return ok(loginForm.render(form(Login.class)));
     }
 
     /**
@@ -128,14 +126,14 @@ public class Application extends Controller {
      * If so he is redirected to the index page. If he couldn't be authenticated the form is rendered again, flashing an error message.
      */
     public static Result authenticate() {
-        Form<Login> loginForm = form(Login.class).bindFromRequest();
-        if (loginForm.hasErrors()) {
+        Form<Login> logform = form(Login.class).bindFromRequest();
+        if (logform.hasErrors()) {
             Logger.info("error logging on");
-            return badRequest(login2.render(loginForm));
+            return badRequest(loginForm.render(logform));
         } else {
             Logger.info("Login successful");
             session().clear();
-            session("username", loginForm.get().username);
+            session("username", logform.get().username);
             return redirect(
                     routes.Application.index()
             );

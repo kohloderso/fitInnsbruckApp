@@ -1,0 +1,13 @@
+@import be.objectify.deadbolt.java.views.html._
+
+@main("Forbidden") {
+    <div class="container">
+        <img class="img-responsive" src="@routes.Assets.at("images/you-shall-not-pass2.jpg")"><br>
+        @subjectNotPresent() {
+            <p>Vielleicht geht es ja wenn du dich einloggst ;-)</p>
+            <a class="btn btn-primary" href="@routes.Application.login()" role="button" id="signInbtn">Sign in</a>
+            <a class="btn btn-primary" href="@routes.Application.register()" role="button" id="registerBtn">Register</a>
+            <br> <br>
+        }
+    </div>
+}
