@@ -23,23 +23,36 @@ import static play.data.Form.form;
 import static play.libs.Json.toJson;
 
 /**
- * Created by Christina on 30.05.2015.
+ * This class contains all functions, that only admins are allowed to call.
+ * This includes changing anything about the facilities and viewing the registered users.
  */
 @Restrict({@Group("admin")})
 public class AdminController extends Controller {
 
-    @Unrestricted
+    /**
+     * List all registered users and all their properties.
+     *
+     */
+    @Unrestricted   // TODO remove Unrestricted after debugging pahse
     public static Result getUsers() {
         List<Athlete> athletes = new Model.Finder(String.class, Athlete.class).all();
         return ok(toJson(athletes));
     }
 
-    public static Result addNewFacility() {
+    /**
+     * Creates a form for the facility and renders the appropriate view, to allow the user to fill the form.
+     */
+    public static Result makeFacilityForm() {
         List<SportType> sports = SportType.find.all();
         scala.collection.immutable.List<SportType> ls = JavaConverters.asScalaBufferConverter(sports).asScala().toList();
         return ok(addFacility.render(form(Facility.class), ls));
     }
 
+    /**
+     * If there was no error: reads data from the filled form, creates a new facility instance and saves it.
+     * After successful saving the user is redirected to the list of all facilities.
+     * If there was an error in the form, the form is rendered again, with the incorrect fields highlighted.
+     */
     public static Result addFacility() {
         Form<Facility> facilityForm = form(Facility.class).bindFromRequest();
 
@@ -60,9 +73,13 @@ public class AdminController extends Controller {
         System.out.println(facility.toString());
         facility.save();
         Logger.info("saved");
-        return redirect(routes.Application.index());
+        return redirect(routes.Application.getFacilities());
     }
 
+    /**
+     * Renders the same form as with makeFacilityForm but with the fields preset to the values of the facility you want to edit.
+     * @param facilityID
+     */
     public static Result editFacility(Long facilityID) {
         List<SportType> sports = SportType.find.all();
         scala.collection.immutable.List<SportType> ls = JavaConverters.asScalaBufferConverter(sports).asScala().toList();
@@ -71,6 +88,13 @@ public class AdminController extends Controller {
         return ok(editFacility.render(facilityForm, ls));
     }
 
+    /**
+     * Reads the data from the facilityForm and if there were no changes updates the values for the facility with the specified ID.
+     * After the successful update the user is redirected to detailed view of the edited facility.
+     * If there were errors, the form is rendered again with the incorrect fields highlighted.
+     * @param facilityID
+     * @return
+     */
     public static Result updateFacility(Long facilityID) {
         Form<Facility> facilityForm = form(Facility.class).bindFromRequest();
 
@@ -96,10 +120,15 @@ public class AdminController extends Controller {
         return redirect(routes.Application.showFacility(updatedFacility.objectid));
     }
 
+    /**
+     * Deletes the facility with this ID.
+     * After deletion the user is redirected to the list of all facilities.
+     * @param facilityID
+     */
     public static Result deleteFacility(Long facilityID) {
         Facility f = Facility.find.byId(facilityID.toString());
         f.delete();
-        return Application.getFacilities();
+        return redirect(routes.Application.getFacilities());
     }
 
 

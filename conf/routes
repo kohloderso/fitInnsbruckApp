@@ -10,7 +10,7 @@ GET         /queryForm                 controllers.Application.showQueryForm()
 POST        /query                     controllers.Application.askQuery()
 GET         /users                     controllers.AdminController.getUsers()
 GET         /facilities                controllers.Application.getFacilities()
-GET         /add-facility              controllers.AdminController.addNewFacility()
+GET         /add-facility              controllers.AdminController.makeFacilityForm()
 POST        /new-facility              controllers.AdminController.addFacility()
 GET         /login                     controllers.Application.login()
 POST        /login                     controllers.Application.authenticate()
@@ -18,7 +18,7 @@ GET         /logout                    controllers.Application.logout()
 GET         /facility/:f               controllers.Application.showFacility(f: Long)
 GET         /edit-facility/:f          controllers.AdminController.editFacility(f: Long)
 POST        /update-facility/:f        controllers.AdminController.updateFacility(f: Long)
-GET        /delete-facility/:f        controllers.AdminController.deleteFacility(f: Long)
+GET         /delete-facility/:f        controllers.AdminController.deleteFacility(f: Long)
 
 
 # Map static resources from the /public folder to the /assets URL path
