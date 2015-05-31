@@ -17,7 +17,7 @@
                 <h2 align="center"><b>@form("name").value() bearbeiten</b></h2> <br><br>
                 <a href="#" data-href="@routes.AdminController.deleteFacility(form("objectid").value().toLong)" class="btn btn-danger" data-toggle="modal" data-target="#confirmModal">Sportstätte löschen</a>
                 <br><br>
-                @facilityForm(form, sportTypes)
+                @helpers.facilityForm(form, sportTypes)
                 <br><button type="submit" class="btn btn-primary">Speichern</button>
             </div>
         </form>
