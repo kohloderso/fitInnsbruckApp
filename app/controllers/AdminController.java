@@ -43,9 +43,7 @@ public class AdminController extends Controller {
      * Creates a form for the facility and renders the appropriate view, to allow the user to fill the form.
      */
     public static Result makeFacilityForm() {
-        List<SportType> sports = SportType.find.all();
-        scala.collection.immutable.List<SportType> ls = JavaConverters.asScalaBufferConverter(sports).asScala().toList();
-        return ok(addFacility.render(form(Facility.class), ls));
+        return ok(addFacility.render(form(Facility.class)));
     }
 
     /**
@@ -59,9 +57,7 @@ public class AdminController extends Controller {
         if (facilityForm.hasErrors()) {
             Logger.info("error while binding facility form");
             facilityForm.reject("a problem occurred");
-            List<SportType> sports = SportType.find.all();
-            scala.collection.immutable.List<SportType> ls = JavaConverters.asScalaBufferConverter(sports).asScala().toList();
-            return badRequest(addFacility.render(facilityForm, ls));
+            return badRequest(addFacility.render(facilityForm));
         }
         Facility facility = facilityForm.get();
         Map<String, String[]> map = request().body().asFormUrlEncoded();
@@ -69,7 +65,7 @@ public class AdminController extends Controller {
         for(String sportID: checkedSport) {
             facility.possibleSport.add(SportType.find.byId(sportID));
         }
-        facility.facilityType = FacilityType.find.byId(new Integer(facility.facilityType.typeID).toString());
+        facility.facilityType = FacilityType.find.byId(map.get("facilityTypeID")[0]);
         System.out.println(facility.toString());
         facility.save();
         Logger.info("saved");
@@ -81,11 +77,9 @@ public class AdminController extends Controller {
      * @param facilityID
      */
     public static Result editFacility(Long facilityID) {
-        List<SportType> sports = SportType.find.all();
-        scala.collection.immutable.List<SportType> ls = JavaConverters.asScalaBufferConverter(sports).asScala().toList();
         Facility f = Facility.find.byId(facilityID.toString());
         Form facilityForm = Form.form(Facility.class).fill(f);
-        return ok(editFacility.render(facilityForm, ls));
+        return ok(editFacility.render(facilityForm));
     }
 
     /**
@@ -93,7 +87,6 @@ public class AdminController extends Controller {
      * After the successful update the user is redirected to detailed view of the edited facility.
      * If there were errors, the form is rendered again with the incorrect fields highlighted.
      * @param facilityID
-     * @return
      */
     public static Result updateFacility(Long facilityID) {
         Form<Facility> facilityForm = form(Facility.class).bindFromRequest();
@@ -101,9 +94,7 @@ public class AdminController extends Controller {
         if (facilityForm.hasErrors()) {
             Logger.info("error while binding facility form");
             facilityForm.reject("a problem occurred");
-            List<SportType> sports = SportType.find.all();
-            scala.collection.immutable.List<SportType> ls = JavaConverters.asScalaBufferConverter(sports).asScala().toList();
-            return badRequest(editFacility.render(facilityForm, ls));
+            return badRequest(editFacility.render(facilityForm));
         }
         Facility updatedFacility = facilityForm.get();
         Map<String, String[]> map = request().body().asFormUrlEncoded();
@@ -111,8 +102,7 @@ public class AdminController extends Controller {
         for(String sportID: checkedSport) {
             updatedFacility.possibleSport.add(SportType.find.byId(sportID));
         }
-
-        Facility f = Facility.find.byId(facilityID.toString());
+        updatedFacility.facilityType = FacilityType.find.byId(map.get("facilityTypeID")[0]);
         updatedFacility.objectid = facilityID.intValue();
         System.out.println(updatedFacility.toString());
         updatedFacility.update();

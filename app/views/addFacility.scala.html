@@ -1,4 +1,4 @@
-@(form: play.data.Form[Facility], sportTypes: List[SportType])
+@(form: play.data.Form[Facility])
 @main("Neue Sportstätte") {
     @helper.form(routes.AdminController.addFacility()) {
 
@@ -14,7 +14,7 @@
             <div class="container">
                 <meta http-equiv="content-type" content="text/html; charset=utf-8">
                 <h2 align="center"><b>Neue Sportstätte hinzufügen </b></h2> <br>
-                @helpers.facilityForm(form, sportTypes)
+                @helpers.facilityForm(form)
                 <br><button type="submit" class="btn btn-primary">Hinzufügen</button><br><br>
             </div>
         </form>
