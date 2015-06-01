@@ -1,0 +1,76 @@
+@(form: play.data.Form[Facility])
+<div class="form-group">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    @textField(form("name"),
+        inputType = "text",
+        label = "Bezeichnung",
+        placeholder = ""
+    )
+    @textField(form("address"),
+        inputType = "text",
+        label = "Adresse",
+        placeholder = ""
+    )
+
+    <div class="form-group @if(!form("facilityType").errors().isEmpty) {has-error}">
+        <label for="inputType">Typ</label>
+        <select class="form-control" name="facilityTypeID" id="inputType">
+        @for(ftype <- FacilityType.allAsScalaList()) {
+            @if(form("facilityType").value()==ftype.toString) {
+                <option value=@ftype.typeID selected>@ftype.toString preselected</option>
+            } else {
+                <option value=@ftype.typeID>@ftype.toString</option>
+            }
+        }
+        </select>
+    </div>
+
+    <legend>Welche Sportarten kann man dort betreiben?</legend>
+    @form("possibleSport").value()
+    @for(s <- SportType.allAsScalaList()) {
+        <label class="checkbox-inline"><input type='checkbox' name='sportlist' value=@s.sportID>@s.description </label>
+    }
+    <br> <br>
+    <legend>Koordinaten</legend>
+
+    <label for="inputCoordinates">Koordinaten in Grad mit Dezimalstellen</label>
+    <div class="form-inline" id="inputCoordinates">
+        <div class="input-group">
+            <span class="input-group-addon">N</span>
+            <input type="text" class="form-control" name="lat" id="inputCoordinateN" placeholder="47.270833" value="@form("lat").value()">
+            <span class="input-group-addon">°</span>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">E</span>
+            <input type="text" class="form-control" name="lon" id="inputCoordinateE" placeholder="11.366111" value="@form("lon").value()">
+            <span class="input-group-addon">°</span>
+        </div> &nbsp;&nbsp;
+        <a class="btn btn-default" onclick="codeAddress()">Berechne aus Adresse</a>
+    </div>
+    <br>
+    <legend>&Ouml;ffnungszeiten</legend>
+    @timesForm("Montag", "openingHours.monday.openPeriods", form)
+    @timesForm("Dienstag", "openingHours.tuesday.openPeriods", form)
+    @timesForm("Mittwoch", "openingHours.wednesday.openPeriods", form)
+    @timesForm("Donnerstag", "openingHours.thursday.openPeriods", form)
+    @timesForm("Freitag", "openingHours.friday.openPeriods", form)
+    @timesForm("Samstag", "openingHours.saturday.openPeriods", form)
+    @timesForm("Sonntag", "openingHours.sunday.openPeriods", form)
+
+    <legend>Preise</legend>
+    <label for="inputAdult">Erwachsene</label>
+    <div class="input-group">
+        <input type="number" step="any" class="form-control" name="prices.adult" id="inputAdult" value="@form("prices.adult").value()">
+        <span class="input-group-addon">€</span>
+    </div>
+    <label for="inputChild">Kinder</label>
+    <div class="input-group">
+        <input type="number" step="any" class="form-control" name="prices.child" id="inputChild" value="@form("prices.child").value()">
+        <span class="input-group-addon">€</span>
+    </div>
+    <label for="inputStudent">Studenten</label>
+    <div class="input-group">
+        <input type="number" step="any" class="form-control" name="prices.student" id="inputStudent" value="@form("prices.student").value()">
+    <span class="input-group-addon">€</span>
+    </div>
+</div>

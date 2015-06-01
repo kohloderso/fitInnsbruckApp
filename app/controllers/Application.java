@@ -1,13 +1,14 @@
 package controllers;
 
+import be.objectify.deadbolt.java.actions.SubjectNotPresent;
+import be.objectify.deadbolt.java.actions.SubjectPresent;
 import models.*;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
-import play.data.validation.ValidationError;
 import play.db.ebean.Model;
 import play.mvc.*;
-import play.twirl.api.Html;
+import security.Login;
 import views.html.*;
 
 import java.time.LocalTime;
@@ -19,21 +20,32 @@ import scala.collection.JavaConverters;
 
 
 import static play.data.Form.form;
-import static play.libs.Json.toJson;
 
 /**
- * Created by Christina on 18.01.2015.
+ * Provides all the functions a normal user is allowed to call. Some of the are restricted to registered users only.
  */
 public class Application extends Controller {
 
+    /**
+     * Renders the home view of the app.
+     */
     public static Result index() {
         return ok(index.render());
     }
 
+    /**
+     * Renders a register form.
+     */
+    @SubjectNotPresent
     public static Result register() {
         return ok(register.render(form(Athlete.class)));
     }
 
+    /**
+     * Reads data from the register form. If there were no errors adds a new user to the database.
+     * After successfully saving the user to the database renders the index page.
+     * If there were errors renders the form again, with the incorrect fields highlighted.
+     */
     public static Result addUser() {
         Form<Athlete> userForm = form(Athlete.class).bindFromRequest();
         if (userForm.hasErrors()) {
@@ -42,22 +54,25 @@ public class Application extends Controller {
             return badRequest(register.render(userForm));
         }
         Athlete athlete = userForm.get();
-//        Map<String, List<ValidationError>> errors = athlete.validate();
-//        if(!errors.isEmpty()) {
-//           // userForm.errors
-//            Logger.info("error while registrating");
-//            userForm.reject("Es gab Probleme beim Registrieren");
-//            return badRequest(register.render(userForm));
-//        }
+        athlete.role = SecurityRole.findByName("normalUser");
         athlete.save();
+        //TODO automatically login this user
         return redirect(routes.Application.index());
     }
 
-    @Security.Authenticated(Secured.class)
+    /**
+     * Renders the form that lets you search for sports facilities.
+     */
+    @SubjectPresent
     public static Result showQueryForm() {
         return ok(queryView.render());
     }
 
+    /**
+     * Reads the data from the Query form. If there were no errors tries to find a list of appropriate facilities and displays them as a list.
+     * If there were errors in the form it is rendered again with the incorrect fields highlighted.
+     */
+    @SubjectPresent
     public static Result askQuery() {
         DynamicForm requestData = form().bindFromRequest();
         if (requestData.hasErrors()) {
@@ -88,115 +103,62 @@ public class Application extends Controller {
         return ok(allFacilities.render(ls));
     }
 
-
-    public static Result getUsers() {
-        List<Athlete> athletes = new Model.Finder(String.class, Athlete.class).all();
-        return ok(toJson(athletes));
-    }
-
+    /**
+     * Renders all facilities that exist in the databse as a List.
+     */
+    @SubjectPresent
     public static Result getFacilities() {
         List<Facility> facilities = new Model.Finder(String.class, Facility.class).all();
         scala.collection.immutable.List<Facility> ls = JavaConverters.asScalaBufferConverter(facilities).asScala().toList();
         return ok(allFacilities.render(ls));
     }
 
-    public static Result getMaptest() {
-        return ok(map.render("47.269212", "11.404102"));
-    }
-
+    /**
+     * Renders a login form.
+     */
+    @SubjectNotPresent
     public static Result login() {
-        return ok(login2.render(form(Login.class)));
+        return ok(loginForm.render(form(Login.class)));
     }
 
+    /**
+     * Checks if the user provided valid credentials in the form using the validate method in Login.java.
+     * If so he is redirected to the index page. If he couldn't be authenticated the form is rendered again, flashing an error message.
+     */
     public static Result authenticate() {
-        Form<Login> loginForm = form(Login.class).bindFromRequest();
-        if (loginForm.hasErrors()) {
+        Form<Login> logform = form(Login.class).bindFromRequest();
+        if (logform.hasErrors()) {
             Logger.info("error logging on");
-            return badRequest(login2.render(loginForm));
+            return badRequest(loginForm.render(logform));
         } else {
             Logger.info("Login successful");
             session().clear();
-            session("username", loginForm.get().username);
+            session("username", logform.get().username);
             return redirect(
-                    routes.Application.showQueryForm()
+                    routes.Application.index()
             );
         }
     }
 
+    /**
+     * clears the current user from the session.
+     */
+    @SubjectPresent
     public static Result logout() {
         session().clear();
         flash("success", "You've been logged out");
         return redirect(
-                routes.Application.login()
+                routes.Application.index()
         );
     }
 
-    @Security.Authenticated(Secured.class)
+    /**
+     * Shows a detailed view of the facility with the specified ID.
+     * @param facilityID
+     */
+    @SubjectPresent
     public static Result showFacility(Long facilityID) {
         Facility f = Facility.find.where().eq("objectid", facilityID).findUnique();
         return ok(facility.render(f));
     }
-
-    public static Result addNewFacility() {
-        List<SportType> sports = SportType.find.all();
-        scala.collection.immutable.List<SportType> ls = JavaConverters.asScalaBufferConverter(sports).asScala().toList();
-        return ok(addFacility.render(form(Facility.class), ls));
-    }
-
-    public static Result addFacility() {
-        Form<Facility> facilityForm = form(Facility.class).bindFromRequest();
-
-        if (facilityForm.hasErrors()) {
-            Logger.info("error while binding facility form");
-            facilityForm.reject("a problem occurred");
-            List<SportType> sports = SportType.find.all();
-            scala.collection.immutable.List<SportType> ls = JavaConverters.asScalaBufferConverter(sports).asScala().toList();
-            return badRequest(addFacility.render(facilityForm, ls));
-        }
-        Facility facility = facilityForm.get();
-        Map<String, String[]> map = request().body().asFormUrlEncoded();
-        String[] checkedSport = map.get("sportlist"); // get selected sports
-        for(String sportID: checkedSport) {
-            facility.possibleSport.add(SportType.find.byId(sportID));
-        }
-        facility.facilityType = FacilityType.find.byId(new Integer(facility.facilityType.typeID).toString());
-        System.out.println(facility.toString());
-        facility.save();
-        Logger.info("saved");
-        return redirect(routes.Application.index());
-    }
-
-    public static Result editFacility(Long facilityID) {
-        List<SportType> sports = SportType.find.all();
-        scala.collection.immutable.List<SportType> ls = JavaConverters.asScalaBufferConverter(sports).asScala().toList();
-        Facility f = Facility.find.byId(facilityID.toString());
-        Form facilityForm = Form.form(Facility.class).fill(f);
-        return ok(editFacility.render(facilityForm, ls));
-    }
-
-    public static Result updateFacility(Long facilityID) {
-        Form<Facility> facilityForm = form(Facility.class).bindFromRequest();
-
-        if (facilityForm.hasErrors()) {
-            Logger.info("error while binding facility form");
-            facilityForm.reject("a problem occurred");
-            List<SportType> sports = SportType.find.all();
-            scala.collection.immutable.List<SportType> ls = JavaConverters.asScalaBufferConverter(sports).asScala().toList();
-            return badRequest(editFacility.render(facilityForm, ls));
-        }
-        Facility updatedFacility = facilityForm.get();
-        Map<String, String[]> map = request().body().asFormUrlEncoded();
-        String[] checkedSport = map.get("sportlist"); // get selected sports
-        for(String sportID: checkedSport) {
-            updatedFacility.possibleSport.add(SportType.find.byId(sportID));
-        }
-
-        Facility f = Facility.find.byId(facilityID.toString());
-        updatedFacility.objectid = facilityID.intValue();
-        System.out.println(updatedFacility.toString());
-        updatedFacility.update();
-        Logger.info("updated");
-        return redirect(routes.Application.showFacility(updatedFacility.objectid));
-    }
-
 }

@@ -1,4 +1,5 @@
 
+import be.objectify.deadbolt.core.models.Role;
 import models.*;
 import play.Application;
 import play.GlobalSettings;
@@ -125,6 +126,15 @@ public class Global extends GlobalSettings {
             Facility test = Facility.find.where().eq("name", "Sport-Oase Hoettinger Au").findUnique();
             Logger.info("aus Datenbank: " + test.name);
         }
+        if (SecurityRole.find.findRowCount() == 0) {
+            SecurityRole admin = new SecurityRole();
+            admin.name = "admin";
+            admin.save();
+
+            SecurityRole normal = new SecurityRole();
+            normal.name = "normalUser";
+            normal.save();
+        }
         if (Athlete.find.findRowCount() == 0) {
             Athlete u = new Athlete();
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -137,6 +147,7 @@ public class Global extends GlobalSettings {
             u.height = 170;
             u.weight = 60;
             u.password = "secret";
+            u.role = SecurityRole.findByName("admin");
             u.save();
         }
 

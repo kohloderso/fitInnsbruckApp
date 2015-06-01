@@ -1,4 +1,6 @@
-package models;
+package security;
+
+import models.Athlete;
 
 public class Login {
     public String username;

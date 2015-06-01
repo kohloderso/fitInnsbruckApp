@@ -13,29 +13,19 @@
 
             <div class="container">
                 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-                @formHelpers.textField(form("name"),
+                @helpers.textField(form("name"),
                     inputType = "text",
                     label = "Name",
                     placeholder = ""
                 )
-                @formHelpers.textField(form("password"),
+                @helpers.textField(form("password"),
                     inputType = "password",
                     label = "Passwort",
                     placeholder = ""
                 )
-                @formHelpers.textField(form("birthday"),
+                @helpers.textField(form("birthday"),
                     inputType = "text",
                     label = "Geburtstag",
-                    placeholder = ""
-                )
-                @formHelpers.textField(form("weight"),
-                    inputType = "text",
-                    label = "Gewicht",
-                    placeholder = ""
-                )
-                @formHelpers.textField(form("height"),
-                    inputType = "text",
-                    label = "Größe",
                     placeholder = ""
                 )
                 <br>
