@@ -47,7 +47,7 @@ public class Facility extends Model {
     public Map<String, List<ValidationError>> validate() {
         Map<String, List<ValidationError>> errors = new HashMap<String, List<ValidationError>>();
         List<ValidationError> list = new ArrayList<ValidationError>();
-        if (find.where().eq("name", name).findUnique() != null) {
+        if (find.where().eq("name", name).ne("objectid", objectid).findRowCount() != 0) {
             list.add(new ValidationError("name", "Diese Sportstaette existiert bereits"));
             errors.put("name", list);
         }
