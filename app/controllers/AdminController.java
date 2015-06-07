@@ -43,6 +43,7 @@ public class AdminController extends Controller {
      * Creates a form for the facility and renders the appropriate view, to allow the user to fill the form.
      */
     public static Result makeFacilityForm() {
+        Form<Facility> formtest = form(Facility.class);
         return ok(addFacility.render(form(Facility.class)));
     }
 

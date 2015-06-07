@@ -1,7 +1,7 @@
 @(form: play.data.Form[Facility],  possibleSportList: List[SportType])
 <div class="form-group">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <input name="objectid" type="hidden" value='@form("objectid").value'/>
+    <input name="objectid" type="hidden" value='@form("objectid").valueOr("0")'/>
     @textField(form("name"),
         inputType = "text",
         label = "Bezeichnung",
