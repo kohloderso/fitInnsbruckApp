@@ -1,6 +1,7 @@
-@(form: play.data.Form[Facility])
+@(form: play.data.Form[Facility],  possibleSportList: List[SportType])
 <div class="form-group">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <input name="objectid" type="hidden" value='@form("objectid").valueOr("0")'/>
     @textField(form("name"),
         inputType = "text",
         label = "Bezeichnung",
@@ -17,18 +18,24 @@
         <select class="form-control" name="facilityTypeID" id="inputType">
         @for(ftype <- FacilityType.allAsScalaList()) {
             @if(form("facilityType").value()==ftype.toString) {
-                <option value=@ftype.typeID selected>@ftype.toString preselected</option>
+                <option value=@ftype.typeID selected>@ftype.toString</option>
             } else {
                 <option value=@ftype.typeID>@ftype.toString</option>
             }
         }
         </select>
+        @for(error <- form("facilityType").errors) {
+            <span class="help-block">@error.message</span>
+        }
     </div>
 
     <legend>Welche Sportarten kann man dort betreiben?</legend>
-    @form("possibleSport").value()
     @for(s <- SportType.allAsScalaList()) {
-        <label class="checkbox-inline"><input type='checkbox' name='sportlist' value=@s.sportID>@s.description </label>
+        @if(possibleSportList.contains(s)) {
+            <label class="checkbox-inline"><input type='checkbox' name='sportlist' value=@s.sportID checked>@s.description </label>
+        } else {
+            <label class="checkbox-inline"><input type='checkbox' name='sportlist' value=@s.sportID>@s.description </label>
+        }
     }
     <br> <br>
     <legend>Koordinaten</legend>

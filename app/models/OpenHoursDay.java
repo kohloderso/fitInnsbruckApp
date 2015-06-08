@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -18,6 +19,13 @@ public class OpenHoursDay extends Model {
     public int dayID;
     @OneToMany(cascade = CascadeType.ALL)
     public List<OpenPeriod> openPeriods;
+
+    public boolean isOpen(LocalTime begin, LocalTime end) {
+        for(OpenPeriod op: openPeriods) {
+            if(!op.isOpen(begin, end)) return false;
+        }
+        return true;
+    }
 
     public String toString() {
         String s = "";

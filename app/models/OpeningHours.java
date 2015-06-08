@@ -4,6 +4,7 @@ package models;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,11 +47,26 @@ public class OpeningHours extends Model {
     @JoinColumn(name="sundayID")
     public OpenHoursDay sunday;
 
-    /*table is not ready for loading the opening times */
     /*calculates if a specific facility is open or not*/
-    public boolean isOpen(LocalTime time){
-
-        return false;
+    public boolean isOpen(LocalTime begin, LocalTime end, DayOfWeek weekday){
+        switch(weekday) {
+            case MONDAY:
+                return monday.isOpen(begin, end);
+            case TUESDAY:
+                return tuesday.isOpen(begin, end);
+            case WEDNESDAY:
+                return wednesday.isOpen(begin, end);
+            case THURSDAY:
+                return thursday.isOpen(begin, end);
+            case FRIDAY:
+                return friday.isOpen(begin, end);
+            case SATURDAY:
+                return saturday.isOpen(begin, end);
+            case SUNDAY:
+                return sunday.isOpen(begin, end);
+            default:
+                return false;
+        }
     }
 
     public String toString() {

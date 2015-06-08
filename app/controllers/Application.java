@@ -11,10 +11,13 @@ import play.mvc.*;
 import security.Login;
 import views.html.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 import scala.collection.JavaConverters;
 
@@ -81,6 +84,9 @@ public class Application extends Controller {
         }
         LocalTime begin = LocalTime.parse(requestData.get("begin"));
         LocalTime end = LocalTime.parse(requestData.get("end"));
+        LocalDate date = LocalDate.parse(requestData.get("day"), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        Logger.info("Datum: " + date.toString());
+        date.getDayOfWeek();
 
         List<SportType> sports = new ArrayList<SportType>();
         Map<String, String[]> map = request().body().asFormUrlEncoded();
@@ -92,13 +98,13 @@ public class Application extends Controller {
         Boolean roofed;
         if(requestData.get("inout").equals("INDOOR")) {
             roofed = true;
-        } else if(requestData.get("inout").equals("INDOOR")) {
+        } else if(requestData.get("inout").equals("OUTDOOR")) {
             roofed = false;
         } else {
             roofed = null;
         }
 
-        List<Facility> facilities = Facility.findFacilities(roofed, sports, begin, end);
+        List<Facility> facilities = Facility.findFacilities(roofed, sports, begin, end, date.getDayOfWeek());
         scala.collection.immutable.List<Facility> ls = JavaConverters.asScalaBufferConverter(facilities).asScala().toList();
         return ok(allFacilities.render(ls));
     }

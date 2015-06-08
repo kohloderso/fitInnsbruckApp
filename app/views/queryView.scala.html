@@ -13,7 +13,12 @@
             <div class="form-description">
                 <label for="end">Ende</label>
                 <input type="input" class="form-control" name="end" id="end" placeholder="">
-            </div><br>
+            </div>
+            <div class="form-description">
+                <label for="day">Tag</label>
+                <input type="input" class="form-control" name="day" id="day" placeholder="">
+            </div>
+            <br>
 
             <legend>Sportarten</legend>
             @for(s <- SportType.allAsScalaList()) {
@@ -71,6 +76,10 @@
             var time = currentDate.getHours() + ":" + currentDate.getMinutes();
             $ ( function ( ) {
             $ ( '#begin' ).timepicker({showMeridian: false, defaultTime: time}) ;
+            } ) ;
+
+            $ ( function ( ) {
+            $ ( '#day' ).datepicker ('setValue', currentDate ) ;
             } ) ;
             </script>
 
