@@ -43,7 +43,6 @@ public class AdminController extends Controller {
      * Creates a form for the facility and renders the appropriate view, to allow the user to fill the form.
      */
     public static Result makeFacilityForm() {
-        Form<Facility> formtest = form(Facility.class);
         return ok(addFacility.render(form(Facility.class)));
     }
 
@@ -117,7 +116,7 @@ public class AdminController extends Controller {
     /**
      * Deletes the facility with this ID.
      * After deletion the user is redirected to the list of all facilities.
-     * @param facilityID
+     * @param facilityIDz
      */
     public static Result deleteFacility(Long facilityID) {
         Facility f = Facility.find.byId(facilityID.toString());

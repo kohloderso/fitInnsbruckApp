@@ -167,4 +167,49 @@ public class Application extends Controller {
         Facility f = Facility.find.where().eq("objectid", facilityID).findUnique();
         return ok(facility.render(f));
     }
+
+    @SubjectPresent
+    public static Result showActivities() {
+        String name = session().get("username");
+        Athlete athlete = Athlete.findUser(name);
+        scala.collection.immutable.List<Activity> ls = JavaConverters.asScalaBufferConverter(athlete.pastActivities).asScala().toList();
+        return ok(allActivities.render(ls));
+    }
+
+    @SubjectPresent
+    public static Result newActivity(Long fID) {
+        Facility f = Facility.find.byId(fID.toString());
+        return ok(activityForm.render(form(Activity.class), f));
+    }
+
+    @SubjectPresent
+    public static Result addActivity(Long fID) {
+        Facility f = Facility.find.byId(fID.toString());
+        Form<Activity> activityform = form(Activity.class).bindFromRequest();
+
+        if (activityform.hasErrors()) {
+            Logger.info("error with activity form");
+            activityform.reject("a problem occurred");
+            return badRequest(activityForm.render(activityform, f));
+        }
+        Activity activity = activityform.get();
+
+        Map<String, String[]> map = request().body().asFormUrlEncoded();
+        activity.sport = SportType.find.byId(map.get("sportType")[0]);
+        activity.place = Facility.find.byId(map.get("facilityID")[0]);
+
+        Logger.info(activity.toString());
+        //activity.save();
+
+        String name = session().get("username");
+        Athlete athlete = Athlete.findUser(name);
+        athlete.pastActivities.add(activity);
+        athlete.save();
+
+        scala.collection.immutable.List<Activity> ls = JavaConverters.asScalaBufferConverter(athlete.pastActivities).asScala().toList();
+        return ok(allActivities.render(ls));
+    }
+
+
+
 }

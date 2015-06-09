@@ -2,10 +2,7 @@ package models;
 
 import java.util.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
@@ -39,6 +36,9 @@ public class Athlete extends Model implements Subject {
     public Integer height;
    //@NotNull
     public Integer weight;
+
+    @OneToMany(cascade = CascadeType.ALL)   //This hopefully doesn't delete every facility and SportType connected with it --> TODO test it
+    public List<Activity> pastActivities;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     public SecurityRole role;

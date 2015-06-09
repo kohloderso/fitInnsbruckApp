@@ -1,0 +1,22 @@
+@(activities: List[Activity])
+@import play.mvc.Http.Context.Implicit._
+@main(session.get("username") + "s Aktivitäten") {
+  <div class="container">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <div class="form-group">
+      <h3 align="center"><b>@session.get("username")s Aktivitäten </b></h3> <br><br>
+      <ul>
+        <div class="list-group">
+        @for(activity <- activities) {
+            <li class="list-group-item">
+                @activity.place.name
+                <span class="badge">@activity.duration().toString @activity.sport</span>
+            </li>
+        }
+        </div>
+      </ul>
+    </div>
+  </div>
+
+
+}

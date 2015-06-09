@@ -1,0 +1,63 @@
+@(form: play.data.Form[Activity], facility: Facility)
+@main("Aktivität hinzufügen") {
+
+  <form action="@routes.Application.addActivity(facility.objectid)" method="post" >
+
+    <div class="container">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <input name="facilityID" type="hidden" value='@facility.objectid'/>
+
+      <legend>Zeit</legend>
+      <div class="form-description">
+        <label for="begin">Beginn</label>
+        <input type="input" class="form-control" name="beginOfActivity" id="begin" placeholder="">
+      </div>
+      <div class="form-description">
+        <label for="end">Ende</label>
+        <input type="input" class="form-control" name="endOfActivity" id="end" placeholder="">
+      </div>
+      <div class="form-description">
+        <label for="day">Tag</label>
+        <input type="input" class="form-control" name="day" id="day" placeholder="">
+      </div>
+      <br>
+
+        <legend>Sportart</legend>
+      <div class="form-group @if(!form("sportType").errors().isEmpty) {has-error}">
+        <select class="form-control" name="sportType" id="sportType">
+        @for(sportType <- facility.possibleSport) {
+          @if(form("sportType").value() == sportType.toString) {
+            <option value=@sportType.sportID selected>@sportType.toString</option>
+          } else {
+            <option value=@sportType.sportID>@sportType.toString</option>
+          }
+        }
+        </select>
+        @for(error <- form("sportType").errors) {
+          <span class="help-block">@error.message</span>
+        }
+      </div>
+
+      <button type="submit" class="btn btn-primary">Speichern</button><br>
+
+      <script type="text/javascript">
+            var currentDate = new Date();
+            var time1 = currentDate.getHours()+1 + ":" + currentDate.getMinutes();
+            $ ( function ( ) {
+            $ ( '#end' ).timepicker({showMeridian: false, defaultTime: time1}) ;
+            } ) ;
+            var time = currentDate.getHours() + ":" + currentDate.getMinutes();
+            $ ( function ( ) {
+            $ ( '#begin' ).timepicker({showMeridian: false, defaultTime: time}) ;
+            } ) ;
+
+            $ ( function ( ) {
+            $ ( '#day' ).datepicker ('setValue', currentDate ) ;
+            } ) ;
+            </script>
+
+
+    </div>
+  </form>
+
+}

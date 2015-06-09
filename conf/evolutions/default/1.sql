@@ -4,11 +4,15 @@
 # --- !Ups
 
 create table activity (
-  id                        integer not null,
-  begin_of_activity         timestamp,
-  end_of_activity           timestamp,
-  calories                  integer,
-  constraint pk_activity primary key (id))
+  activity_id               integer not null,
+  athlete_id                varchar(255) not null,
+  begin_of_activity         varchar(255),
+  end_of_activity           varchar(255),
+  day                       timestamp,
+  sportID                   integer,
+  place_objectid            integer,
+  calories                  float,
+  constraint pk_activity primary key (activity_id))
 ;
 
 create table athlete (
@@ -114,32 +118,38 @@ create sequence security_role_seq;
 
 create sequence sport_type_seq;
 
-alter table athlete add constraint fk_athlete_role_1 foreign key (role_id) references security_role (id);
-create index ix_athlete_role_1 on athlete (role_id);
-alter table facility add constraint fk_facility_facilityType_2 foreign key (typeID) references facility_type (type_id);
-create index ix_facility_facilityType_2 on facility (typeID);
-alter table facility add constraint fk_facility_openingHours_3 foreign key (hoursID) references opening_hours (hours_id);
-create index ix_facility_openingHours_3 on facility (hoursID);
-alter table facility add constraint fk_facility_prices_4 foreign key (priceID) references pricing (price_id);
-create index ix_facility_prices_4 on facility (priceID);
-alter table open_period add constraint fk_open_period_open_hours_day_5 foreign key (open_hours_day_day_id) references open_hours_day (day_id);
-create index ix_open_period_open_hours_day_5 on open_period (open_hours_day_day_id);
-alter table open_period add constraint fk_open_period_openingHours_6 foreign key (opening_hours_hours_id) references opening_hours (hours_id);
-create index ix_open_period_openingHours_6 on open_period (opening_hours_hours_id);
-alter table opening_hours add constraint fk_opening_hours_monday_7 foreign key (mondayID) references open_hours_day (day_id);
-create index ix_opening_hours_monday_7 on opening_hours (mondayID);
-alter table opening_hours add constraint fk_opening_hours_tuesday_8 foreign key (tuesdayID) references open_hours_day (day_id);
-create index ix_opening_hours_tuesday_8 on opening_hours (tuesdayID);
-alter table opening_hours add constraint fk_opening_hours_wednesday_9 foreign key (wednesdayID) references open_hours_day (day_id);
-create index ix_opening_hours_wednesday_9 on opening_hours (wednesdayID);
-alter table opening_hours add constraint fk_opening_hours_thursday_10 foreign key (thursdayID) references open_hours_day (day_id);
-create index ix_opening_hours_thursday_10 on opening_hours (thursdayID);
-alter table opening_hours add constraint fk_opening_hours_friday_11 foreign key (fridayID) references open_hours_day (day_id);
-create index ix_opening_hours_friday_11 on opening_hours (fridayID);
-alter table opening_hours add constraint fk_opening_hours_saturday_12 foreign key (saturdayID) references open_hours_day (day_id);
-create index ix_opening_hours_saturday_12 on opening_hours (saturdayID);
-alter table opening_hours add constraint fk_opening_hours_sunday_13 foreign key (sundayID) references open_hours_day (day_id);
-create index ix_opening_hours_sunday_13 on opening_hours (sundayID);
+alter table activity add constraint fk_activity_athlete_1 foreign key (athlete_id) references athlete (id);
+create index ix_activity_athlete_1 on activity (athlete_id);
+alter table activity add constraint fk_activity_sport_2 foreign key (sportID) references sport_type (sport_id);
+create index ix_activity_sport_2 on activity (sportID);
+alter table activity add constraint fk_activity_place_3 foreign key (place_objectid) references facility (objectid);
+create index ix_activity_place_3 on activity (place_objectid);
+alter table athlete add constraint fk_athlete_role_4 foreign key (role_id) references security_role (id);
+create index ix_athlete_role_4 on athlete (role_id);
+alter table facility add constraint fk_facility_facilityType_5 foreign key (typeID) references facility_type (type_id);
+create index ix_facility_facilityType_5 on facility (typeID);
+alter table facility add constraint fk_facility_openingHours_6 foreign key (hoursID) references opening_hours (hours_id);
+create index ix_facility_openingHours_6 on facility (hoursID);
+alter table facility add constraint fk_facility_prices_7 foreign key (priceID) references pricing (price_id);
+create index ix_facility_prices_7 on facility (priceID);
+alter table open_period add constraint fk_open_period_open_hours_day_8 foreign key (open_hours_day_day_id) references open_hours_day (day_id);
+create index ix_open_period_open_hours_day_8 on open_period (open_hours_day_day_id);
+alter table open_period add constraint fk_open_period_openingHours_9 foreign key (opening_hours_hours_id) references opening_hours (hours_id);
+create index ix_open_period_openingHours_9 on open_period (opening_hours_hours_id);
+alter table opening_hours add constraint fk_opening_hours_monday_10 foreign key (mondayID) references open_hours_day (day_id);
+create index ix_opening_hours_monday_10 on opening_hours (mondayID);
+alter table opening_hours add constraint fk_opening_hours_tuesday_11 foreign key (tuesdayID) references open_hours_day (day_id);
+create index ix_opening_hours_tuesday_11 on opening_hours (tuesdayID);
+alter table opening_hours add constraint fk_opening_hours_wednesday_12 foreign key (wednesdayID) references open_hours_day (day_id);
+create index ix_opening_hours_wednesday_12 on opening_hours (wednesdayID);
+alter table opening_hours add constraint fk_opening_hours_thursday_13 foreign key (thursdayID) references open_hours_day (day_id);
+create index ix_opening_hours_thursday_13 on opening_hours (thursdayID);
+alter table opening_hours add constraint fk_opening_hours_friday_14 foreign key (fridayID) references open_hours_day (day_id);
+create index ix_opening_hours_friday_14 on opening_hours (fridayID);
+alter table opening_hours add constraint fk_opening_hours_saturday_15 foreign key (saturdayID) references open_hours_day (day_id);
+create index ix_opening_hours_saturday_15 on opening_hours (saturdayID);
+alter table opening_hours add constraint fk_opening_hours_sunday_16 foreign key (sundayID) references open_hours_day (day_id);
+create index ix_opening_hours_sunday_16 on opening_hours (sundayID);
 
 
 

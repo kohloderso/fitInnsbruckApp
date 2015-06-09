@@ -25,7 +25,7 @@ public class Facility extends Model {
     @Constraints.Required(message = "Darf nicht leer sein")
     public String address;
 
-    @OneToOne(cascade=CascadeType.PERSIST)
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name="typeID")
     public FacilityType facilityType;
     public boolean roof;
