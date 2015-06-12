@@ -15,14 +15,14 @@
             <meta http-equiv="content-type" content="text/html; charset=utf-8">
             <h3>Willkommen zurück bei <b>FIT IN INNSBRUCK</b></h3><br>
 
-                <!-- <p>Deine vergangenen Aktivitäten findest du hier &nbsp;
-            <button type="button" class="btn btn-default btn-sm">
-                <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
-            </button>
-            </p> -->
-            <p>Persönliche Daten bearbeiten&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                <a class="btn btn-default btn-sm" role="button">
+            <p>Persönliche Daten bearbeiten&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default btn-sm" href="@routes.Application.editUserForm()" role="button">
                     <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                </a>
+            </p>
+            <p>Vergangene Aktivitäten ansehen&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <a class="btn btn-default btn-sm" href="@routes.Application.showActivities()" role="button">
+                    <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
                 </a>
             </p>
             <p>Hier kannst du eine neue Suche starten &emsp;&emsp;&ensp;&ensp;

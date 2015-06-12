@@ -46,9 +46,11 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     @subjectPresent() {
                         <ul class="nav navbar-nav">
+                            <li><a href="@routes.Application.showActivities()"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span>&nbsp;Meine Aktivitäten</a></li>
                             <li><a href="@routes.Application.showQueryForm()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Finde Sportstätte</a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;Profil bearbeiten</a></li>
                             <li><a href="@routes.Application.getFacilities()"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>&nbsp;Alle Sportstätten</a></li>
+                            <li><a href="@routes.Application.editUserForm()"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;Profil bearbeiten</a></li>
+
                             @restrict(la(as("admin"))) {
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin <span class="caret"></span></a>
