@@ -15,6 +15,7 @@ import play.mvc.Result;
 import scala.collection.JavaConverters;
 import views.html.addFacility;
 import views.html.editFacility;
+import views.html.sportFacilityTypeForm;
 
 import java.util.List;
 import java.util.Map;
@@ -79,7 +80,7 @@ public class AdminController extends Controller {
         Facility f = Facility.find.byId(facilityID.toString());
         Form facilityForm = Form.form(Facility.class).fill(f);
         scala.collection.immutable.List<SportType> ls = JavaConverters.asScalaBufferConverter(f.possibleSport).asScala().toList();
-        return ok(editFacility.render(facilityForm,ls) );
+        return ok(editFacility.render(facilityForm, ls));
     }
 
     /**
@@ -115,7 +116,7 @@ public class AdminController extends Controller {
     /**
      * Deletes the facility with this ID.
      * After deletion the user is redirected to the list of all facilities.
-     * @param facilityIDz
+     * @param facilityID
      */
     public static Result deleteFacility(Long facilityID) {
         Facility f = Facility.find.byId(facilityID.toString());
@@ -123,5 +124,46 @@ public class AdminController extends Controller {
         return redirect(routes.Application.getFacilities());
     }
 
+    /**
+     * render a form to add new FacilityTypes or new SporTypes
+     * @return
+     */
+    public static Result newTypes() {
+        return ok(sportFacilityTypeForm.render(form(FacilityType.class), form(SportType.class)));
+    }
+
+    /**
+     * get new facilityType from form and save it
+     * @return
+     */
+    public static Result addFacilityType() {
+        Form<FacilityType> form = form(FacilityType.class).bindFromRequest();
+        if (form.hasErrors()) {
+            Logger.info("error while binding type form");
+            form.reject("a problem occurred");
+            return badRequest(sportFacilityTypeForm.render(form, form(SportType.class)));
+        }
+        FacilityType ft = form.get();
+        Logger.info("new FacilityType: " + ft.toString());
+        ft.save();
+        return redirect(routes.AdminController.newTypes());
+    }
+
+    /**
+     * get new SportType from form and save it
+     * @return
+     */
+    public static Result addSportType() {
+        Form<SportType> form = form(SportType.class).bindFromRequest();
+        if (form.hasErrors()) {
+            Logger.info("error while binding type form");
+            form.reject("a problem occurred");
+            return badRequest(sportFacilityTypeForm.render(form(FacilityType.class), form));
+        }
+        SportType st = form.get();
+        Logger.info("new SportType: " + st.toString());
+        st.save();
+        return redirect(routes.AdminController.newTypes());
+    }
 
 }

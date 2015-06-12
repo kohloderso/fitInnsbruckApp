@@ -24,6 +24,9 @@ GET         /delete-facility/:f        controllers.AdminController.deleteFacilit
 GET         /past-activities           controllers.Application.showActivities()
 GET         /new-activity/:f           controllers.Application.newActivity(f: Long)
 POST        /add-activity/:f           controllers.Application.addActivity(f: Long)
+GET         /new-types                 controllers.AdminController.newTypes()
+POST        /add-ftype                 controllers.AdminController.addFacilityType()
+POST        /add-stype                 controllers.AdminController.addSportType()
 
 
 # Map static resources from the /public folder to the /assets URL path

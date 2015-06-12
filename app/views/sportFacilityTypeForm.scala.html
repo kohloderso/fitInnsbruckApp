@@ -1,0 +1,30 @@
+@(formFacility: play.data.Form[FacilityType], formSport: play.data.Form[SportType])
+@main("Neue Typen") {
+    <form action="@routes.AdminController.addFacilityType()" method="post" >
+        <div class="container">
+            <meta http-equiv="content-type" content="text/html; charset=utf-8">
+            @helpers.textField(formFacility("description"),
+                inputType = "text",
+                label = "neuer Typ",
+                placeholder = ""
+            )
+            <br>
+            <button type="submit" class="btn btn-default">Speichern</button>
+        </div>
+    </form>
+
+    <br><br>
+
+    <form action="@routes.AdminController.addSportType()" method="post" >
+        <div class="container">
+            <meta http-equiv="content-type" content="text/html; charset=utf-8">
+            @helpers.textField(formSport("description"),
+                inputType = "text",
+                label = "neue Sportart",
+                placeholder = ""
+            )
+            <br>
+            <button type="submit" class="btn btn-default">Speichern</button>
+        </div>
+    </form>
+}
