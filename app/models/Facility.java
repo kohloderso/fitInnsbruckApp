@@ -66,6 +66,7 @@ public class Facility extends Model {
     }
 
     public static List<Facility> findFacilitiesForSports(List<SportType> sports) {
+        if(sports.isEmpty()) return find.all();
         return find.where().in("possibleSport", sports).findList();
     }
 
@@ -73,7 +74,11 @@ public class Facility extends Model {
         Logger.info("Searching for facility with roof: " + roof + sports.toString());
         List<Facility> list;
         if (roof != null) {
-            list = find.where().in("possibleSport", sports).eq("roof", roof).findList();
+            if(sports.isEmpty()) {
+                list = find.where().eq("roof", roof).findList();
+            } else {
+                list = find.where().in("possibleSport", sports).eq("roof", roof).findList();
+            }
         } else {
             list = findFacilitiesForSports(sports);
         }

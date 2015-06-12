@@ -122,8 +122,11 @@ public class Application extends Controller {
         List<SportType> sports = new ArrayList<SportType>();
         Map<String, String[]> map = request().body().asFormUrlEncoded();
         String[] checkedSport = map.get("sportlist"); // get selected sports
-        for(String sportID: checkedSport) {
-            sports.add(SportType.find.byId(sportID));
+
+        if(checkedSport != null) {
+            for(String sportID: checkedSport) {
+                sports.add(SportType.find.byId(sportID));
+            }
         }
 
         Boolean roofed;
