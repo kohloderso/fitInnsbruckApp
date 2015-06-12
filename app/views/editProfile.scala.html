@@ -1,0 +1,45 @@
+@(form: play.data.Form[Athlete])
+@main("Edit Profile") {
+@helper.form(routes.Application.updateUser()) {
+
+@if(form.hasGlobalErrors) {
+<div class="alert alert-dismissable alert-danger">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    @form.globalError.message
+</div>
+}
+
+<form action="@routes.Application.updateUser()" method="post" >
+
+    <div class="container">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <input name="id" type="hidden" value='@form("id").valueOr("0")'/>
+        @helpers.textField(form("name"),
+        inputType = "text",
+        label = "Name",
+        placeholder = ""
+        )
+        @helpers.textField(form("password"),
+        inputType = "password",
+        label = "Passwort",
+        placeholder = ""
+        )
+        @helpers.textField(form("birthday"),
+        inputType = "text",
+        label = "Geburtstag",
+        placeholder = ""
+        )
+        <br>
+        <button type="submit" class="btn btn-primary">Speichern</button>
+
+    </div>
+
+
+    <script type="text/javascript">
+        $ ( function ( ) {
+            $ ( '#birthday' ).datepicker ( ) ;
+        } ) ;
+    </script>
+</form>
+}
+}

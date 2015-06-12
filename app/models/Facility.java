@@ -91,12 +91,14 @@ public class Facility extends Model {
         for(Facility f: list) {
             if(!f.isOpen(begin, end, dayOfWeek)) {
                 Logger.info(f.name + " is not open, putting it at the end of the list");
-                list.remove(f);
+                //list.remove(f);
                 tmp.add(f);
+            } else {
+                tmp.add(0, f);
             }
         }
-        list.addAll(tmp);
-        return list;
+        //list.addAll(tmp);
+        return tmp;
     }
 
     public String toString() {

@@ -10,7 +10,16 @@
         @for(activity <- activities) {
             <li class="list-group-item">
                 @activity.place.name
-                <span class="badge">@activity.duration().toString @activity.sport</span>
+                <span class="badge">
+                @{
+                    val duration = activity.duration()
+                    val hours = duration.toHours
+                    val minutes = duration.minusHours(hours).toMinutes
+
+                    if(hours > 0) hours.toString + " Stunden " + minutes.toString + " Minuten " + activity.sport
+                    else minutes.toString + " Minuten " + activity.sport
+                }
+                </span>
             </li>
         }
         </div>

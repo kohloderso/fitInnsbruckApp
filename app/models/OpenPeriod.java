@@ -23,6 +23,7 @@ public class OpenPeriod extends Model {
      * @return true if the startQ and endQ times are between the times of this OpenPeriod
      */
     public boolean isOpen(LocalTime startQ, LocalTime endQ) {
+        if(begin.isEmpty() || end.isEmpty()) return false;
         LocalTime openPeriodBegin = LocalTime.parse(begin);
         LocalTime openPeriodEnd = LocalTime.parse(end);
         return (startQ.isAfter(openPeriodBegin) || startQ.equals(openPeriodBegin)) && (endQ.isBefore(openPeriodEnd) || endQ.equals(openPeriodEnd));

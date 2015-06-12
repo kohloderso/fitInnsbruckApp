@@ -64,6 +64,37 @@ public class Application extends Controller {
     }
 
     /**
+     * Renders the same form as with register but with the fields preset to the values of the currently logged in athlete.
+     */
+    @SubjectPresent
+    public static Result editUserForm() {
+        String name = session().get("username");
+        Athlete a = Athlete.findUser(name);
+        Form athleteForm = Form.form(Athlete.class).fill(a);
+        return ok(editProfile.render(athleteForm));
+    }
+
+    /**
+     * Reads data from the editform. If there were no errors cahnges are saved to the database.
+     * After successfully saving the user to the database renders the index page.
+     * If there were errors renders the form again, with the incorrect fields highlighted.
+     */
+    @SubjectPresent
+    public static Result updateUser() {
+        Form<Athlete> userForm = form(Athlete.class).bindFromRequest();
+        if (userForm.hasErrors()) {
+            Logger.info("error while registrating");
+            userForm.reject("Es gab Probleme beim bearbeiten");
+            return badRequest(editProfile.render(userForm));
+        }
+        Athlete athlete = userForm.get();
+        athlete.role = Athlete.findUser(session().get("username")).role;    // role will always stay the same, the user can't change it
+        Logger.info("Athlete: " + athlete.toString());
+        athlete.update();
+        return redirect(routes.Application.index());
+    }
+
+    /**
      * Renders the form that lets you search for sports facilities.
      */
     @SubjectPresent

@@ -47,7 +47,7 @@ public class Athlete extends Model implements Subject {
     public Map<String, List<ValidationError>> validate() {
         Map<String, List<ValidationError>> errors = new HashMap<String, List<ValidationError>>();
         List<ValidationError> list = new ArrayList<ValidationError>();
-        if (findUser(name) != null) {
+        if (find.where().eq("name", name).ne("id", id).findRowCount() != 0) {
             list.add(new ValidationError("name", "Dieser Name existiert bereits"));
             errors.put("name", list);
         }
