@@ -69,6 +69,17 @@ public class Facility extends Model {
         return find.where().in("possibleSport", sports).findList();
     }
 
+    public static List<Facility> findFacilities(Boolean roof, List<SportType> sports) {
+        Logger.info("Searching for facility with roof: " + roof + sports.toString());
+        List<Facility> list;
+        if (roof != null) {
+            list = find.where().in("possibleSport", sports).eq("roof", roof).findList();
+        } else {
+            list = findFacilitiesForSports(sports);
+        }
+        return list;
+    }
+
     /**
      *
      * @param roof
@@ -80,15 +91,14 @@ public class Facility extends Model {
      */
     public static List<Facility> findFacilities(Boolean roof, List<SportType> sports, LocalTime begin, LocalTime end, DayOfWeek dayOfWeek) {
         Logger.info("Searching for facility with roof: " + roof + sports.toString() + " begin: " + begin + " end: " + end);
-        List<Facility> list;
-        if(roof != null) {
-            list = find.where().in("possibleSport", sports).eq("roof", roof).findList();
-        }
-        else {
-           list = findFacilitiesForSports(sports);
-        }
-        List<Facility> tmp = new ArrayList<Facility>();
+        List<Facility> tmp = findFacilities(roof, sports);
+        List<Facility> list = new ArrayList<Facility>();
         for(Facility f: list) {
+            if (f.isOpen(begin, end, dayOfWeek)) {
+                list.add(f);
+            }
+        }
+        /*for(Facility f: list) {
             if(!f.isOpen(begin, end, dayOfWeek)) {
                 Logger.info(f.name + " is not open, putting it at the end of the list");
                 //list.remove(f);
@@ -97,8 +107,8 @@ public class Facility extends Model {
                 tmp.add(0, f);
             }
         }
-        //list.addAll(tmp);
-        return tmp;
+        //list.addAll(tmp);*/
+        return list;
     }
 
     public String toString() {

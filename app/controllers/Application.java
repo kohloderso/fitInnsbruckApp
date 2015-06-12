@@ -135,7 +135,14 @@ public class Application extends Controller {
             roofed = null;
         }
 
-        List<Facility> facilities = Facility.findFacilities(roofed, sports, begin, end, date.getDayOfWeek());
+        List<Facility> facilities;
+
+        if(requestData.get("time").equals("on")) {    //time is not important, can be anything
+            facilities = Facility.findFacilities(roofed, sports);
+        } else {
+            facilities = Facility.findFacilities(roofed, sports, begin, end, date.getDayOfWeek());
+        }
+
         scala.collection.immutable.List<Facility> ls = JavaConverters.asScalaBufferConverter(facilities).asScala().toList();
         return ok(allFacilities.render(ls));
     }

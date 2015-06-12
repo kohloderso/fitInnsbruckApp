@@ -19,7 +19,7 @@
                 <input type="input" class="form-control" name="day" id="day" placeholder="">
             </div>
             <br>
-
+            <label class="checkbox-inline"><input type='checkbox' name='time'>Zeit ist egal </label><br><br>
             <legend>Sportarten</legend>
             @for(s <- SportType.allAsScalaList()) {
                 <label class="checkbox-inline"><input type='checkbox' name='sportlist' value=@s.sportID>@s.description </label>
