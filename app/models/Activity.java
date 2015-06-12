@@ -9,7 +9,9 @@ import java.time.LocalTime;
 import java.util.*;
 import javax.persistence.*;
 
-
+/**
+ * This class represents a sports activity.
+ */
 @Entity
 public class Activity extends Model {
 
@@ -20,9 +22,6 @@ public class Activity extends Model {
     @Formats.DateTime(pattern = "dd/MM/yyyy")
     public Date day;
 
-
-    //public Weather weather;
-
     @ManyToOne(cascade= CascadeType.PERSIST)
     @JoinColumn(name="sportID")
     public SportType sport;
@@ -32,12 +31,20 @@ public class Activity extends Model {
 
     public double calories;
 
+    /**
+     * compute the calories, that were burned during this activity
+     * @return
+     */
     public double computeCalories(){
         calories = 0;
-        //TODO
+        // TODO
         return calories;
     }
 
+    /**
+     * compute the duration of this activity
+     * @return
+     */
     public Duration duration() {
         LocalTime start = LocalTime.parse(beginOfActivity);
         LocalTime end = LocalTime.parse(endOfActivity);
@@ -52,13 +59,5 @@ public class Activity extends Model {
     public static Model.Finder<String, Activity> find = new Model.Finder<String, Activity>(
             String.class, Activity.class
     );
-
-
-    public static Activity findActivity(String sport) {
-
-
-        return find.where().eq("sport", sport).findUnique();
-    }
-
 
 }

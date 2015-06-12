@@ -11,7 +11,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Kathi on 19.04.2015.
+ * Class that represents the opening hours of a facility
+ * There is one element for every day of the week.
  */
 @Entity
 public class OpeningHours extends Model {
@@ -47,7 +48,13 @@ public class OpeningHours extends Model {
     @JoinColumn(name="sundayID")
     public OpenHoursDay sunday;
 
-    /*calculates if a specific facility is open or not*/
+    /**
+     * Find out if the facility is open at the specified time
+     * @param begin
+     * @param end
+     * @param weekday
+     * @return true if it is open, false otherwise
+     */
     public boolean isOpen(LocalTime begin, LocalTime end, DayOfWeek weekday){
         switch(weekday) {
             case MONDAY:

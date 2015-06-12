@@ -209,6 +209,10 @@ public class Application extends Controller {
         return ok(facility.render(f));
     }
 
+    /**
+     * shows all activities corresponding to the currently logged in user
+     * @return
+     */
     @SubjectPresent
     public static Result showActivities() {
         String name = session().get("username");
@@ -217,12 +221,23 @@ public class Application extends Controller {
         return ok(allActivities.render(ls));
     }
 
+    /**
+     * creates a form for a new activity that takes plaxe at the specified facility
+     * @param fID   id of the facility for this activity
+     * @return
+     */
     @SubjectPresent
     public static Result newActivity(Long fID) {
         Facility f = Facility.find.byId(fID.toString());
         return ok(activityForm.render(form(Activity.class), f));
     }
 
+    /**
+     * Reads the filled form for the new activity. If there were no errors, adds the activity to the list of activities for the
+     * currently logged in user. If there were errors renders the form again, flashing an error message.
+     * @param fID   id of the facility for the new activity
+     * @return
+     */
     @SubjectPresent
     public static Result addActivity(Long fID) {
         Facility f = Facility.find.byId(fID.toString());

@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import java.util.List;
 
 /**
- * Created by Christina on 09.05.2015.
+ * Class for the type of a facility. E.g. "Kletterhalle", "Schwimmbad"
  */
 @Entity
 public class FacilityType extends Model {

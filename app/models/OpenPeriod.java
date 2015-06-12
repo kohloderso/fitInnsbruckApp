@@ -6,6 +6,9 @@ import play.db.ebean.Model;
 import javax.persistence.*;
 import java.time.LocalTime;
 
+/**
+ * Class that represents one open slot of a facility.
+ */
 @Entity
 public class OpenPeriod extends Model {
     @Id

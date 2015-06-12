@@ -33,7 +33,6 @@ public class AdminController extends Controller {
      * List all registered users and all their properties.
      *
      */
-    @Unrestricted   // TODO remove Unrestricted after debugging pahse
     public static Result getUsers() {
         List<Athlete> athletes = new Model.Finder(String.class, Athlete.class).all();
         return ok(toJson(athletes));

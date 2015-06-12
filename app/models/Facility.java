@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Christina on 18.01.2015.
+ * This class represents a facility were you can do some kind of sport
  */
 @Entity
 public class Facility extends Model {
@@ -46,6 +46,11 @@ public class Facility extends Model {
     public Pricing prices;
 
 
+    /**
+     * Check if every new facility has a unique name. If the name already exists, add an error to the error map of the
+     * corresponding form.
+     * @return either null, if there were no errors or a Map with the errors
+     */
     public Map<String, List<ValidationError>> validate() {
         Map<String, List<ValidationError>> errors = new HashMap<String, List<ValidationError>>();
         List<ValidationError> list = new ArrayList<ValidationError>();
@@ -57,19 +62,43 @@ public class Facility extends Model {
         return errors.isEmpty() ? null : errors;
     }
 
-    public static Finder<String, Facility> find = new Finder<String, Facility>(
-            String.class, Facility.class
-    );
-
+    /**
+     * check if this facility is open at the specified time and day of the week
+     * @param begin
+     * @param end
+     * @param dayOfWeek
+     * @return true if it is open, false otherwise
+     */
     public boolean isOpen(LocalTime begin, LocalTime end, DayOfWeek dayOfWeek) {
         return this.openingHours.isOpen(begin, end, dayOfWeek);
     }
 
+    public String toString() {
+        String s = "ID: " + objectid + "\n" + name + "\n" + address + "\n" + facilityType + "\n" + "roofed: " + roof + "\n" + possibleSport + "\n" + lat + "\t" + lon + "\n" + openingHours.toString() + "\n" + prices.toString();
+        return s;
+    }
+
+    public static Finder<String, Facility> find = new Finder<String, Facility>(
+            String.class, Facility.class
+    );
+
+    /**
+     * Find all facilities were you can do one of the sports in the specified list.
+     * @param sports
+     * @return list of all facilities were you can do one or more of the sports
+     */
     public static List<Facility> findFacilitiesForSports(List<SportType> sports) {
         if(sports.isEmpty()) return find.all();
         return find.where().in("possibleSport", sports).findList();
     }
 
+    /**
+     * Find all facilities were you can do one or more of the sports and that have a roof if roof is true, no roof if
+     * roof is false or where the roof isn't taken into account if roof is null
+     * @param roof
+     * @param sports
+     * @return list of facilities with the specified properties
+     */
     public static List<Facility> findFacilities(Boolean roof, List<SportType> sports) {
         Logger.info("Searching for facility with roof: " + roof + sports.toString());
         List<Facility> list;
@@ -86,13 +115,15 @@ public class Facility extends Model {
     }
 
     /**
-     *
+     * Find all facilities were you can do one or more of the sports and that have a roof if roof is true, no roof if
+     * roof is false or where the roof isn't taken into account if roof is null. Also use the specified times, to only
+     * return facilities that are open between begin and end.
      * @param roof
      * @param sports
      * @param begin
      * @param end
      * @param dayOfWeek
-     * @return
+     * @return list of facilities with the specified properties
      */
     public static List<Facility> findFacilities(Boolean roof, List<SportType> sports, LocalTime begin, LocalTime end, DayOfWeek dayOfWeek) {
         Logger.info("Searching for facility with roof: " + roof + sports.toString() + " begin: " + begin + " end: " + end);
@@ -116,8 +147,5 @@ public class Facility extends Model {
         return list;
     }
 
-    public String toString() {
-        String s = "ID: " + objectid + "\n" + name + "\n" + address + "\n" + facilityType + "\n" + "roofed: " + roof + "\n" + possibleSport + "\n" + lat + "\t" + lon + "\n" + openingHours.toString() + "\n" + prices.toString();
-        return s;
-    }
+
 }

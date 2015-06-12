@@ -17,7 +17,7 @@ import play.db.ebean.Model;
 
 
 /**
- * Created by Christina on 18.01.2015.
+ * This class reprents a user of our app
  */
 @Entity
 public class Athlete extends Model implements Subject {
@@ -44,6 +44,11 @@ public class Athlete extends Model implements Subject {
     public SecurityRole role;
 
 
+    /**
+     * Check if every new user has a unique name. If the name already exists, add an error to the error map of the
+     * corresponding form.
+     * @return either null, if there were no errors or a Map with the errors
+     */
     public Map<String, List<ValidationError>> validate() {
         Map<String, List<ValidationError>> errors = new HashMap<String, List<ValidationError>>();
         List<ValidationError> list = new ArrayList<ValidationError>();
@@ -55,6 +60,10 @@ public class Athlete extends Model implements Subject {
         return errors.isEmpty() ? null : errors;
     }
 
+    /**
+     * calculate the age of this athlete
+     * @return
+     */
     public int getAge() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(birthday);
@@ -65,20 +74,6 @@ public class Athlete extends Model implements Subject {
         return age;
     }
 
-    public static Finder<String, Athlete> find = new Finder<String, Athlete>(
-            String.class, Athlete.class
-    );
-
-
-
-    public static Athlete findUser(String name) {
-        return find.where().eq("name", name).findUnique();
-    }
-
-    public static Athlete authenticate(String name, String password) {
-        return find.where().eq("name", name)
-                .eq("password", password).findUnique();
-    }
 
     @Override
     public List<? extends Role> getRoles() {
@@ -87,6 +82,10 @@ public class Athlete extends Model implements Subject {
         return roles;
     }
 
+    /**
+     * we have to override this method for deadbolt, but don't use it
+     * @return
+     */
     @Override
     public List<? extends Permission> getPermissions() {
         return null;
@@ -96,4 +95,30 @@ public class Athlete extends Model implements Subject {
     public String getIdentifier() {
         return name;
     }
+
+    public static Finder<String, Athlete> find = new Finder<String, Athlete>(
+            String.class, Athlete.class
+    );
+
+    /**
+     * find an athlete by name
+     * @param name
+     * @return athlete with the specified name
+     */
+    public static Athlete findUser(String name) {
+        return find.where().eq("name", name).findUnique();
+    }
+
+    /**
+     * check if the combination of name and password is valid
+     * @param name
+     * @param password
+     * @return null if the combination was wrong, the athlete if it was right
+     */
+    public static Athlete authenticate(String name, String password) {
+        return find.where().eq("name", name)
+                .eq("password", password).findUnique();
+    }
+
+
 }

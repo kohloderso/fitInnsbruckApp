@@ -10,7 +10,9 @@ import java.time.LocalTime;
 import java.util.List;
 
 /**
- * Created by Christina on 01.05.2015.
+ * Class that represents the opening hours of a facility on one single day.
+ * Opening hours are subdivided in OpenPeriods so that you can have the facility open from e.g. 8-12 and again from 14-18.
+ * One day consists of a list of OpenPeriods.
  */
 @Entity
 public class OpenHoursDay extends Model {
@@ -20,11 +22,17 @@ public class OpenHoursDay extends Model {
     @OneToMany(cascade = CascadeType.ALL)
     public List<OpenPeriod> openPeriods;
 
+    /**
+     *
+     * @param begin
+     * @param end
+     * @return true if begin and end lie in one of the OpenPeriods
+     */
     public boolean isOpen(LocalTime begin, LocalTime end) {
         for(OpenPeriod op: openPeriods) {
-            if(!op.isOpen(begin, end)) return false;
+            if(op.isOpen(begin, end)) return true;
         }
-        return true;
+        return false;
     }
 
     public String toString() {
