@@ -140,7 +140,7 @@ public class Application extends Controller {
 
         List<Facility> facilities;
 
-        if(requestData.get("time").equals("on")) {    //time is not important, can be anything
+        if(requestData.get("time") != null) {    //time is not important, can be anything
             facilities = Facility.findFacilities(roofed, sports);
         } else {
             facilities = Facility.findFacilities(roofed, sports, begin, end, date.getDayOfWeek());
