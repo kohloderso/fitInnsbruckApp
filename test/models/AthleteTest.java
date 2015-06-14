@@ -10,6 +10,7 @@ import org.junit.Assert;
 
 //import play.test.WithApplication;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertNotEquals;
@@ -45,6 +46,7 @@ public class AthleteTest extends TestCase/*extends WithApplication*/ {
         oha.monday= ohd;
         oha.monday.openPeriods= new ArrayList<>();
         oha.monday.openPeriods.add(op);
+
 
 
         /*Should not be the same*/
