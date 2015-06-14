@@ -62,8 +62,10 @@ public class AdminController extends Controller {
         Facility facility = facilityForm.get();
         Map<String, String[]> map = request().body().asFormUrlEncoded();
         String[] checkedSport = map.get("sportlist"); // get selected sports
-        for(String sportID: checkedSport) {
-            facility.possibleSport.add(SportType.find.byId(sportID));
+        if(checkedSport != null) {
+            for(String sportID: checkedSport) {
+                facility.possibleSport.add(SportType.find.byId(sportID));
+            }
         }
         facility.facilityType = FacilityType.find.byId(map.get("facilityTypeID")[0]);
         System.out.println(facility.toString());
@@ -102,8 +104,10 @@ public class AdminController extends Controller {
         Facility updatedFacility = facilityForm.get();
         Map<String, String[]> map = request().body().asFormUrlEncoded();
         String[] checkedSport = map.get("sportlist"); // get selected sports
-        for(String sportID: checkedSport) {
-            updatedFacility.possibleSport.add(SportType.find.byId(sportID));
+        if(checkedSport != null) {
+            for(String sportID: checkedSport) {
+                updatedFacility.possibleSport.add(SportType.find.byId(sportID));
+            }
         }
         updatedFacility.facilityType = FacilityType.find.byId(map.get("facilityTypeID")[0]);
         updatedFacility.objectid = facilityID.intValue();
