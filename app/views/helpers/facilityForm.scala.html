@@ -29,6 +29,15 @@
         }
     </div>
 
+    @if(form("roof").value().equals("true")) {
+        <label class="checkbox-inline"><input type='checkbox' name='roof' checked>überdacht </label>
+    } else {
+        <label class="checkbox-inline"><input type='checkbox' name='roof'>überdacht </label>
+    }
+
+    <br><br>
+
+
     <legend>Welche Sportarten kann man dort betreiben?</legend>
     @for(s <- SportType.allAsScalaList()) {
         @if(possibleSportList.contains(s)) {
