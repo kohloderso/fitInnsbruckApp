@@ -29,7 +29,7 @@
         }
     </div>
 
-    @if(form("roof").value().equals("true")) {
+    @if(form("roof").value() != null && form("roof").value().equals("true")) {
         <label class="checkbox-inline"><input type='checkbox' name='roof' checked>überdacht </label>
     } else {
         <label class="checkbox-inline"><input type='checkbox' name='roof'>überdacht </label>
