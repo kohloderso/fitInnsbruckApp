@@ -129,7 +129,7 @@ public class Facility extends Model {
         Logger.info("Searching for facility with roof: " + roof + sports.toString() + " begin: " + begin + " end: " + end);
         List<Facility> tmp = findFacilities(roof, sports);
         List<Facility> list = new ArrayList<Facility>();
-        for(Facility f: list) {
+        for(Facility f: tmp) {
             if (f.isOpen(begin, end, dayOfWeek)) {
                 list.add(f);
             }

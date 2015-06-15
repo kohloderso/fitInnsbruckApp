@@ -1,11 +1,15 @@
 package models;
 
+import play.data.validation.ValidationError;
 import play.db.ebean.Model;
 import scala.collection.JavaConverters;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Christina on 01.05.2015.
@@ -16,6 +20,17 @@ public class SportType extends Model {
     public int sportID;
     public String description;
 
+
+    public Map<String, List<ValidationError>> validate() {
+        Map<String, List<ValidationError>> errors = new HashMap<String, List<ValidationError>>();
+        List<ValidationError> list = new ArrayList<ValidationError>();
+        if (find.where().eq("description", description).findRowCount() != 0) {
+            list.add(new ValidationError("description", "Diese Sportart existiert bereits"));
+            errors.put("description", list);
+        }
+
+        return errors.isEmpty() ? null : errors;
+    }
 
     public String toString() {
         return description;
