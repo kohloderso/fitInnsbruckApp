@@ -263,7 +263,7 @@ public class Application extends Controller {
         athlete.save();
 
         scala.collection.immutable.List<Activity> ls = JavaConverters.asScalaBufferConverter(athlete.pastActivities).asScala().toList();
-        return ok(allActivities.render(ls));
+        return redirect(routes.Application.showActivities());
     }
 
 

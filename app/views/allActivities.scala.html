@@ -9,7 +9,7 @@
         <div class="list-group">
         @for(activity <- activities) {
             <li class="list-group-item">
-                @activity.place.name 
+                @activity.getDate &emsp; @activity.place.name
                 <span class="badge">
                 @{
                     val duration = activity.duration()
@@ -20,7 +20,9 @@
                     else minutes.toString + " Minuten " + activity.sport
                 }
                 </span>
+                <br>
             </li>
+            <br>
         }
         </div>
       </ul>

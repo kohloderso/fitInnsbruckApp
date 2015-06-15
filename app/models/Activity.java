@@ -3,6 +3,7 @@ package models;
 import play.data.format.Formats;
 import play.db.ebean.Model;
 
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -54,6 +55,11 @@ public class Activity extends Model {
 
     public String toString() {
         return place.name + " " + sport.description + " Duration: " + duration().toString() + " " + beginOfActivity + "-" + endOfActivity + " am " + day.toString();
+    }
+
+    public String getDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+        return formatter.format(day);
     }
 
     public static Model.Finder<String, Activity> find = new Model.Finder<String, Activity>(
