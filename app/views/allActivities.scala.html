@@ -1,6 +1,6 @@
 @(activities: List[Activity])
 @import play.mvc.Http.Context.Implicit._
-@main(session.get("username") + "s Aktivit‰ten") {
+@main(session.get("username") + "s Aktivit√§ten") {
   <div class="container">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <div class="form-group">
@@ -9,7 +9,7 @@
         <div class="list-group">
         @for(activity <- activities) {
             <li class="list-group-item">
-                @activity.place.name
+                @activity.place.name 
                 <span class="badge">
                 @{
                     val duration = activity.duration()

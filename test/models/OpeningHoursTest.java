@@ -44,11 +44,11 @@ public class OpeningHoursTest {
     LocalTime begin= LocalTime.parse("12:00");
     LocalTime end = LocalTime.parse("14:00");
     Logger.info("before assert");
-    assertFalse("test", test1_1.isOpen(begin, end));
+    assertFalse("OpenPeriod sollte nicht offen sein", test1_1.isOpen(begin, end));
 
     LocalTime begin1 =LocalTime.parse("10:00");
     LocalTime end1 = LocalTime.parse("12:00");
-    assertTrue("test1", test1_1.isOpen(begin1, end1));
+    assertTrue("OpenPeriod sollte offen sein", test1_1.isOpen(begin1, end1));
 
     //Test isOpen function -> OpenHoursDay
     OpenHoursDay test2_1= new OpenHoursDay();
@@ -61,11 +61,11 @@ public class OpeningHoursTest {
     asd.end= "15:00";
     test2_1.openPeriods.add(op);
     test2_1.openPeriods.add(asd);
-    assertFalse("test2", test2_1.isOpen(begin, end));
+    assertFalse("OpenHoursDay sollte nicht offen sein", test2_1.isOpen(begin, end));
 
     LocalTime begin2 =LocalTime.parse("08:00");
     LocalTime end2 = LocalTime.parse("09:00");
-    assertTrue("test3", test2_1.isOpen(begin2, end2));
+    assertTrue("OpenHoursDay sollte offen sein", test2_1.isOpen(begin2, end2));
 
 
     //Test isOpen function ->OpeningHours
@@ -74,7 +74,9 @@ public class OpeningHoursTest {
     OpenPeriod h= new OpenPeriod();
     h.begin="07:15";
     h.end="15:15";
-    assertTrue("test4",test3_1.isOpen(begin,end, DayOfWeek.MONDAY));
+    assertTrue("OpeningHours sollten offen sein",test3_1.isOpen(begin,end, DayOfWeek.MONDAY));
+
+    assertFalse("OpeningHours sollten nicht offen sein",test3_1.isOpen(begin,LocalTime.parse("23:00"), DayOfWeek.MONDAY));
 
   }
 

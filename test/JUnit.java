@@ -1,3 +1,5 @@
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import play.api.libs.ws.WS;
@@ -9,7 +11,9 @@ import static play.mvc.Controller.session;
 import static play.mvc.Http.Status.UNAUTHORIZED;
 
 
+import play.test.FakeApplication;
 import play.test.FakeRequest;
+import play.test.Helpers;
 import play.test.TestBrowser;
 
 import static play.mvc.Http.Status.OK;
@@ -17,8 +21,22 @@ import static play.test.Helpers.*;
 
 public class JUnit
 {
+    public static FakeApplication app;
 
-    /*@Test
+    @BeforeClass
+    public static void startApp() {
+        app = Helpers.fakeApplication(Helpers.inMemoryDatabase());
+        Helpers.start(app);
+    }
+
+    @AfterClass
+    public static void stopApp() {
+        Helpers.stop(app);
+    }
+
+
+
+    @Test
     public void testAuthentication() {
         // first test what happens, when you call a restricted method and you are not authenticated
         Result result = callAction(
@@ -34,14 +52,14 @@ public class JUnit
                 new FakeRequest(GET, "/facility/1")
         );
         assertThat(status(result)).isEqualTo(OK);
-    }*/
+    }
     /*
 
     Test Routes
 
      */
 
-    /*@Test
+    @Test
     public void rootRoute() {
         Result result = routeAndCall(fakeRequest(GET, "/"));
         assertThat(result).isNotNull();
@@ -51,7 +69,7 @@ public class JUnit
     public void badRoute() {
         Result result = routeAndCall(fakeRequest(GET, "/bad"));
         assertThat(result).isNull();
-    }*/
+    }
 
     /*
 
@@ -59,17 +77,17 @@ public class JUnit
 
      */
 
-    /*@Test
+    @Test
     public void callIndex() {
         Result result = callAction(controllers.routes.ref.Application.index());
         assertThat(status(result)).isEqualTo(OK);
         assertThat(contentType(result)).isEqualTo("text/html");
         assertThat(charset(result)).isEqualTo("utf-8");
         assertThat(contentAsString(result)).contains("Fit in Innsbruck");
-    }*7
+    }
 
 
-   /*@Test
+   @Test
     public void testIndexWithTestServerRunnable() {
        running(testServer(3333), new Runnable() {
            @Override
@@ -78,8 +96,8 @@ public class JUnit
                assertThat(WS.url("http://localhost:9000").get().get().getStatus()).isEqualTo(OK);
            }
        });
-   }*/
-   /* public void runInBrowser() {
+   }
+   public void runInBrowser() {
         running(testServer(9000), HtmlUnitDriver.class, new F.Callback() {
             @Override
             public void invoke(Object o) {
@@ -88,6 +106,6 @@ public class JUnit
                 assertThat(browser.$("body").getTexts().get(0)).isEqualTo("Fit in Innsbruck");
             }
         });
-    }*/
+    }
 
 }
