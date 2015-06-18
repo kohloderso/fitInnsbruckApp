@@ -33,10 +33,10 @@ public class OpeningHoursTest {
   }
 
 
+  //Test IsOpen function -> OpenPeriod
   @Test
-  public void testIsOpen() throws Exception{
+  public void testIsOpen_OpenPeriod() throws Exception{
 
-    //Test IsOpen function -> OpenPeriod
     Logger.info("before OpenPeriod");
     OpenPeriod test1_1 = new OpenPeriod();
     test1_1.begin= "09:00";
@@ -50,7 +50,12 @@ public class OpeningHoursTest {
     LocalTime end1 = LocalTime.parse("12:00");
     assertTrue("OpenPeriod sollte offen sein", test1_1.isOpen(begin1, end1));
 
-    //Test isOpen function -> OpenHoursDay
+  }
+  //Test isOpen function ->OpenHoursDay
+  @Test
+  public void testIsOpen_OpenHoursDay() throws Exception {
+    LocalTime begin= LocalTime.parse("12:00");
+    LocalTime end = LocalTime.parse("16:00");
     OpenHoursDay test2_1= new OpenHoursDay();
     test2_1.openPeriods = new ArrayList<>();
     OpenPeriod op= new OpenPeriod();
@@ -66,19 +71,22 @@ public class OpeningHoursTest {
     LocalTime begin2 =LocalTime.parse("08:00");
     LocalTime end2 = LocalTime.parse("09:00");
     assertTrue("OpenHoursDay sollte offen sein", test2_1.isOpen(begin2, end2));
-
-
-    //Test isOpen function ->OpeningHours
-    OpeningHours test3_1 = new OpeningHours();
-    test3_1.monday= test2_1;
-    OpenPeriod h= new OpenPeriod();
-    h.begin="07:15";
-    h.end="15:15";
-    assertTrue("OpeningHours sollten offen sein",test3_1.isOpen(begin,end, DayOfWeek.MONDAY));
-
-    assertFalse("OpeningHours sollten nicht offen sein",test3_1.isOpen(begin,LocalTime.parse("23:00"), DayOfWeek.MONDAY));
-
   }
+  //Test isOpen function ->OpeningHours
+  @Test
+  public void testIsOpen_OpeningHours() throws Exception {
+    LocalTime begin= LocalTime.parse("07:15");
+    LocalTime end = LocalTime.parse("13:00");
+    OpenHoursDay test2_1= new OpenHoursDay();
+    test2_1.openPeriods = new ArrayList<>();
+    OpeningHours test3_1 = new OpeningHours();
+    test3_1.monday = test2_1;
+    OpenPeriod h = new OpenPeriod();
+    h.begin = "07:15";
+    h.end = "15:15";
+    test2_1.openPeriods.add(h);
+    assertTrue("OpeningHours sollten offen sein", test3_1.isOpen(begin, end, DayOfWeek.MONDAY));
 
-
+    assertFalse("OpeningHours sollten nicht offen sein", test3_1.isOpen(begin, LocalTime.parse("23:00"), DayOfWeek.MONDAY));
+  }
 }
