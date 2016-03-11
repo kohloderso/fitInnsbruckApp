@@ -11,13 +11,12 @@
  - Location
  - Wetter
 - Detaillierte Beschreibung der Sportstätte
-- Berechnung der Route vom aktullen (oder einem gewählten) Standpunkt zur Sportstätte
+- Berechnung der Route vom aktuellen (oder einem gewählten) Standpunkt zur Sportstätte
 - Verwalten von Sportstätten 
 
 ## Minimale Vorraussetzungen
 - Browser
 - funktionierende Internetverbindung
-- Standortzugriff muss möglich sein (braucht man aber nur für Routen)
 
 ## Installation
 Eine aktuelle Version der App kann über Heroku geöffnet werden. Dazu muss man in einem beliebigen Browser nur diesen Link aufrufen: http://fit-in-innsbruck.herokuapp.com/
