@@ -11,7 +11,7 @@
  - Location
  - Wetter
 - Detaillierte Beschreibung der Sportstätte
-- Berechnung der Route vom aktuellen (oder einem gewählten) Standpunkt zur Sportstätte
+- Anzeige der Position der Sportstädte auf der Karte
 - Verwalten von Sportstätten 
 
 ## Minimale Vorraussetzungen
