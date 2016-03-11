@@ -14,6 +14,11 @@
 - Anzeige der Position der Sportstädte auf der Karte
 - Verwalten von Sportstätten 
 
+## Technologie
+- Playframwork mit MVC Pattern
+- Leaflet (Kartenfunktion)
+- 
+
 ## Minimale Vorraussetzungen
 - Browser
 - funktionierende Internetverbindung
