@@ -17,7 +17,6 @@
 ## Technologie
 - Playframwork mit MVC Pattern
 - Leaflet (Kartenfunktion)
-- 
 
 ## Minimale Vorraussetzungen
 - Browser
